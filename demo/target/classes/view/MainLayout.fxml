@@ -1,0 +1,361 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.shape.Circle?>
+
+<HBox xmlns="http://javafx.com/javafx"
+    xmlns:fx="http://javafx.com/fxml"
+    fx:controller="com.furniture.ui.MainLayoutController"
+    prefWidth="1366"
+    prefHeight="720"
+    styleClass="dashboard-root">
+
+    <!-- LEFT SIDEBAR -->
+    <VBox prefWidth="245"
+        spacing="18"
+        styleClass="sidebar">
+
+        <!-- LEFT SIDEBAR -->
+
+        <VBox prefWidth="245"
+            spacing="18"
+            styleClass="sidebar">
+
+            <!-- LOGO -->
+            <VBox alignment="TOP_LEFT"
+                styleClass="sidebar-logo-box">
+
+                <ImageView fitWidth="200"
+                    pickOnBounds="true"
+                    preserveRatio="true">
+                    <image>
+                        <Image url="@../images/Furniture_logo.jpg" />
+                    </image>
+                </ImageView>
+
+            </VBox>
+
+            <ScrollPane fitToWidth="true"
+                hbarPolicy="NEVER"
+                vbarPolicy="AS_NEEDED"
+                styleClass="sidebar-scroll"
+                VBox.vgrow="ALWAYS">
+
+                <VBox spacing="10"
+                    styleClass="sidebar-menu">
+
+                    <!-- HOME -->
+                    <HBox fx:id="homeItem"
+                        alignment="CENTER_LEFT"
+                        spacing="14"
+                        styleClass="sidebar-item"
+                        onMouseClicked="#goToHomePage">
+
+                        <Label text="🏠" styleClass="sidebar-icon" />
+                        <Label text="Home" styleClass="sidebar-text" />
+
+                    </HBox>
+
+                    <!-- DASHBOARD -->
+                    <HBox fx:id="dashboardItem"
+                        alignment="CENTER_LEFT"
+                        spacing="14"
+                        styleClass="sidebar-item-active"
+                        onMouseClicked="#handleSidebarClick">
+
+                        <Label text="🛋" styleClass="sidebar-icon" />
+                        <Label text="Dashboard" styleClass="sidebar-text-active" />
+
+                    </HBox>
+
+                    <!-- PRODUCTS -->
+                    <HBox fx:id="productsItem"
+                        alignment="CENTER_LEFT"
+                        spacing="14"
+                        styleClass="sidebar-item"
+                        onMouseClicked="#handleSidebarClick">
+
+                        <Label text="🛏" styleClass="sidebar-icon" />
+                        <Label text="Products" styleClass="sidebar-text" />
+
+                    </HBox>
+
+                    <!-- CUSTOMERS -->
+                    <HBox fx:id="customersItem"
+                        alignment="CENTER_LEFT"
+                        spacing="14"
+                        styleClass="sidebar-item"
+                        onMouseClicked="#handleSidebarClick">
+
+                        <Label text="👥" styleClass="sidebar-icon" />
+                        <Label text="Customers" styleClass="sidebar-text" />
+
+                    </HBox>
+
+                    <!-- SALES -->
+                    <HBox fx:id="salesItem"
+                        alignment="CENTER_LEFT"
+                        spacing="14"
+                        styleClass="sidebar-item"
+                        onMouseClicked="#handleSidebarClick">
+
+                        <Label text="🛒" styleClass="sidebar-icon" />
+                        <Label text="Sales" styleClass="sidebar-text" />
+
+                    </HBox>
+
+                    <!-- PURCHASES -->
+                    <HBox fx:id="purchasesItem"
+                        alignment="CENTER_LEFT"
+                        spacing="14"
+                        styleClass="sidebar-item"
+                        onMouseClicked="#handleSidebarClick">
+
+                        <Label text="🧾" styleClass="sidebar-icon" />
+                        <Label text="Purchases" styleClass="sidebar-text" />
+
+                    </HBox>
+
+                    <!-- WAREHOUSES -->
+                    <HBox fx:id="warehousesItem"
+                        alignment="CENTER_LEFT"
+                        spacing="14"
+                        styleClass="sidebar-item"
+                        onMouseClicked="#handleSidebarClick">
+
+                        <Label text="🏬" styleClass="sidebar-icon" />
+                        <Label text="Warehouses" styleClass="sidebar-text" />
+
+                    </HBox>
+
+                    <!-- EMPLOYEES -->
+                    <HBox fx:id="employeesItem"
+                        alignment="CENTER_LEFT"
+                        spacing="14"
+                        styleClass="sidebar-item"
+                        onMouseClicked="#handleSidebarClick">
+
+                        <Label text="👷‍♂️" styleClass="sidebar-icon" />
+                        <Label text="Employees" styleClass="sidebar-text" />
+
+                    </HBox>
+
+                    <!-- CATEGORIES -->
+                    <HBox fx:id="categoriesItem"
+                        alignment="CENTER_LEFT"
+                        spacing="14"
+                        styleClass="sidebar-item"
+                        onMouseClicked="#handleSidebarClick">
+
+                        <Label text="🏷" styleClass="sidebar-icon" />
+                        <Label text="Categories" styleClass="sidebar-text" />
+
+                    </HBox>
+
+                    <!-- INVENTORY -->
+                    <HBox fx:id="inventoryItem"
+                        alignment="CENTER_LEFT"
+                        spacing="14"
+                        styleClass="sidebar-item"
+                        onMouseClicked="#handleSidebarClick">
+
+                        <Label text="📦" styleClass="sidebar-icon" />
+                        <Label text="Inventory" styleClass="sidebar-text" />
+
+                    </HBox>
+
+                    <!-- DELIVERIES -->
+                    <HBox fx:id="deliveriesItem"
+                        alignment="CENTER_LEFT"
+                        spacing="14"
+                        styleClass="sidebar-item"
+                        onMouseClicked="#handleSidebarClick">
+
+                        <Label text="🚚" styleClass="sidebar-icon" />
+                        <Label text="Deliveries" styleClass="sidebar-text" />
+
+                    </HBox>
+
+                    <!-- PAYMENTS -->
+                    <HBox fx:id="paymentsItem"
+                        alignment="CENTER_LEFT"
+                        spacing="14"
+                        styleClass="sidebar-item"
+                        onMouseClicked="#handleSidebarClick">
+
+                        <Label text="💳" styleClass="sidebar-icon" />
+                        <Label text="Payments" styleClass="sidebar-text" />
+
+                    </HBox>
+
+                    <!-- RETURNS -->
+                    <HBox fx:id="returnsItem"
+                        alignment="CENTER_LEFT"
+                        spacing="14"
+                        styleClass="sidebar-item"
+                        onMouseClicked="#handleSidebarClick">
+
+                        <Label text="↩" styleClass="sidebar-icon" />
+                        <Label text="Returns" styleClass="sidebar-text" />
+
+                    </HBox>
+
+                    <!-- DISCOUNTS -->
+                    <HBox fx:id="discountsItem"
+                        alignment="CENTER_LEFT"
+                        spacing="14"
+                        styleClass="sidebar-item"
+                        onMouseClicked="#handleSidebarClick">
+
+                        <Label text="💲" styleClass="sidebar-icon" />
+                        <Label text="Discounts" styleClass="sidebar-text" />
+
+                    </HBox>
+
+                    <!-- STOCK MOVEMENT -->
+                    <HBox fx:id="stockMovementItem"
+                        alignment="CENTER_LEFT"
+                        spacing="14"
+                        styleClass="sidebar-item"
+                        onMouseClicked="#handleSidebarClick">
+
+                        <Label text="⇅" styleClass="sidebar-icon" />
+                        <Label text="Stock Movement" styleClass="sidebar-text" />
+
+                    </HBox>
+
+                    <!-- REPORTS -->
+                    <HBox fx:id="reportsItem"
+                        alignment="CENTER_LEFT"
+                        spacing="14"
+                        styleClass="sidebar-item"
+                        onMouseClicked="#handleSidebarClick">
+
+                        <Label text="📊" styleClass="sidebar-icon" />
+                        <Label text="Reports" styleClass="sidebar-text" />
+
+                    </HBox>
+
+                    <!-- SETTINGS -->
+                    <HBox fx:id="settingsItem"
+                        alignment="CENTER_LEFT"
+                        spacing="14"
+                        styleClass="sidebar-item"
+                        onMouseClicked="#handleSidebarClick">
+
+                        <Label text="⚙" styleClass="sidebar-icon" />
+                        <Label text="Settings" styleClass="sidebar-text" />
+
+                    </HBox>
+                </VBox>
+            </ScrollPane>
+        </VBox>
+    </VBox>
+    <!-- Top Bar -->
+    <!-- RIGHT AREA -->
+    <VBox HBox.hgrow="ALWAYS"
+        spacing="0"
+        styleClass="main-area">
+
+        <!-- TOP BAR -->
+        <VBox spacing="0"
+            styleClass="dashboard-header">
+
+            <VBox spacing="0"
+                styleClass="dashboard-header">
+
+                <HBox alignment="CENTER_LEFT"
+                    spacing="0"
+                    styleClass="dashboard-top-bar">
+
+                    <!-- LEFT -->
+                    <HBox alignment="CENTER_LEFT"
+                        spacing="20">
+
+                        <Label text="☰"
+                            styleClass="dashboard-menu-icon" />
+
+                        <VBox spacing="4">
+
+                            <Label fx:id="pageTitle"
+                                text="Dashboard"
+                                styleClass="dashboard-title" />
+
+                            <HBox alignment="CENTER_LEFT"
+                                spacing="6">
+
+                                <Label text="⌂"
+                                    styleClass="breadcrumb-home-icon" />
+
+                                <Label text="Home"
+                                    styleClass="breadcrumb-home-text"
+                                    onMouseClicked="#goToHomePage" />
+
+                                <Label text="›"
+                                    styleClass="breadcrumb-separator" />
+
+                                <Label fx:id="breadcrumbCurrent"
+                                    text="Dashboard"
+                                    styleClass="breadcrumb-current" />
+
+                            </HBox>
+
+                        </VBox>
+
+                    </HBox>
+
+                    <Region HBox.hgrow="ALWAYS" />
+
+                    <!-- RIGHT -->
+                    <HBox alignment="CENTER_RIGHT"
+                        spacing="18"
+                        styleClass="date-time-box">
+
+                        <HBox alignment="CENTER"
+                            spacing="8">
+
+                            <Label text="📅"
+                                styleClass="date-time-icon" />
+
+                            <Label fx:id="dateLabel"
+                                text="May 28, 2026"
+                                styleClass="date-time-text" />
+
+                        </HBox>
+
+                        <Region styleClass="date-time-separator" />
+
+                        <HBox alignment="CENTER"
+                            spacing="8">
+
+                            <Label text="🕘"
+                                styleClass="date-time-icon" />
+
+                            <Label fx:id="timeLabel"
+                                text="10:45 AM"
+                                styleClass="date-time-text" />
+
+                        </HBox>
+
+                    </HBox>
+
+                </HBox>
+
+            </VBox>
+        </VBox>
+
+        <!-- PAGE CONTENT -->
+        <StackPane fx:id="contentPane"
+            VBox.vgrow="ALWAYS"
+            styleClass="content-pane" />
+
+    </VBox>
+
+</HBox>

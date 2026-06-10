@@ -1,0 +1,212 @@
+.dashboard-root {
+    -fx-background-color: #000000;
+    -fx-font-family: "Segoe UI";
+}
+
+.sidebar {
+    -fx-background-color:#000000;
+    -fx-border-color: transparent rgba(214,156,55,0.25) transparent transparent;
+    -fx-border-width: 0 1 0 0;
+    -fx-padding: 0;
+}
+
+.sidebar-logo-box {
+    -fx-background-color: #000000;
+    -fx-padding: 0;
+    -fx-margin: 0;
+    -fx-alignment: top-left;
+}
+
+.sidebar-logo-box ImageView {
+    -fx-effect: none;
+}
+
+.sidebar-menu {
+    -fx-padding: 5 16 20 16;
+}
+
+.sidebar-item,
+.sidebar-item-active {
+    -fx-pref-height: 48px;
+    -fx-padding: 0 14;
+    -fx-background-radius: 12;
+    -fx-cursor: hand;
+}
+
+.sidebar-item {
+    -fx-background-color: transparent;
+}
+
+.sidebar-item:hover {
+    -fx-background-color: rgba(214,156,55,0.13);
+}
+
+.sidebar-item-active {
+    -fx-background-color:
+        linear-gradient(to right,
+        rgba(214,156,55,0.62),
+        rgba(80,55,18,0.42));
+    -fx-border-color: rgba(255,215,120,0.45);
+    -fx-border-radius: 12;
+    -fx-border-width: 1;
+}
+
+.sidebar-icon {
+    -fx-text-fill: #d9a24a;
+    -fx-font-size: 20px;
+}
+
+.sidebar-text {
+    -fx-text-fill: rgba(255,255,255,0.9);
+    -fx-font-size: 16px;
+}
+
+.sidebar-text-active {
+    -fx-text-fill: #ffd978;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+
+.dashboard-content {
+    -fx-background-color: #000000;
+}
+
+.temp-title {
+    -fx-text-fill: white;
+    -fx-font-size: 32px;
+}
+.sidebar-scroll {
+    -fx-background-color: transparent;
+    -fx-background: transparent;
+}
+
+.sidebar-scroll > .viewport {
+    -fx-background-color: transparent;
+}
+
+.sidebar-scroll .scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-pref-width: 6px;
+}
+
+.sidebar-scroll .scroll-bar:vertical .thumb {
+    -fx-background-color: rgba(214,156,55,0.45);
+    -fx-background-radius: 10;
+}
+
+.sidebar-scroll .scroll-bar:vertical .track {
+    -fx-background-color: transparent;
+}
+
+.sidebar-scroll .scroll-bar:vertical .increment-button,
+.sidebar-scroll .scroll-bar:vertical .decrement-button {
+    -fx-opacity: 0;
+    -fx-padding: 0;
+}
+
+/* ================= TOP BAR ================= */
+
+.dashboard-header {
+
+    -fx-background-color:
+        linear-gradient(to bottom,
+        rgba(8,8,8,0.98),
+        rgba(0,0,0,0.95));
+
+    -fx-border-color:
+        transparent transparent rgba(214,156,55,0.18) transparent;
+
+    -fx-border-width: 0 0 1 0;
+}
+
+.dashboard-top-bar {
+
+    -fx-padding: 22 30 14 30;
+}
+
+.dashboard-menu-icon {
+
+    -fx-text-fill: #d9a24a;
+
+    -fx-font-size: 28px;
+}
+
+.dashboard-title {
+
+    -fx-text-fill: white;
+
+    -fx-font-size: 34px;
+
+    -fx-font-family: "Times New Roman";
+}
+
+/* BREADCRUMB */
+
+.breadcrumb-home-icon {
+
+    -fx-text-fill: #d9a24a;
+
+    -fx-font-size: 14px;
+}
+
+.breadcrumb-home-text {
+
+    -fx-text-fill: #d9a24a;
+
+    -fx-font-size: 13px;
+
+    -fx-cursor: hand;
+}
+
+.breadcrumb-home-text:hover {
+
+    -fx-text-fill: #ffd978;
+}
+
+.breadcrumb-separator {
+
+    -fx-text-fill: rgba(255,255,255,0.45);
+
+    -fx-font-size: 13px;
+}
+
+.breadcrumb-current {
+
+    -fx-text-fill: rgba(255,255,255,0.7);
+
+    -fx-font-size: 13px;
+}
+
+/* RIGHT */
+.header-small-icon {
+
+    -fx-text-fill: #d9a24a;
+
+    -fx-font-size: 16px;
+}
+
+.header-date-text {
+
+    -fx-text-fill: white;
+
+    -fx-font-size: 14px;
+}
+.date-time-box {
+    -fx-padding: 0 14 0 0;
+}
+
+.date-time-icon {
+    -fx-text-fill: #d9a24a;
+    -fx-font-size: 17px;
+}
+
+.date-time-text {
+    -fx-text-fill: white;
+    -fx-font-size: 15px;
+}
+
+.date-time-separator {
+    -fx-pref-width: 1px;
+    -fx-pref-height: 22px;
+    -fx-background-color: rgba(217,162,74,0.75);
+}

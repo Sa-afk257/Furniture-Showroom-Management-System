@@ -1,0 +1,529 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.Rectangle?>
+
+<ScrollPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            stylesheets="@../style/HomePage.css"
+            fx:controller="com.furniture.ui.HomePageController"
+            fitToWidth="true"
+            hbarPolicy="NEVER"
+            vbarPolicy="AS_NEEDED"
+            styleClass="main-scroll">
+
+        <!-- ================= HERO SECTION ================= -->
+
+        <AnchorPane prefWidth="1366"
+                    prefHeight="1150"
+                    styleClass="main-page">
+
+            <!-- الصورة -->
+
+            <ImageView fitWidth="1366"
+                    fitHeight="520"
+                    preserveRatio="false"
+                    AnchorPane.topAnchor="0"
+                    AnchorPane.leftAnchor="0"
+                    AnchorPane.rightAnchor="0">
+
+                <image>
+                    <Image url="@/images/furniture.jpg"/>
+                </image>
+
+            </ImageView>
+            
+            <!-- التدرج الأسود -->
+
+            <Pane prefHeight="170"
+                AnchorPane.leftAnchor="0"
+                AnchorPane.rightAnchor="0"
+                AnchorPane.topAnchor="390"
+                styleClass="bottom-fade-overlay"/>
+
+            <Pane prefWidth="850"
+                prefHeight="520"
+                AnchorPane.topAnchor="0"
+                AnchorPane.leftAnchor="0"
+                styleClass="left-dark-overlay"/>
+            <!-- NAVBAR -->
+
+            <BorderPane AnchorPane.topAnchor="5"
+                        AnchorPane.leftAnchor="-15"
+                        AnchorPane.rightAnchor="25">
+
+                <!-- LEFT : LOGO -->
+
+                <left>
+
+                    <HBox alignment="TOP_LEFT">
+
+                        <padding>
+                            <Insets top="-25" right="0" bottom="0" left="20"/>
+                        </padding>
+
+                        <ImageView fitWidth="420"
+                                fitHeight="220"
+                                preserveRatio="true"
+                                pickOnBounds="false">
+
+                            <image>
+                                <Image url="@/images/Furniture_logo.jpg"/>
+                            </image>
+
+                        </ImageView>
+
+                    </HBox>
+
+                </left>
+
+            </BorderPane>
+
+            <!-- TEXT CONTENT -->
+
+            <VBox spacing="22"
+                alignment="CENTER_LEFT"
+                AnchorPane.leftAnchor="90"
+                AnchorPane.topAnchor="180">
+
+                <Label text="Manage Your Showroom"
+                    styleClass="hero-white-title"/>
+
+                <Label text="Smartly &amp; Efficiently"
+                    styleClass="hero-gold-title"/>
+
+                <Label text="A complete management system for&#10;furniture showroom operations"
+                    styleClass="hero-description"/>
+
+                <HBox spacing="18"
+                    alignment="CENTER_LEFT">
+
+                    <Button text="Enter System      ➜"
+                            fx:id="enterBtn"
+                            onAction="#EnterSystem"
+                            styleClass="enter-btn"/>
+
+                    <HBox spacing="8"
+                        alignment="CENTER"
+                        fx:id="watchVideoBox"
+                        styleClass="watch-video-box">
+
+                        <StackPane styleClass="play-circle">
+                            <Label text="▶"
+                                styleClass="play-icon"/>
+                        </StackPane>
+
+                        <Label text="Watch Video"
+                            styleClass="watch-video-text"/>
+
+                    </HBox>
+
+                </HBox>
+
+            </VBox>
+
+                <!-- SYSTEM MODULES -->
+
+        <VBox spacing="12"
+            alignment="CENTER"
+            AnchorPane.leftAnchor="80"
+            AnchorPane.rightAnchor="80"
+            AnchorPane.topAnchor="525">
+
+            <HBox alignment="CENTER"
+                spacing="20">
+
+                <!-- LEFT LINE -->
+
+                <Region styleClass="section-line"/>
+
+                <!-- TITLE -->
+
+                <Label text="System Modules"
+                    styleClass="luxury-section-title"/>
+
+                <!-- RIGHT LINE -->
+
+                <Region styleClass="section-line-right"/>
+
+            </HBox>
+
+            <HBox spacing="20"
+                alignment="CENTER">
+
+                <VBox alignment="TOP_CENTER"
+                    spacing="14"
+                    styleClass="luxury-card">
+
+                    <Label text="🛋"
+                        styleClass="luxury-icon"/>
+
+                    <Label text="Products"
+                        styleClass="luxury-card-title"/>
+
+                    <Region styleClass="card-glow-line"/>
+
+                    <Label text="Manage furniture&#10;products and categories"
+                        wrapText="true"
+                        textAlignment="CENTER"
+                        styleClass="luxury-card-desc"/>
+
+                </VBox>
+
+                <VBox alignment="TOP_CENTER"
+                    spacing="14"
+                    styleClass="luxury-card">
+
+                    <Label text="👥"
+                        styleClass="luxury-icon"/>
+
+                    <Label text="Customers"
+                        styleClass="luxury-card-title"/>
+
+                    <Region styleClass="card-glow-line"/>
+
+                    <Label text="Maintain customer&#10;information and history"
+                        wrapText="true"
+                        textAlignment="CENTER"
+                        styleClass="luxury-card-desc"/>
+
+                </VBox>
+
+                <VBox alignment="TOP_CENTER"
+                    spacing="14"
+                    styleClass="luxury-card">
+
+                    <Label text="🏠"
+                        styleClass="luxury-icon"/>
+
+                    <Label text="Warehouses"
+                        styleClass="luxury-card-title"/>
+
+                    <Region styleClass="card-glow-line"/>
+
+                    <Label text="Track inventory across&#10;multiple warehouses"
+                        wrapText="true"
+                        textAlignment="CENTER"
+                        styleClass="luxury-card-desc"/>
+
+                </VBox>
+
+                <VBox alignment="TOP_CENTER"
+                    spacing="14"
+                    styleClass="luxury-card">
+
+                    <Label text="🚚"
+                        styleClass="luxury-icon"/>
+
+                    <Label text="Sales"
+                        styleClass="luxury-card-title"/>
+
+                    <Region styleClass="card-glow-line"/>
+
+                    <Label text="Manage sales&#10;transactions and invoices"
+                        wrapText="true"
+                        textAlignment="CENTER"
+                        styleClass="luxury-card-desc"/>
+
+                </VBox>
+
+                <VBox alignment="TOP_CENTER"
+                    spacing="14"
+                    styleClass="luxury-card">
+
+                    <Label text="🛒"
+                        styleClass="luxury-icon"/>
+
+                    <Label text="Purchases"
+                        styleClass="luxury-card-title"/>
+
+                    <Region styleClass="card-glow-line"/>
+
+                    <Label text="Handle purchases&#10;from suppliers"
+                        wrapText="true"
+                        textAlignment="CENTER"
+                        styleClass="luxury-card-desc"/>
+
+                </VBox>
+
+                <VBox alignment="TOP_CENTER"
+                    spacing="14"
+                    styleClass="luxury-card">
+
+                    <Label text="📊"
+                        styleClass="luxury-icon"/>
+
+                    <Label text="Reports"
+                        styleClass="luxury-card-title"/>
+
+                    <Region styleClass="card-glow-line"/>
+
+                    <Label text="View analytics and&#10;generate reports"
+                        wrapText="true"
+                        textAlignment="CENTER"
+                        styleClass="luxury-card-desc"/>
+
+                </VBox>
+
+            </HBox>
+
+        </VBox>
+        <!-- FEATURED FURNITURE -->
+
+        <VBox spacing="22"
+            alignment="CENTER"
+            AnchorPane.leftAnchor="45"
+            AnchorPane.rightAnchor="45"
+            AnchorPane.topAnchor="830">
+
+            <HBox alignment="CENTER" spacing="20">
+                <Region styleClass="section-line"/>
+                <Label text="Featured Furniture"
+                    styleClass="luxury-section-title"/>
+                <Region styleClass="section-line-right"/>
+            </HBox>
+
+            <ScrollPane fitToHeight="true"
+                        fitToWidth="false"
+                        hbarPolicy="AS_NEEDED"
+                        vbarPolicy="NEVER"
+                        pannable="true"
+                        styleClass="featured-scroll">
+
+                <HBox spacing="26"
+                    alignment="CENTER_LEFT"
+                    styleClass="featured-row">
+
+                    <StackPane styleClass="featured-card">
+                        <ImageView fitWidth="340" fitHeight="220" preserveRatio="false">
+                            <image>
+                                <Image url="@/images/sofa.jpg"/>
+                            </image>
+                             <clip>
+                                <Rectangle width="340"
+                                        height="220"
+                                        arcWidth="35"
+                                        arcHeight="35"/>
+                            </clip>
+                        </ImageView>
+
+                        <VBox alignment="BOTTOM_CENTER"
+                            spacing="6"
+                            styleClass="featured-overlay">
+                            <Label text="Sofas" styleClass="featured-title"/>
+                            <Label text="Comfort &amp; Style" styleClass="featured-desc"/>
+                        </VBox>
+                    </StackPane>
+
+                    <StackPane styleClass="featured-card">
+                        <ImageView fitWidth="340" fitHeight="220" preserveRatio="false">
+                            <image>
+                                <Image url="@/images/dining.jpg"/>
+                            </image>
+                             <clip>
+                                <Rectangle width="340"
+                                        height="220"
+                                        arcWidth="35"
+                                        arcHeight="35"/>
+                            </clip>
+                        </ImageView>
+
+                        <VBox alignment="BOTTOM_CENTER"
+                            spacing="6"
+                            styleClass="featured-overlay">
+                            <Label text="Dining Rooms" styleClass="featured-title"/>
+                            <Label text="Elegant &amp; Functional" styleClass="featured-desc"/>
+                        </VBox>
+                    </StackPane>
+
+                    <StackPane styleClass="featured-card">
+                        <ImageView fitWidth="340" fitHeight="220" preserveRatio="false">
+                            <image>
+                                <Image url="@/images/bedroom.jpg"/>
+                            </image>
+                            <clip>
+                                <Rectangle width="340"
+                                        height="220"
+                                        arcWidth="35"
+                                        arcHeight="35"/>
+                            </clip>
+                        </ImageView>
+
+                        <VBox alignment="BOTTOM_CENTER"
+                            spacing="6"
+                            styleClass="featured-overlay">
+                            <Label text="Bedrooms" styleClass="featured-title"/>
+                            <Label text="Luxury &amp; Relaxation" styleClass="featured-desc"/>
+                        </VBox>
+                    </StackPane>
+                    <StackPane styleClass="featured-card">
+
+                        <ImageView fitWidth="340"
+                                fitHeight="220"
+                                preserveRatio="false">
+
+                            <image>
+                                <Image url="@/images/ModernTables.jpg"/>
+                            </image>
+                            <clip>
+                                <Rectangle width="340"
+                                        height="220"
+                                        arcWidth="35"
+                                        arcHeight="35"/>
+                            </clip>
+                        </ImageView>
+
+                        <VBox alignment="BOTTOM_CENTER"
+                            spacing="6"
+                            styleClass="featured-overlay">
+
+                            <Label text="Center tables"
+                                styleClass="featured-title"/>
+
+                            <Label text="Modern &amp; luxury tables"
+                                styleClass="featured-desc"/>
+
+                        </VBox>
+
+                    </StackPane>
+                    <StackPane styleClass="featured-card">
+
+                        <ImageView fitWidth="340"
+                                fitHeight="220"
+                                preserveRatio="false">
+
+                            <image>
+                                <Image url="@/images/mirror.jpg"/>
+                            </image>
+                            <clip>
+                                <Rectangle width="340"
+                                        height="220"
+                                        arcWidth="35"
+                                        arcHeight="35"/>
+                            </clip>
+                        </ImageView>
+
+                        <VBox alignment="BOTTOM_CENTER"
+                            spacing="6"
+                            styleClass="featured-overlay">
+
+                            <Label text="Luxury Mirrors"
+                                styleClass="featured-title"/>
+
+                            <Label text="Elegant modern mirrors"
+                                styleClass="featured-desc"/>
+
+                        </VBox>
+
+                    </StackPane>
+
+                </HBox>
+            </ScrollPane>
+        </VBox>
+        <!-- STATISTICS SECTION -->
+
+        <HBox alignment="CENTER"
+            spacing="0"
+            styleClass="stats-box"
+            AnchorPane.leftAnchor="120"
+            AnchorPane.rightAnchor="120"
+            AnchorPane.topAnchor="1160">
+
+            <HBox alignment="CENTER" spacing="18" styleClass="stat-card">
+
+                <ImageView fitWidth="92"
+                        fitHeight="92"
+                        preserveRatio="true">
+                    <image>
+                        <Image url="@../images/icons/product_icon.jpg"/>
+                    </image>
+                </ImageView>
+
+                <VBox alignment="CENTER_LEFT" spacing="2">
+                    <Label fx:id="productsCountLabel" text="0+" styleClass="stat-number"/>
+                    <Label text="Products" styleClass="stat-label"/>
+                </VBox>
+
+            </HBox>
+
+            <Region styleClass="stat-divider"/>
+
+            <HBox alignment="CENTER" spacing="18" styleClass="stat-card">
+
+                <ImageView fitWidth="92"
+                        fitHeight="92"
+                        preserveRatio="true">
+                    <image>
+                        <Image url="@../images/icons/customer_icon.jpg"/>
+                    </image>
+                </ImageView>
+
+                <VBox alignment="CENTER_LEFT" spacing="2">
+                    <Label fx:id="customersCountLabel" text="0+" styleClass="stat-number"/>
+                    <Label text="Customers" styleClass="stat-label"/>
+                </VBox>
+
+            </HBox>
+
+            <Region styleClass="stat-divider"/>
+
+            <HBox alignment="CENTER" spacing="18" styleClass="stat-card">
+
+                <ImageView fitWidth="92"
+                        fitHeight="92"
+                        preserveRatio="true">
+                    <image>
+                        <Image url="@../images/icons/warehouse_icon.jpg"/>
+                    </image>
+                </ImageView>
+
+                <VBox alignment="CENTER_LEFT" spacing="2">
+                    <Label fx:id="warehousesCountLabel" text="0+" styleClass="stat-number"/>
+                    <Label text="Warehouses" styleClass="stat-label"/>
+                </VBox>
+
+            </HBox>
+
+            <Region styleClass="stat-divider"/>
+
+            <HBox alignment="CENTER" spacing="18" styleClass="stat-card">
+
+                <ImageView fitWidth="92"
+                        fitHeight="92"
+                        preserveRatio="true">
+                    <image>
+                        <Image url="@../images/icons/star_icon.jpg"/>
+                    </image>
+                </ImageView>
+
+                <VBox alignment="CENTER_LEFT" spacing="2">
+                    <Label fx:id="satisfactionLabel" text="98%" styleClass="stat-number"/>
+                    <Label text="Satisfaction" styleClass="stat-label"/>
+                </VBox>
+
+            </HBox>
+
+        </HBox>
+
+        <!-- SIGNATURE TEXT -->
+
+        <HBox alignment="CENTER"
+            spacing="18"
+            AnchorPane.leftAnchor="0"
+            AnchorPane.rightAnchor="0"
+            AnchorPane.topAnchor="1280">
+
+            <Region styleClass="section-line"/>
+
+            <Label text="Furnishing Spaces, Creating Comfort"
+                styleClass="signature-text"/>
+
+            <Region styleClass="section-line-right"/>
+
+        </HBox>
+    </AnchorPane>
+</ScrollPane>

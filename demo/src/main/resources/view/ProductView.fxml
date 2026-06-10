@@ -1,0 +1,552 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+        xmlns:fx="http://javafx.com/fxml"
+        fx:controller="com.furniture.ui.ProductController"
+        stylesheets="@../style/product.css"
+        prefWidth="1300"
+        prefHeight="780"
+        styleClass="root-pane">
+
+
+        <!-- TOP HEADER -->
+
+
+        <!-- LEFT PANEL -->
+
+        <!-- MAIN CONTENT -->
+        <center>
+
+                <ScrollPane fitToWidth="true"
+                        fitToHeight="false"
+                        hbarPolicy="AS_NEEDED"
+                        vbarPolicy="NEVER"
+                        styleClass="dashboard-scroll">
+
+                        <content>
+
+                                <VBox fx:id="dashboardContainer"
+                                        spacing="15"
+                                        styleClass="dashboard-main-content">
+
+                                        <HBox alignment="CENTER_LEFT"
+                                                spacing="22"
+                                                styleClass="stats-cards-row">
+
+                                                <HBox alignment="CENTER_LEFT"
+                                                        spacing="14"
+                                                        styleClass="dashboard-stat-card">
+
+                                                        <ImageView fitWidth="62"
+                                                                fitHeight="62"
+                                                                preserveRatio="true">
+
+                                                                <image>
+                                                                        <Image
+                                                                                url="@../images/icons/productSofa_icon.jpg" />
+                                                                </image>
+
+                                                        </ImageView>
+
+                                                        <VBox spacing="2"
+                                                                alignment="CENTER_LEFT">
+
+                                                                <Label fx:id="totalProductsLabel"
+                                                                        text="128"
+                                                                        styleClass="product-card-number" />
+
+                                                                <Label text="Total Products"
+                                                                        styleClass="product-card-title" />
+
+                                                        </VBox>
+
+                                                </HBox>
+
+                                                <HBox alignment="CENTER_LEFT"
+                                                        spacing="14"
+                                                        styleClass="dashboard-stat-card">
+
+                                                        <ImageView fitWidth="62"
+                                                                fitHeight="62"
+                                                                preserveRatio="true">
+
+                                                                <image>
+                                                                        <Image
+                                                                                url="@../images/icons/instock_icon.jpg" />
+                                                                </image>
+
+                                                        </ImageView>
+
+                                                        <VBox spacing="2"
+                                                                alignment="CENTER_LEFT">
+
+                                                                <Label fx:id="inStockLabel"
+                                                                        text="128"
+                                                                        styleClass="product-card-number" />
+
+                                                                <Label text="In Stock"
+                                                                        styleClass="product-card-title" />
+
+                                                        </VBox>
+
+                                                </HBox>
+
+                                                <HBox alignment="CENTER_LEFT"
+                                                        spacing="14"
+                                                        styleClass="dashboard-stat-card">
+
+                                                        <ImageView fitWidth="62"
+                                                                fitHeight="62"
+                                                                preserveRatio="true">
+
+                                                                <image>
+                                                                        <Image
+                                                                                url="@../images/icons/warning_icon.jpg" />
+                                                                </image>
+
+                                                        </ImageView>
+
+                                                        <VBox spacing="2"
+                                                                alignment="CENTER_LEFT">
+
+                                                                <Label fx:id="lowStockLabel"
+                                                                        text="128"
+                                                                        styleClass="product-card-number" />
+
+                                                                <Label text="Low Stock"
+                                                                        styleClass="product-card-title" />
+
+                                                        </VBox>
+
+                                                </HBox>
+
+                                                <HBox alignment="CENTER_LEFT"
+                                                        spacing="14"
+                                                        styleClass="dashboard-stat-card">
+
+                                                        <ImageView fitWidth="62"
+                                                                fitHeight="62"
+                                                                preserveRatio="true">
+
+                                                                <image>
+                                                                        <Image
+                                                                                url="@../images/icons/wrong_icon.jpg" />
+                                                                </image>
+
+                                                        </ImageView>
+
+                                                        <VBox spacing="2"
+                                                                alignment="CENTER_LEFT">
+
+                                                                <Label fx:id="outOfStockLabel"
+                                                                        text="128"
+                                                                        styleClass="product-card-number" />
+
+                                                                <Label text="Out of Stock"
+                                                                        styleClass="product-card-title" />
+
+                                                        </VBox>
+
+                                                </HBox>
+
+                                                <HBox alignment="CENTER_LEFT"
+                                                        spacing="14"
+                                                        styleClass="dashboard-stat-card">
+
+                                                        <ImageView fitWidth="62"
+                                                                fitHeight="62"
+                                                                preserveRatio="true">
+
+                                                                <image>
+                                                                        <Image
+                                                                                url="@../images/icons/dolar_icon.jpg" />
+                                                                </image>
+
+                                                        </ImageView>
+
+                                                        <VBox spacing="2"
+                                                                alignment="CENTER_LEFT">
+
+                                                                <Label fx:id="totalValueLabel"
+                                                                        text="128"
+                                                                        styleClass="product-card-number total-value-number" />
+
+                                                                <Label text="Total Value"
+                                                                        styleClass="product-card-title" />
+
+                                                        </VBox>
+
+                                                </HBox>
+
+                                        </HBox>
+                                        <HBox alignment="CENTER_LEFT"
+                                                spacing="14"
+                                                styleClass="product-toolbar">
+
+                                                <HBox styleClass="search-box">
+                                                        <TextField fx:id="txtSearch"
+                                                                promptText="Search product by name, category..."
+                                                                styleClass="search-field"
+                                                                HBox.hgrow="ALWAYS" />
+
+                                                        <Label text="🔍"
+                                                                styleClass="search-icon" />
+                                                </HBox>
+
+                                                <Region HBox.hgrow="ALWAYS" />
+
+                                                <Button fx:id="filterToggleBtn"
+                                                        text="🝖 FILTER"
+                                                        styleClass="filter-toggle-btn" />
+                                                <Button fx:id="addProductBtn"
+                                                        styleClass="add-product-btn">
+
+                                                        <graphic>
+                                                                <Label text="✚"
+                                                                        styleClass="button-icon" />
+                                                        </graphic>
+
+                                                        <text>ADD PRODUCT</text>
+
+                                                </Button>
+
+                                                <Button styleClass="export-btn">
+
+                                                        <graphic>
+                                                                <Label text="➜]"
+                                                                        styleClass="button-icon" />
+                                                        </graphic>
+
+                                                        <text>EXPORT</text>
+
+                                                </Button>
+
+                                        </HBox>
+
+                                        <!-- TABLE -->
+                                        <HBox spacing="16" VBox.vgrow="ALWAYS"
+                                                styleClass="products-content-row">
+
+                                                <!-- FILTER PANEL -->
+                                                <VBox fx:id="filterPanel"
+                                                        spacing="12"
+                                                        styleClass="smart-filter-panel"
+                                                        visible="false"
+                                                        managed="false">
+
+                                                        <VBox spacing="2">
+                                                                <Label text="🝖  FILTER"
+                                                                        styleClass="filter-title" />
+                                                        </VBox>
+
+                                                        <Separator styleClass="filter-separator" />
+
+                                                        <Label text="Category"
+                                                                styleClass="filter-label" />
+                                                        <ComboBox fx:id="categoryCombo"
+                                                                promptText="All Categories"
+                                                                styleClass="filter-combo" />
+
+                                                        <Label text="Warehouse"
+                                                                styleClass="filter-label" />
+                                                        <ComboBox fx:id="warehouseCombo"
+                                                                promptText="All Warehouses"
+                                                                styleClass="filter-combo" />
+
+                                                        <Label text="Supplier"
+                                                                styleClass="filter-label" />
+                                                        <ComboBox fx:id="supplierCombo"
+                                                                promptText="All Suppliers"
+                                                                styleClass="filter-combo" />
+
+                                                        <Label text="Price Range"
+                                                                styleClass="filter-label" />
+                                                        <HBox spacing="8" alignment="CENTER_LEFT">
+                                                                <TextField fx:id="minPriceField"
+                                                                        promptText="Min"
+                                                                        styleClass="price-input" />
+                                                                <Label text="-"
+                                                                        styleClass="filter-small-text" />
+                                                                <TextField fx:id="maxPriceField"
+                                                                        promptText="Max"
+                                                                        styleClass="price-input" />
+                                                        </HBox>
+
+
+                                                        <Label text="Stock Level"
+                                                                styleClass="filter-label" />
+                                                        <ComboBox fx:id="stockLevelCombo"
+                                                                promptText="All"
+                                                                styleClass="filter-combo" />
+
+                                                        <Label text="Colors"
+                                                                styleClass="filter-label" />
+                                                        <FlowPane fx:id="colorsPane" hgap="10"
+                                                                vgap="10" />
+
+                                                        <Label text="Material"
+                                                                styleClass="filter-label" />
+                                                        <FlowPane fx:id="materialsPane" hgap="8"
+                                                                vgap="8" />
+
+                                                        <Separator styleClass="filter-separator" />
+
+                                                        <Label text="Sales Performance"
+                                                                styleClass="filter-label" />
+                                                        <ComboBox fx:id="salesPerformanceCombo"
+                                                                promptText="All"
+                                                                styleClass="filter-combo" />
+
+                                                        <Label text="Discount Status"
+                                                                styleClass="filter-label" />
+                                                        <ComboBox fx:id="discountStatusCombo"
+                                                                promptText="All"
+                                                                styleClass="filter-combo" />
+
+                                                        <Label text="Return Rate"
+                                                                styleClass="filter-label" />
+                                                        <ComboBox fx:id="returnRateCombo"
+                                                                promptText="All"
+                                                                styleClass="filter-combo" />
+                                                        <VBox spacing="10" alignment="CENTER"
+                                                                styleClass="filter-actions">
+                                                                <Button fx:id="applyFiltersBtn"
+                                                                        text="🝖  APPLY FILTERS"
+                                                                        styleClass="apply-filter-btn" />
+                                                                <Button fx:id="resetFiltersBtn"
+                                                                        text="⟲  RESET FILTERS"
+                                                                        styleClass="reset-filter-btn" />
+                                                        </VBox>
+
+                                                        <HBox spacing="14" alignment="CENTER_LEFT"
+                                                                styleClass="found-box">
+                                                                <Label text="🪑"
+                                                                        styleClass="found-icon" />
+                                                                <VBox spacing="0">
+                                                                        <Label text="Products Found"
+                                                                                styleClass="found-title" />
+                                                                        <Label
+                                                                                fx:id="productsFoundLabel"
+                                                                                text="0"
+                                                                                styleClass="found-number" />
+                                                                </VBox>
+                                                        </HBox>
+
+                                                </VBox>
+                                                <VBox fx:id="addProductPanel"
+                                                        spacing="16"
+                                                        styleClass="add-product-panel"
+                                                        visible="false"
+                                                        managed="false">
+
+                                                        <VBox spacing="3" styleClass="add-title-box">
+                                                                <Label text="✚  ADD PRODUCT"
+                                                                        styleClass="add-panel-title" />
+                                                        </VBox>
+
+                                                        <VBox spacing="14">
+
+                                                                <VBox spacing="3"
+                                                                        styleClass="form-field-box">
+                                                                        <HBox spacing="8"
+                                                                                alignment="CENTER_LEFT">
+                                                                                <Label text="🛋️"
+                                                                                        styleClass="form-icon" />
+                                                                                <Label
+                                                                                        text="Product Name"
+                                                                                        styleClass="form-label" />
+                                                                        </HBox>
+                                                                        <TextField
+                                                                                fx:id="addProductNameField"
+                                                                                promptText="Product name"
+                                                                                styleClass="luxury-input" />
+                                                                </VBox>
+
+                                                                <VBox spacing="3"
+                                                                        styleClass="form-field-box">
+                                                                        <HBox spacing="8"
+                                                                                alignment="CENTER_LEFT">
+                                                                                <Label text="💲"
+                                                                                        styleClass="form-icon" />
+                                                                                <Label text="Price"
+                                                                                        styleClass="form-label" />
+                                                                        </HBox>
+                                                                        <TextField
+                                                                                fx:id="addPriceField"
+                                                                                promptText="0.0"
+                                                                                styleClass="luxury-input" />
+                                                                </VBox>
+
+                                                                <VBox spacing="3"
+                                                                        styleClass="form-field-box">
+                                                                        <HBox spacing="8"
+                                                                                alignment="CENTER_LEFT">
+                                                                                <Label text="🏷️"
+                                                                                        styleClass="form-icon" />
+                                                                                <Label
+                                                                                        text="Category"
+                                                                                        styleClass="form-label" />
+                                                                        </HBox>
+                                                                        <ComboBox
+                                                                                fx:id="addCategoryCombo"
+                                                                                promptText="Category"
+                                                                                maxWidth="Infinity"
+                                                                                styleClass="luxury-combo" />
+                                                                </VBox>
+
+                                                                <VBox spacing="3"
+                                                                        styleClass="form-field-box">
+                                                                        <HBox spacing="8"
+                                                                                alignment="CENTER_LEFT">
+                                                                                <Label text="🎨"
+                                                                                        styleClass="form-icon" />
+                                                                                <Label text="Color"
+                                                                                        styleClass="form-label" />
+                                                                        </HBox>
+                                                                        <TextField
+                                                                                fx:id="addColorField"
+                                                                                promptText="Color"
+                                                                                styleClass="luxury-input" />
+                                                                </VBox>
+
+                                                                <VBox spacing="3"
+                                                                        styleClass="form-field-box">
+                                                                        <HBox spacing="8"
+                                                                                alignment="CENTER_LEFT">
+                                                                                <Label text="🛠️"
+                                                                                        styleClass="form-icon" />
+                                                                                <Label
+                                                                                        text="Material"
+                                                                                        styleClass="form-label" />
+                                                                        </HBox>
+                                                                        <TextField
+                                                                                fx:id="addMaterialField"
+                                                                                promptText="Material"
+                                                                                styleClass="luxury-input" />
+                                                                </VBox>
+
+                                                                <VBox spacing="3"
+                                                                        styleClass="form-field-box">
+                                                                        <HBox spacing="8"
+                                                                                alignment="CENTER_LEFT">
+                                                                                <Label text="✓"
+                                                                                        styleClass="form-icon" />
+                                                                                <Label text="Status"
+                                                                                        styleClass="form-label" />
+                                                                        </HBox>
+                                                                        <ComboBox
+                                                                                fx:id="addStatusCombo"
+                                                                                promptText="available"
+                                                                                maxWidth="Infinity"
+                                                                                styleClass="luxury-combo" />
+                                                                </VBox>
+                                                                <Button fx:id="chooseImageBtn"
+                                                                        text="🖼  Choose Image"
+                                                                        maxWidth="Infinity"
+                                                                        styleClass="luxury-cancel-btn" />
+
+                                                                <Label fx:id="selectedImageLabel"
+                                                                        text="No image selected"
+                                                                        styleClass="add-panel-subtitle" />
+
+                                                                <VBox spacing="3"
+                                                                        styleClass="form-field-box">
+                                                                        <HBox spacing="8"
+                                                                                alignment="CENTER_LEFT">
+                                                                                <Label text="📈"
+                                                                                        styleClass="form-icon" />
+                                                                                <Label
+                                                                                        text="Initial Stock"
+                                                                                        styleClass="form-label" />
+                                                                        </HBox>
+                                                                        <TextField
+                                                                                fx:id="addStockField"
+                                                                                promptText="Initial stock"
+                                                                                styleClass="luxury-input" />
+                                                                </VBox>
+
+                                                        </VBox>
+
+                                                        <Button fx:id="saveProductBtn"
+                                                                text="✚  ADD"
+                                                                maxWidth="Infinity"
+                                                                styleClass="luxury-add-btn" />
+
+                                                        <Button fx:id="cancelAddBtn"
+                                                                text="CANCEL"
+                                                                maxWidth="Infinity"
+                                                                styleClass="luxury-cancel-btn" />
+
+                                                </VBox>
+
+                                                <!-- TABLE -->
+                                                <AnchorPane HBox.hgrow="ALWAYS">
+                                                        <TableView fx:id="productTable"
+                                                                styleClass="product-table"
+                                                                AnchorPane.topAnchor="0.0"
+                                                                AnchorPane.bottomAnchor="0.0"
+                                                                AnchorPane.leftAnchor="0.0"
+                                                                AnchorPane.rightAnchor="0.0">
+
+                                                                <columns>
+                                                                        <TableColumn fx:id="colNo"
+                                                                                text="No."
+                                                                                prefWidth="60" />
+                                                                        <TableColumn fx:id="colID"
+                                                                                text="Product ID"
+                                                                                prefWidth="90" />
+                                                                        <TableColumn
+                                                                                fx:id="colImage"
+                                                                                text="Image"
+                                                                                prefWidth="100" />
+                                                                        <TableColumn fx:id="colName"
+                                                                                text="Product Name"
+                                                                                prefWidth="170" />
+                                                                        <TableColumn
+                                                                                fx:id="colPrice"
+                                                                                text="Price"
+                                                                                prefWidth="100" />
+                                                                        <TableColumn
+                                                                                fx:id="colCategory"
+                                                                                text="Category"
+                                                                                prefWidth="130" />
+                                                                        <TableColumn
+                                                                                fx:id="colColor"
+                                                                                text="Color"
+                                                                                prefWidth="100" />
+                                                                        <TableColumn
+                                                                                fx:id="colMaterial"
+                                                                                text="Material"
+                                                                                prefWidth="110" />
+                                                                        <TableColumn
+                                                                                fx:id="colQuantity"
+                                                                                text="Stock"
+                                                                                prefWidth="80" />
+                                                                        <TableColumn
+                                                                                fx:id="colStatus"
+                                                                                text="Status"
+                                                                                prefWidth="120" />
+                                                                        <TableColumn
+                                                                                fx:id="colAction"
+                                                                                text="Actions"
+                                                                                prefWidth="120" />
+                                                                </columns>
+
+                                                        </TableView>
+
+                                                </AnchorPane>
+                                        </HBox>
+                                </VBox>
+                        </content>
+
+                </ScrollPane>
+
+        </center>
+
+</BorderPane>

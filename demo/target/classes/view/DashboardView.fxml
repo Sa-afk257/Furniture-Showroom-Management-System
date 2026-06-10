@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.shape.Circle?>
+
+<ScrollPane xmlns="http://javafx.com/javafx"
+    xmlns:fx="http://javafx.com/fxml"
+    stylesheets="@../style/Dashboard.css"
+    fx:controller="com.furniture.ui.DashboardController"
+    fitToWidth="true"
+    hbarPolicy="NEVER"
+    vbarPolicy="AS_NEEDED"
+    styleClass="dashboard-scroll">
+
+
+    <VBox spacing="15"
+        fx:id="dashboardContainer"
+        styleClass="dashboard-main-content">
+
+        <HBox alignment="CENTER_LEFT"
+            spacing="18"
+            styleClass="stats-cards-row">
+
+            <HBox alignment="CENTER_LEFT" spacing="16" styleClass="dashboard-stat-card">
+                <Label text="🛋" styleClass="dashboard-stat-icon" />
+
+                <VBox alignment="CENTER_LEFT" spacing="4">
+                    <Label text="Total Products" styleClass="dashboard-stat-title" />
+                    <Label fx:id="totalProductsLabel" text="0" styleClass="dashboard-stat-number" />
+                    <Label fx:id="productsGrowthLabel"
+                        text="↑ 0.0% from last month"
+                        styleClass="dashboard-stat-growth" />
+                </VBox>
+            </HBox>
+
+            <HBox alignment="CENTER_LEFT" spacing="16" styleClass="dashboard-stat-card">
+                <Label text="👥" styleClass="dashboard-stat-icon" />
+
+                <VBox alignment="CENTER_LEFT" spacing="4">
+                    <Label text="Total Customers" styleClass="dashboard-stat-title" />
+                    <Label fx:id="totalCustomersLabel" text="0" styleClass="dashboard-stat-number" />
+                    <Label fx:id="customersGrowthLabel"
+                        text="↑ 0.0% from last month"
+                        styleClass="dashboard-stat-growth" />
+                </VBox>
+            </HBox>
+
+            <HBox alignment="CENTER_LEFT" spacing="16" styleClass="dashboard-stat-card">
+                <Label text="🛒" styleClass="dashboard-stat-icon" />
+
+                <VBox alignment="CENTER_LEFT" spacing="4">
+                    <Label text="Total Sales" styleClass="dashboard-stat-title" />
+                    <Label fx:id="totalSalesLabel" text="0" styleClass="dashboard-stat-number" />
+                    <Label fx:id="salesGrowthLabel"
+                        text="↑ 0.0% from last month"
+                        styleClass="dashboard-stat-growth" />
+                </VBox>
+            </HBox>
+
+            <HBox alignment="CENTER_LEFT" spacing="16" styleClass="dashboard-stat-card">
+                <Label text="💰" styleClass="dashboard-stat-icon" />
+
+                <VBox alignment="CENTER_LEFT" spacing="12">
+                    <Label text="Total Revenue" styleClass="dashboard-stat-title" />
+                    <Label fx:id="totalRevenueLabel"
+                        prefWidth="120"
+                        maxWidth="120"
+                        alignment="CENTER"
+                        wrapText="false"
+                        styleClass="dashboard-stat-number" />
+                    <Label fx:id="revenueGrowthLabel"
+                        text="↑ 0.0% from last month"
+                        styleClass="dashboard-stat-growth" />
+                </VBox>
+            </HBox>
+
+            <HBox alignment="CENTER_LEFT" spacing="16" styleClass="dashboard-stat-card">
+                <Label text="🏬" styleClass="dashboard-stat-icon" />
+
+                <VBox alignment="CENTER_LEFT" spacing="4">
+                    <Label text="Warehouses" styleClass="dashboard-stat-title" />
+                    <Label fx:id="totalWarehousesLabel" text="0" styleClass="dashboard-stat-number" />
+                    <Label text="Active storage branches" styleClass="dashboard-stat-growth" />
+                </VBox>
+            </HBox>
+
+        </HBox>
+        <!-- DASHBOARD BODY -->
+
+        <VBox spacing="12" styleClass="dashboard-grid">
+
+            <!-- ROW 1 -->
+            <HBox spacing="12" alignment="CENTER">
+
+                <VBox styleClass="dashboard-panel" prefWidth="480" prefHeight="260" maxHeight="260">
+                    <HBox alignment="CENTER_LEFT">
+                        <Label text="Sales Overview" styleClass="panel-title" />
+                        <Region HBox.hgrow="ALWAYS" />
+                        <ComboBox fx:id="salesPeriodCombo"
+                            promptText="This Year"
+                            styleClass="dashboard-combo" />
+                    </HBox>
+
+                    <AreaChart fx:id="salesChart"
+                        animated="false"
+                        legendVisible="false"
+                        prefHeight="220"
+                        maxHeight="220"
+                        styleClass="dashboard-line-chart">
+                        <xAxis>
+                            <CategoryAxis />
+                        </xAxis>
+                        <yAxis>
+                            <NumberAxis />
+                        </yAxis>
+                    </AreaChart>
+                </VBox>
+
+                <VBox styleClass="dashboard-panel" prefWidth="360" prefHeight="260" maxHeight="260">
+                    <Label text="Sales by Category" styleClass="panel-title" />
+
+                    <HBox alignment="CENTER" spacing="2">
+                        <StackPane>
+                            <PieChart fx:id="categoryPieChart"
+                                labelsVisible="false"
+                                legendVisible="false"
+                                prefWidth="115"
+                                prefHeight="165"
+                                maxWidth="115"
+                                maxHeight="165" />
+
+                            <Circle radius="31" styleClass="donut-center" />
+                        </StackPane>
+
+                        <VBox fx:id="categoryLegendBox"
+                            spacing="6"
+                            alignment="CENTER_LEFT"
+                            prefWidth="145" />
+                    </HBox>
+                </VBox>
+
+                <VBox styleClass="dashboard-panel" prefWidth="260" prefHeight="260" maxHeight="260">
+                    <Label text="Top Selling Products" styleClass="panel-title" />
+
+                    <VBox fx:id="topProductsBox"
+                        spacing="6"
+                        style="-fx-padding: 6 0 0 0;" />
+
+                </VBox>
+
+            </HBox>
+
+            <!-- ROW 2 -->
+            <HBox spacing="12" alignment="CENTER">
+
+
+                <VBox styleClass="dashboard-panel" prefWidth="480" prefHeight="290" maxHeight="290">
+                    <Label text="Recent Orders" styleClass="panel-title" />
+
+                    <GridPane styleClass="orders-header" hgap="8">
+                        <columnConstraints>
+                            <ColumnConstraints percentWidth="18" />
+                            <ColumnConstraints percentWidth="27" />
+                            <ColumnConstraints percentWidth="20" />
+                            <ColumnConstraints percentWidth="17" />
+                            <ColumnConstraints percentWidth="18" />
+                        </columnConstraints>
+
+                        <Label text="Order ID" styleClass="orders-header-text"
+                            GridPane.columnIndex="0" />
+                        <Label text="Customer" styleClass="orders-header-text"
+                            GridPane.columnIndex="1" />
+                        <Label text="Date" styleClass="orders-header-text" GridPane.columnIndex="2" />
+                        <Label text="Total" styleClass="orders-header-text" GridPane.columnIndex="3" />
+                        <Label text="Status" styleClass="orders-header-text"
+                            GridPane.columnIndex="4" />
+                    </GridPane>
+
+                    <ScrollPane fitToWidth="true"
+                        hbarPolicy="NEVER"
+                        vbarPolicy="AS_NEEDED"
+                        prefHeight="185"
+                        maxHeight="185"
+                        styleClass="delivery-scroll">
+
+                        <VBox fx:id="recentOrdersBox"
+                            spacing="3"
+                            style="-fx-padding: 5 0 0 0;" />
+
+                    </ScrollPane>
+
+                    <HBox alignment="CENTER_RIGHT"
+                        style="-fx-padding: 12 0 0 0;">
+                        <Label fx:id="viewAllOrdersLabel"
+                            text="View All Orders  →"
+                            styleClass="view-all-link"
+                            onMouseClicked="#handleViewAllOrders" />
+                    </HBox>
+                </VBox>
+
+                <VBox styleClass="dashboard-panel" prefWidth="310" prefHeight="290" maxHeight="290">
+                    <Label text="Inventory Alerts" styleClass="panel-title" />
+
+                    <ScrollPane fitToWidth="true"
+                        hbarPolicy="NEVER"
+                        vbarPolicy="AS_NEEDED"
+                        prefHeight="185"
+                        maxHeight="185"
+                        styleClass="delivery-scroll">
+
+                        <VBox fx:id="inventoryAlertsBox"
+                            spacing="7"
+                            style="-fx-padding: 10 0 0 0;" />
+
+                    </ScrollPane>
+
+                    <HBox alignment="CENTER_RIGHT" style="-fx-padding: 6 0 0 0;">
+                        <Label fx:id="viewAllProductsLabel"
+                            text="View All Products  →"
+                            styleClass="view-all-link"
+                            onMouseClicked="#handleViewAllProducts" />
+                    </HBox>
+                </VBox>
+
+                <VBox styleClass="dashboard-panel"
+                    prefWidth="330"
+                    prefHeight="290"
+                    maxHeight="290">
+
+                    <HBox alignment="CENTER_LEFT">
+                        <Label text="Recent Deliveries" styleClass="panel-title" />
+                        <Region HBox.hgrow="ALWAYS" />
+                        <Label text="🚚" styleClass="delivery-main-icon" />
+                    </HBox>
+
+                    <HBox alignment="CENTER" spacing="6" styleClass="delivery-stats-row">
+
+                        <StackPane prefWidth="75" prefHeight="75"
+                            minWidth="75" minHeight="75"
+                            maxWidth="75" maxHeight="75"
+                            style="-fx-background-radius: 35;
+                                    -fx-border-radius: 35;
+                                    -fx-border-width: 1;
+                                    -fx-border-color: #6fe37b;
+                                    -fx-padding: 2;
+                                    -fx-effect:dropshadow(gaussian, rgba(111,227,123,0.55), 20, 0.35, 0, 0);">
+
+                            <VBox alignment="CENTER" spacing="3">
+                                <Label text="✓"
+                                    style="-fx-text-fill:#6fe37b; -fx-font-size:20px; -fx-font-weight:bold;" />
+
+                                <Label fx:id="deliveredCountLabel"
+                                    text="0"
+                                    style="-fx-text-fill:#6fe37b; -fx-font-size:20px; -fx-font-weight:bold;" />
+
+                                <Label text="Delivered"
+                                    style="-fx-text-fill:white; -fx-font-size:10px;" />
+                            </VBox>
+                        </StackPane>
+
+                        <StackPane prefWidth="75" prefHeight="75"
+                            minWidth="75" minHeight="75"
+                            maxWidth="75" maxHeight="75"
+                            style="-fx-background-radius: 35;
+                                    -fx-border-radius: 35;
+                                    -fx-border-width: 1;
+                                    -fx-border-color: #f5b735;
+                                    -fx-padding: 2;
+                                    -fx-effect:dropshadow(gaussian, rgba(245,183,53,0.55), 20, 0.35, 0, 0);">
+
+                            <VBox alignment="CENTER" spacing="3">
+                                <Label text="◷"
+                                    style="-fx-text-fill:#f5b735; -fx-font-size:20px; -fx-font-weight:bold;" />
+
+                                <Label fx:id="pendingCountLabel"
+                                    text="0"
+                                    style="-fx-text-fill:#f5b735; -fx-font-size:20px; -fx-font-weight:bold;" />
+
+                                <Label text="Pending"
+                                    style="-fx-text-fill:white; -fx-font-size:10px;" />
+                            </VBox>
+                        </StackPane>
+
+                        <StackPane prefWidth="75" prefHeight="75"
+                            minWidth="75" minHeight="75"
+                            maxWidth="75" maxHeight="75"
+                            style="-fx-background-radius: 35;
+                                                        -fx-border-radius: 35;
+                                                        -fx-border-width: 1;
+                                                        -fx-border-color: #ff5a5a;
+                                                        -fx-padding: 2;
+                                                        -fx-effect:dropshadow(gaussian, rgba(255,90,90,0.55), 20, 0.35, 0, 0);">
+
+                            <VBox alignment="CENTER" spacing="3">
+                                <Label text="×"
+                                    style="-fx-text-fill:#ff5a5a; -fx-font-size:20px; -fx-font-weight:bold;" />
+
+                                <Label fx:id="cancelledCountLabel"
+                                    text="0"
+                                    style="-fx-text-fill:#ff5a5a; -fx-font-size:20px; -fx-font-weight:bold;" />
+
+                                <Label text="Cancelled"
+                                    style="-fx-text-fill:white; -fx-font-size:10px;" />
+                            </VBox>
+                        </StackPane>
+
+                    </HBox>
+
+                    <Label text="Latest Deliveries" styleClass="delivery-section-title" />
+
+                    <ScrollPane fitToWidth="true"
+                        hbarPolicy="NEVER"
+                        vbarPolicy="AS_NEEDED"
+                        prefHeight="132"
+                        maxHeight="132"
+                        styleClass="delivery-scroll">
+
+                        <VBox fx:id="recentDeliveriesBox"
+                            spacing="6"
+                            styleClass="delivery-list" />
+
+                    </ScrollPane>
+
+                    <HBox alignment="CENTER_RIGHT"
+                        style="-fx-padding: 12 0 0 0;">
+                        <Label fx:id="viewAllDeliveriesLabel"
+                            text="View All Deliveries  →"
+                            styleClass="view-all-link"
+                            onMouseClicked="#handleViewAllDeliveries" />
+                    </HBox>
+
+                </VBox>
+
+            </HBox>
+
+        </VBox>
+    </VBox>
+</ScrollPane>
+        
