@@ -1,6 +1,7 @@
 package com.furniture.ui;
 
 import java.io.File;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -122,9 +123,10 @@ public class ProductController {
     private Button chooseImageBtn;
     @FXML
     private Label selectedImageLabel;
+    @FXML
+    private Button saveProductBtn;
 
     private File selectedImageFile;
-    private String selectedImagePath;
 
     @FXML
     private void initialize() {
@@ -138,6 +140,7 @@ public class ProductController {
 
         setupAddProductButtons();
         setupImageChooser();
+        setupSaveProduct();
 
         applyFiltersBtn.setOnAction(e -> applyFilters());
         resetFiltersBtn.setOnAction(e -> resetFilters());
@@ -162,6 +165,7 @@ public class ProductController {
     }
 
     private void setupProductTable() {
+
         colNo.setCellValueFactory(new PropertyValueFactory<>("no"));
         colID.setCellValueFactory(new PropertyValueFactory<>("productID"));
         colImage.setCellValueFactory(new PropertyValueFactory<>("imagePath"));
@@ -235,6 +239,56 @@ public class ProductController {
                 selectedImageLabel.setText(file.getName());
             }
         });
+    }
+
+    private void setupSaveProduct() {
+        saveProductBtn.setOnAction(e -> addProduct());
+    }
+
+    private void addProduct() {
+        try {
+            String name = addProductNameField.getText().trim();
+            double price = Double.parseDouble(addPriceField.getText().trim());
+            String categoryName = addCategoryCombo.getValue();
+            String color = addColorField.getText().trim();
+            String material = addMaterialField.getText().trim();
+            String status = addStatusCombo.getValue();
+            double stock = Double.parseDouble(addStockField.getText().trim());
+
+            if (name.isEmpty() || categoryName == null || color.isEmpty()
+                    || material.isEmpty() || selectedImageFile == null) {
+                System.out.println("Please fill all fields and choose image.");
+                return;
+            }
+
+            int categoryId = productDAO.getCategoryIdByName(categoryName);
+
+            String imagePath = saveImageToResources(selectedImageFile);
+
+            Product product = new Product(
+                    name,
+                    price,
+                    categoryId,
+                    color,
+                    material,
+                    "No description",
+                    status,
+                    LocalDateTime.now(),
+                    imagePath);
+
+            productDAO.insertProduct(product, stock);
+
+            clearAddForm();
+            addProductPanel.setVisible(false);
+            addProductPanel.setManaged(false);
+
+            loadProductsTable();
+            loadProductStats();
+            loadProductFilters();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void clearAddForm() {
@@ -430,4 +484,32 @@ public class ProductController {
         panel.setVisible(true);
         panel.setManaged(true);
     }
+
+    private String saveImageToResources(File imageFile) {
+
+        try {
+
+            String fileName = System.currentTimeMillis()
+                    + "_" + imageFile.getName();
+
+            File destination = new File(
+                    "src/main/resources/com/furniture/images/products/",
+                    fileName);
+
+            destination.getParentFile().mkdirs();
+
+            java.nio.file.Files.copy(
+                    imageFile.toPath(),
+                    destination.toPath(),
+                    java.nio.file.StandardCopyOption.REPLACE_EXISTING);
+
+            return destination.getAbsolutePath();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
 }

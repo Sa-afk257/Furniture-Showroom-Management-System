@@ -371,4 +371,85 @@ public class ProductDAO {
         return 0;
     }
 
+    public int getCategoryIdByName(String categoryName) {
+        String sql = """
+                SELECT CategoryID
+                FROM Category
+                WHERE CategoryName = ?
+                """;
+
+        try (Connection conn = DBConnection.getConnection();
+                PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, categoryName);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt("CategoryID");
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return -1;
+    }
+
+    public void insertProduct(Product product, double stock) {
+        String insertProductSql = """
+                INSERT INTO Product
+                (ProductName, price, CategoryID, color, material, description, ProductStatus, CreatedDate, imagePath)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+                """;
+
+        String insertInventorySql = """
+                INSERT INTO Inventory
+                (ProductID, quantity)
+                VALUES (?, ?)
+                """;
+
+        try (Connection conn = DBConnection.getConnection()) {
+
+            conn.setAutoCommit(false);
+
+            try (PreparedStatement ps = conn.prepareStatement(
+                    insertProductSql,
+                    PreparedStatement.RETURN_GENERATED_KEYS)) {
+
+                ps.setString(1, product.getProductName());
+                ps.setDouble(2, product.getPrice());
+                ps.setInt(3, product.getCategory_id());
+                ps.setString(4, product.getColor());
+                ps.setString(5, product.getMaterial());
+                ps.setString(6, product.getDescription());
+                ps.setString(7, product.getStatus());
+                ps.setObject(8, product.getCreatedDate());
+                ps.setString(9, product.getImagePath());
+
+                ps.executeUpdate();
+
+                try (ResultSet rs = ps.getGeneratedKeys()) {
+                    if (rs.next()) {
+                        int productId = rs.getInt(1);
+
+                        try (PreparedStatement ps2 = conn.prepareStatement(insertInventorySql)) {
+                            ps2.setInt(1, productId);
+                            ps2.setDouble(2, stock);
+                            ps2.executeUpdate();
+                        }
+                    }
+                }
+
+                conn.commit();
+
+            } catch (Exception e) {
+                conn.rollback();
+                e.printStackTrace();
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

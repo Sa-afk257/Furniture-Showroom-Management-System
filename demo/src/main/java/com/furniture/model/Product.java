@@ -53,6 +53,28 @@ public class Product {
         this.imagePath = imagePath;
     }
 
+    public Product(
+            String productName,
+            double price,
+            int category_id,
+            String color,
+            String material,
+            String description,
+            String status,
+            LocalDateTime createdDate,
+            String imagePath) {
+
+        this.productName = productName;
+        this.price = price;
+        this.category_id = category_id;
+        this.color = color;
+        this.material = material;
+        this.description = description;
+        this.status = status;
+        this.CreatedDate = createdDate;
+        this.imagePath = imagePath;
+    }
+
     public int getProductID() {
         return productID;
     }

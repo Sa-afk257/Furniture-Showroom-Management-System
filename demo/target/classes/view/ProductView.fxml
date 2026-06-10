@@ -25,7 +25,7 @@
 
                 <ScrollPane fitToWidth="true"
                         fitToHeight="false"
-                        hbarPolicy="AS_NEEDED"
+                        hbarPolicy="NEVER"
                         vbarPolicy="NEVER"
                         styleClass="dashboard-scroll">
 
@@ -485,14 +485,16 @@
 
                                                 </VBox>
 
-                                                <!-- TABLE -->
-                                                <AnchorPane HBox.hgrow="ALWAYS">
+                                                <!-- TABLE + ACTION BUTTONS -->
+                                                <VBox HBox.hgrow="ALWAYS"
+                                                        spacing="10"
+                                                        minWidth="0">
+
                                                         <TableView fx:id="productTable"
                                                                 styleClass="product-table"
-                                                                AnchorPane.topAnchor="0.0"
-                                                                AnchorPane.bottomAnchor="0.0"
-                                                                AnchorPane.leftAnchor="0.0"
-                                                                AnchorPane.rightAnchor="0.0">
+                                                                prefHeight="430"
+                                                                maxHeight="430"
+                                                                maxWidth="Infinity">
 
                                                                 <columns>
                                                                         <TableColumn fx:id="colNo"
@@ -540,7 +542,27 @@
 
                                                         </TableView>
 
-                                                </AnchorPane>
+                                                        <HBox spacing="14"
+                                                                alignment="CENTER_LEFT"
+                                                                styleClass="table-actions-bar">
+
+                                                                <Button text="↶  UNDO"
+                                                                        styleClass="action-dark-btn" />
+
+                                                                <Button text="↷  REDO"
+                                                                        styleClass="action-dark-btn" />
+
+                                                                <Button text="⟳  RESET"
+                                                                        styleClass="action-reset-btn" />
+
+                                                                <Region HBox.hgrow="ALWAYS" />
+
+                                                                <Button text="▣  SAVE"
+                                                                        styleClass="action-save-btn" />
+
+                                                        </HBox>
+
+                                                </VBox>
                                         </HBox>
                                 </VBox>
                         </content>

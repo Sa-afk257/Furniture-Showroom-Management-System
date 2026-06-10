@@ -599,3 +599,39 @@
 .luxury-cancel-btn:hover {
     -fx-background-color: rgba(214,156,55,0.08);
 }
+
+.table-actions-bar {
+    -fx-padding: 14 18 14 18;
+    -fx-background-color: linear-gradient(to bottom, #111111, #070707);
+    -fx-border-color: #7a5518;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+}
+
+.action-dark-btn {
+    -fx-background-color: #111111;
+    -fx-border-color: #4b3714;
+    -fx-border-radius: 7;
+    -fx-background-radius: 7;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 9 22;
+}
+
+.action-reset-btn {
+    -fx-background-color: #120707;
+    -fx-border-color: #8b2c2c;
+    -fx-border-radius: 7;
+    -fx-background-radius: 7;
+    -fx-text-fill: #ff6b6b;
+    -fx-font-weight: bold;
+    -fx-padding: 9 22;
+}
+
+.action-save-btn {
+    -fx-background-color: linear-gradient(to bottom, #f7c763, #d99a32);
+    -fx-background-radius: 7;
+    -fx-text-fill: black;
+    -fx-font-weight: bold;
+    -fx-padding: 10 42;
+}

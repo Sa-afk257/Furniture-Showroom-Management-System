@@ -24,7 +24,9 @@
 
         <!-- LEFT SIDEBAR -->
 
-        <VBox prefWidth="245"
+        <VBox prefWidth="220"
+            minWidth="220"
+            maxWidth="220"
             spacing="18"
             styleClass="sidebar">
 
