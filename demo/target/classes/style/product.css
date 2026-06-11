@@ -616,6 +616,7 @@
     -fx-text-fill: white;
     -fx-font-weight: bold;
     -fx-padding: 9 22;
+    -fx-font-size: 15px;
 }
 
 .action-reset-btn {
@@ -626,6 +627,7 @@
     -fx-text-fill: #ff6b6b;
     -fx-font-weight: bold;
     -fx-padding: 9 22;
+    -fx-font-size: 15px;
 }
 
 .action-save-btn {
@@ -634,4 +636,71 @@
     -fx-text-fill: black;
     -fx-font-weight: bold;
     -fx-padding: 10 42;
+    -fx-font-size: 15px;
+}
+
+.action-save-btn:hover,
+.action-dark-btn:hover,
+.action-reset-btn:hover {
+    -fx-background-color: #2a2a2a;
+    -fx-border-color: #f8d77a;
+    -fx-text-fill: #fff4cf;
+    -fx-cursor: hand;
+}
+
+.combo-box-popup .list-view {
+    -fx-background-color: #111111;
+}
+
+.combo-box-popup .list-cell {
+    -fx-background-color: #111111;
+    -fx-text-fill: white;
+}
+
+.combo-box-popup .list-cell:hover {
+    -fx-background-color: #d8a646;
+    -fx-text-fill: black;
+}
+
+.combo-box-popup .list-cell:selected {
+    -fx-background-color: #d8a646;
+    -fx-text-fill: black;
+}
+
+.table-edit-btn,
+.table-delete-btn {
+    -fx-background-color: #111111;
+    -fx-border-color: #c28b2c;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+    -fx-text-fill: #f8d77a;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-padding: 5 9;
+}
+
+.table-edit-btn:hover,
+.table-delete-btn:hover {
+    -fx-background-color: #2a2a2a;
+    -fx-border-color: #f8d77a;
+    -fx-text-fill: #fff4cf;
+    -fx-cursor: hand;
+}
+
+.table-delete-btn {
+    -fx-border-color: #8b2c2c;
+    -fx-text-fill: #ff6b6b;
+}
+
+.validation-error {
+    -fx-border-color: #ff4d4d;
+    -fx-border-width: 2px;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+}
+
+.warning-label {
+    -fx-text-fill: #ff4d4d;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
 }

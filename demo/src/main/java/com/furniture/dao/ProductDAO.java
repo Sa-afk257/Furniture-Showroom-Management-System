@@ -398,10 +398,10 @@ public class ProductDAO {
 
     public void insertProduct(Product product, double stock) {
         String insertProductSql = """
-                INSERT INTO Product
-                (ProductName, price, CategoryID, color, material, description, ProductStatus, CreatedDate, imagePath)
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
-                """;
+                                INSERT INTO Product
+                (ProductName, price, CategoryID, color, material, ProductStatus, CreatedDate, imagePath)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+                                """;
 
         String insertInventorySql = """
                 INSERT INTO Inventory
@@ -422,7 +422,6 @@ public class ProductDAO {
                 ps.setInt(3, product.getCategory_id());
                 ps.setString(4, product.getColor());
                 ps.setString(5, product.getMaterial());
-                ps.setString(6, product.getDescription());
                 ps.setString(7, product.getStatus());
                 ps.setObject(8, product.getCreatedDate());
                 ps.setString(9, product.getImagePath());
@@ -451,5 +450,88 @@ public class ProductDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public boolean deleteProduct(int productId) {
+
+        String sql = "DELETE FROM Product WHERE ProductID = ?";
+
+        try (
+                Connection conn = DBConnection.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, productId);
+
+            return stmt.executeUpdate() > 0;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+
+    public boolean updateProduct(Product product) {
+
+        String productSql = """
+                UPDATE Product
+                SET ProductName = ?,
+                    price = ?,
+                    CategoryID = ?,
+                    color = ?,
+                    material = ?,
+                    ProductStatus = ?,
+                    imagePath = ?
+                WHERE ProductID = ?
+                """;
+
+        String inventorySql = """
+                UPDATE Inventory
+                SET quantity = ?
+                WHERE ProductID = ?
+                """;
+
+        try (Connection conn = DBConnection.getConnection()) {
+
+            conn.setAutoCommit(false);
+
+            try {
+
+                try (PreparedStatement ps = conn.prepareStatement(productSql)) {
+
+                    ps.setString(1, product.getProductName());
+                    ps.setDouble(2, product.getPrice());
+                    ps.setInt(3, product.getCategory_id());
+                    ps.setString(4, product.getColor());
+                    ps.setString(5, product.getMaterial());
+                    ps.setString(6, product.getStatus());
+                    ps.setString(7, product.getImagePath());
+                    ps.setInt(8, product.getProductID());
+
+                    ps.executeUpdate();
+                }
+
+                try (PreparedStatement ps = conn.prepareStatement(inventorySql)) {
+
+                    ps.setDouble(1, product.getStock());
+                    ps.setInt(2, product.getProductID());
+
+                    ps.executeUpdate();
+                }
+
+                conn.commit();
+                return true;
+
+            } catch (Exception e) {
+
+                conn.rollback();
+                e.printStackTrace();
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return false;
     }
 }

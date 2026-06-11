@@ -346,7 +346,8 @@
                                                         managed="false">
 
                                                         <VBox spacing="3" styleClass="add-title-box">
-                                                                <Label text="✚  ADD PRODUCT"
+                                                                <Label fx:id="formTitleLabel"
+                                                                        text="✚  ADD PRODUCT"
                                                                         styleClass="add-panel-title" />
                                                         </VBox>
 
@@ -361,6 +362,13 @@
                                                                                 <Label
                                                                                         text="Product Name"
                                                                                         styleClass="form-label" />
+                                                                                <Label
+                                                                                        fx:id="nameWarningLabel"
+                                                                                        text="⚠"
+                                                                                        visible="false"
+                                                                                        managed="false"
+                                                                                        styleClass="warning-label" />
+
                                                                         </HBox>
                                                                         <TextField
                                                                                 fx:id="addProductNameField"
@@ -376,6 +384,13 @@
                                                                                         styleClass="form-icon" />
                                                                                 <Label text="Price"
                                                                                         styleClass="form-label" />
+                                                                                <Label
+                                                                                        fx:id="priceWarningLabel"
+                                                                                        text="⚠"
+                                                                                        visible="false"
+                                                                                        managed="false"
+                                                                                        styleClass="warning-label" />
+
                                                                         </HBox>
                                                                         <TextField
                                                                                 fx:id="addPriceField"
@@ -392,6 +407,13 @@
                                                                                 <Label
                                                                                         text="Category"
                                                                                         styleClass="form-label" />
+                                                                                <Label
+                                                                                        fx:id="categoryWarningLabel"
+                                                                                        text="⚠"
+                                                                                        visible="false"
+                                                                                        managed="false"
+                                                                                        styleClass="warning-label" />
+
                                                                         </HBox>
                                                                         <ComboBox
                                                                                 fx:id="addCategoryCombo"
@@ -408,6 +430,13 @@
                                                                                         styleClass="form-icon" />
                                                                                 <Label text="Color"
                                                                                         styleClass="form-label" />
+                                                                                <Label
+                                                                                        fx:id="colorWarningLabel"
+                                                                                        text="⚠"
+                                                                                        visible="false"
+                                                                                        managed="false"
+                                                                                        styleClass="warning-label" />
+
                                                                         </HBox>
                                                                         <TextField
                                                                                 fx:id="addColorField"
@@ -424,6 +453,13 @@
                                                                                 <Label
                                                                                         text="Material"
                                                                                         styleClass="form-label" />
+                                                                                <Label
+                                                                                        fx:id="materialWarningLabel"
+                                                                                        text="⚠"
+                                                                                        visible="false"
+                                                                                        managed="false"
+                                                                                        styleClass="warning-label" />
+
                                                                         </HBox>
                                                                         <TextField
                                                                                 fx:id="addMaterialField"
@@ -439,6 +475,13 @@
                                                                                         styleClass="form-icon" />
                                                                                 <Label text="Status"
                                                                                         styleClass="form-label" />
+                                                                                <Label
+                                                                                        fx:id="statusWarningLabel"
+                                                                                        text="⚠"
+                                                                                        visible="false"
+                                                                                        managed="false"
+                                                                                        styleClass="warning-label" />
+
                                                                         </HBox>
                                                                         <ComboBox
                                                                                 fx:id="addStatusCombo"
@@ -451,9 +494,23 @@
                                                                         maxWidth="Infinity"
                                                                         styleClass="luxury-cancel-btn" />
 
-                                                                <Label fx:id="selectedImageLabel"
-                                                                        text="No image selected"
-                                                                        styleClass="add-panel-subtitle" />
+
+                                                                <HBox spacing="8"
+                                                                        alignment="CENTER_LEFT">
+
+                                                                        <Label
+                                                                                fx:id="selectedImageLabel"
+                                                                                text="No image selected" />
+
+                                                                        <Label
+                                                                                fx:id="imageWarningLabel"
+                                                                                text="⚠"
+                                                                                visible="false"
+                                                                                managed="false"
+                                                                                styleClass="warning-label" />
+
+                                                                </HBox>
+
 
                                                                 <VBox spacing="3"
                                                                         styleClass="form-field-box">
@@ -464,6 +521,13 @@
                                                                                 <Label
                                                                                         text="Initial Stock"
                                                                                         styleClass="form-label" />
+                                                                                <Label
+                                                                                        fx:id="stockWarningLabel"
+                                                                                        text="⚠"
+                                                                                        visible="false"
+                                                                                        managed="false"
+                                                                                        styleClass="warning-label" />
+
                                                                         </HBox>
                                                                         <TextField
                                                                                 fx:id="addStockField"
@@ -546,18 +610,18 @@
                                                                 alignment="CENTER_LEFT"
                                                                 styleClass="table-actions-bar">
 
-                                                                <Button text="↶  UNDO"
+                                                                <Button fx:id="undoBtn" text="↶  UNDO"
                                                                         styleClass="action-dark-btn" />
 
-                                                                <Button text="↷  REDO"
+                                                                <Button fx:id="redoBtn" text="↷  REDO"
                                                                         styleClass="action-dark-btn" />
 
-                                                                <Button text="⟳  RESET"
+                                                                <Button fx:id="resetBtn" text="⟳  RESET"
                                                                         styleClass="action-reset-btn" />
 
                                                                 <Region HBox.hgrow="ALWAYS" />
 
-                                                                <Button text="▣  SAVE"
+                                                                <Button fx:id="saveAllBtn" text="💾  SAVE"
                                                                         styleClass="action-save-btn" />
 
                                                         </HBox>
