@@ -16,7 +16,10 @@ public class Product {
     private String imagePath;
     private int no;
     private String categoryName;
+    private String warehouseName;
+    private String supplierName;
     private double stock;
+    
 
     public Product() {
         super();
@@ -24,7 +27,7 @@ public class Product {
     }
 
     public Product(int no, int productID, String productName, double price,
-            String categoryName, String color, String material,
+            String categoryName, String warehouseName, String supplierName, String color, String material,
             String status, String imagePath, double stock) {
 
         this.no = no;
@@ -32,6 +35,8 @@ public class Product {
         this.productName = productName;
         this.price = price;
         this.categoryName = categoryName;
+        this.warehouseName = warehouseName;
+        this.supplierName = supplierName;
         this.color = color;
         this.material = material;
         this.status = status;
@@ -177,6 +182,22 @@ public class Product {
 
     public void setStock(double stock) {
         this.stock = stock;
+    }
+
+    public String getWarehouseName() {
+        return warehouseName;
+    }
+
+    public void setWarehouseName(String warehouseName) {
+        this.warehouseName = warehouseName;
+    }
+
+    public String getSupplierName() {
+        return supplierName;
+    }
+
+    public void setSupplierName(String supplierName) {
+        this.supplierName = supplierName;
     }
 
     @Override

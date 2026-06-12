@@ -16,6 +16,8 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.application.Platform;
+
+import java.io.InputStream;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
@@ -79,7 +81,6 @@ public class DashboardController {
 
     @FXML
     public void initialize() {
-
 
         loadDashboardStats();
         loadGrowthStats();
@@ -345,12 +346,24 @@ public class DashboardController {
                                 "-fx-border-radius: 10;" +
                                 "-fx-padding: 6 8 6 8;");
 
-                Image image = new Image(
-                        getClass()
-                                .getResourceAsStream(
-                                        "/images/" + product.getImagePath()));
+                ImageView imageView = new ImageView();
 
-                ImageView imageView = new ImageView(image);
+                String imagePath = product.getImagePath();
+
+                InputStream stream = null;
+
+                if (imagePath != null && !imagePath.isEmpty()) {
+                    stream = getClass().getResourceAsStream(imagePath);
+                }
+
+                if (stream == null) {
+                    stream = getClass().getResourceAsStream("/images/products/default.png");
+                }
+
+                if (stream != null) {
+                    Image image = new Image(stream);
+                    imageView.setImage(image);
+                }
 
                 imageView.setFitWidth(42);
                 imageView.setFitHeight(42);

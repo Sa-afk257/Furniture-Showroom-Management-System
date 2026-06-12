@@ -1,9 +1,12 @@
 package com.furniture.ui;
 
 import java.io.File;
+import java.io.InputStream;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Stack;
 
@@ -28,6 +31,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.scene.Node;
+import java.io.InputStream;
+import org.apache.poi.ss.usermodel.*;
 
 public class ProductController {
 
@@ -90,6 +95,10 @@ public class ProductController {
     @FXML
     private TableColumn<Product, String> colCategory;
     @FXML
+    private TableColumn<Product, String> colWarehouse;
+    @FXML
+    private TableColumn<Product, String> colSupplier;
+    @FXML
     private TableColumn<Product, String> colColor;
     @FXML
     private TableColumn<Product, String> colMaterial;
@@ -114,6 +123,10 @@ public class ProductController {
     private ComboBox<String> addCategoryCombo;
     @FXML
     private ComboBox<String> addStatusCombo;
+    @FXML
+    private ComboBox<String> addWarehouseCombo;
+    @FXML
+    private ComboBox<String> addSupplierCombo;
 
     @FXML
     private Button cancelAddBtn;
@@ -139,6 +152,10 @@ public class ProductController {
     private Label priceWarningLabel;
     @FXML
     private Label categoryWarningLabel;
+    @FXML
+    private Label warehouseWarningLabel;
+    @FXML
+    private Label supplierWarningLabel;
     @FXML
     private Label colorWarningLabel;
     @FXML
@@ -168,6 +185,9 @@ public class ProductController {
     private Stack<List<Product>> redoStack = new Stack<>();
     private List<Product> pendingDeletes = new ArrayList<>();
     private List<Product> pendingUpdates = new ArrayList<>();
+    private List<PendingProductAdd> pendingAdds = new ArrayList<>();
+
+    private Map<String, String> colorMap = new HashMap<>();
 
     private Product productBeingUpdated = null;
     private boolean clearingForm = false;
@@ -175,6 +195,7 @@ public class ProductController {
     @FXML
     private void initialize() {
 
+        loadColorsFromExcel();
         setupProductTable();
         loadProductsTable();
         loadProductStats();
@@ -216,9 +237,59 @@ public class ProductController {
         colNo.setCellValueFactory(new PropertyValueFactory<>("no"));
         colID.setCellValueFactory(new PropertyValueFactory<>("productID"));
         colImage.setCellValueFactory(new PropertyValueFactory<>("imagePath"));
+
+        colImage.setCellFactory(column -> new javafx.scene.control.TableCell<Product, String>() {
+
+            private final javafx.scene.image.ImageView imageView = new javafx.scene.image.ImageView();
+
+            {
+                imageView.setFitWidth(55);
+                imageView.setFitHeight(45);
+                imageView.setPreserveRatio(true);
+            }
+
+            @Override
+            protected void updateItem(String imagePath, boolean empty) {
+                super.updateItem(imagePath, empty);
+
+                if (empty || imagePath == null || imagePath.isEmpty()) {
+                    setGraphic(null);
+                    return;
+                }
+
+                try {
+                    javafx.scene.image.Image image;
+
+                    java.net.URL url = getClass().getResource(imagePath);
+
+                    if (url == null) {
+                        setGraphic(null);
+                        setText("No image");
+                        return;
+                    }
+
+                    image = new javafx.scene.image.Image(url.toExternalForm());
+
+                    imageView.setImage(image);
+                    setGraphic(imageView);
+                    setText(null);
+
+                    imageView.setImage(image);
+                    setGraphic(imageView);
+                    setText(null);
+
+                } catch (Exception e) {
+                    setGraphic(null);
+                    setText("No image");
+                }
+            }
+        });
+
         colName.setCellValueFactory(new PropertyValueFactory<>("productName"));
         colPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
         colCategory.setCellValueFactory(new PropertyValueFactory<>("categoryName"));
+        colWarehouse.setCellValueFactory(new PropertyValueFactory<>("warehouseName"));
+        colSupplier.setCellValueFactory(new PropertyValueFactory<>("supplierName"));
         colColor.setCellValueFactory(new PropertyValueFactory<>("color"));
         colMaterial.setCellValueFactory(new PropertyValueFactory<>("material"));
         colQuantity.setCellValueFactory(new PropertyValueFactory<>("stock"));
@@ -295,6 +366,39 @@ public class ProductController {
         productTable.refresh();
     }
 
+    private void loadColorsFromExcel() {
+
+        try {
+
+            InputStream is = getClass().getResourceAsStream("/data/colorsManual.xlsx");
+
+            Workbook workbook = WorkbookFactory.create(is);
+
+            Sheet sheet = workbook.getSheetAt(0);
+
+            for (int i = 1; i <= sheet.getLastRowNum(); i++) {
+
+                Row row = sheet.getRow(i);
+
+                if (row == null)
+                    continue;
+
+                String hex = row.getCell(0).getStringCellValue().trim();
+
+                String colorName = row.getCell(1).getStringCellValue().trim();
+
+                colorName = colorName.replace("(W3C)", "").trim();
+
+                colorMap.put(colorName.toLowerCase(), hex);
+            }
+
+            workbook.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     private void loadProductsTable() {
         List<Product> products = productDAO.getAllProductsForTable();
         originalProducts.clear();
@@ -328,11 +432,17 @@ public class ProductController {
     }
 
     private void loadAddProductFormData() {
+
         addCategoryCombo.getItems().setAll(productDAO.getCategories());
         addCategoryCombo.getSelectionModel().selectFirst();
 
+        addWarehouseCombo.getItems().setAll(productDAO.getWarehouses());
+        addWarehouseCombo.getSelectionModel().selectFirst();
+
+        addSupplierCombo.getItems().setAll(productDAO.getSuppliers());
+        addSupplierCombo.getSelectionModel().selectFirst();
+
         addStatusCombo.getItems().setAll("available", "outOfStock");
-        addStatusCombo.getSelectionModel().selectFirst();
         addStatusCombo.getSelectionModel().select("available");
     }
 
@@ -397,6 +507,8 @@ public class ProductController {
         String name = addProductNameField.getText().trim();
         double price = Double.parseDouble(addPriceField.getText().trim());
         String categoryName = addCategoryCombo.getValue();
+        String warehouseName = addWarehouseCombo.getValue();
+        String supplierName = addSupplierCombo.getValue();
         String color = addColorField.getText().trim();
         String material = addMaterialField.getText().trim();
         String status = addStatusCombo.getValue();
@@ -404,6 +516,8 @@ public class ProductController {
 
         int categoryId = productDAO.getCategoryIdByName(categoryName);
         String imagePath = saveImageToResources(selectedImageFile);
+        int warehouseId = productDAO.getWarehouseIdByName(warehouseName);
+        int supplierId = productDAO.getSupplierIdByName(supplierName);
 
         Product product = new Product(
                 name,
@@ -421,12 +535,34 @@ public class ProductController {
         product.setNo(productTable.getItems().size() + 1);
         product.setCategoryName(categoryName);
         product.setStock(stock);
+        product.setWarehouseName(warehouseName);
+        product.setSupplierName(supplierName);
 
-        pendingProducts.add(product);
+        pendingAdds.add(
+                new PendingProductAdd(
+                        product,
+                        stock,
+                        warehouseId,
+                        supplierId));
+
         productTable.getItems().add(product);
-
+        loadProductFilters();
         redoStack.clear();
         clearAddForm();
+    }
+
+    private static class PendingProductAdd {
+        Product product;
+        double stock;
+        int warehouseId;
+        int supplierId;
+
+        PendingProductAdd(Product product, double stock, int warehouseId, int supplierId) {
+            this.product = product;
+            this.stock = stock;
+            this.warehouseId = warehouseId;
+            this.supplierId = supplierId;
+        }
     }
 
     private boolean validateAddProductForm() {
@@ -436,6 +572,8 @@ public class ProductController {
         valid &= validateTextField(addProductNameField, nameWarningLabel);
         valid &= validateNumberField(addPriceField, priceWarningLabel);
         valid &= validateComboBox(addCategoryCombo, categoryWarningLabel);
+        valid &= validateComboBox(addWarehouseCombo, warehouseWarningLabel);
+        valid &= validateComboBox(addSupplierCombo, supplierWarningLabel);
         valid &= validateTextField(addColorField, colorWarningLabel);
         valid &= validateTextField(addMaterialField, materialWarningLabel);
         valid &= validateComboBox(addStatusCombo, statusWarningLabel);
@@ -558,6 +696,8 @@ public class ProductController {
         addStockField.clear();
 
         addCategoryCombo.getSelectionModel().clearSelection();
+        addWarehouseCombo.getSelectionModel().selectFirst();
+        addSupplierCombo.getSelectionModel().selectFirst();
         addStatusCombo.getSelectionModel().selectFirst();
 
         selectedImageFile = null;
@@ -737,26 +877,14 @@ public class ProductController {
 
             circle.getStyleClass().add("color-circle");
 
-            switch (color.toLowerCase()) {
+            String key = color.toLowerCase().trim();
 
-                case "black" ->
-                    circle.setStyle("-fx-background-color: #000000;");
+            String hex = colorMap.getOrDefault(
+                    key,
+                    "#999999");
 
-                case "brown" ->
-                    circle.setStyle("-fx-background-color: #6d4c41;");
-
-                case "gray" ->
-                    circle.setStyle("-fx-background-color: #808080;");
-
-                case "white" ->
-                    circle.setStyle("-fx-background-color: #f5f5f5;");
-
-                case "beige" ->
-                    circle.setStyle("-fx-background-color: #d6c6a5;");
-
-                default ->
-                    circle.setStyle("-fx-background-color: #999999;");
-            }
+            circle.setStyle(
+                    "-fx-background-color: " + hex + ";");
 
             colorsPane.getChildren().add(circle);
         }
@@ -889,18 +1017,28 @@ public class ProductController {
             String fileName = System.currentTimeMillis()
                     + "_" + imageFile.getName();
 
-            File destination = new File(
-                    "src/main/resources/com/furniture/images/products/",
+            File sourceDestination = new File(
+                    "src/main/resources/images/products/",
                     fileName);
 
-            destination.getParentFile().mkdirs();
+            File runtimeDestination = new File(
+                    "target/classes/images/products/",
+                    fileName);
+
+            sourceDestination.getParentFile().mkdirs();
+            runtimeDestination.getParentFile().mkdirs();
 
             java.nio.file.Files.copy(
                     imageFile.toPath(),
-                    destination.toPath(),
+                    sourceDestination.toPath(),
                     java.nio.file.StandardCopyOption.REPLACE_EXISTING);
 
-            return destination.getAbsolutePath();
+            java.nio.file.Files.copy(
+                    imageFile.toPath(),
+                    runtimeDestination.toPath(),
+                    java.nio.file.StandardCopyOption.REPLACE_EXISTING);
+
+            return "/images/products/" + fileName;
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -952,13 +1090,13 @@ public class ProductController {
 
     private void resetTableChanges() {
 
+        pendingAdds.clear();
         pendingProducts.clear();
+        pendingUpdates.clear();
         pendingDeletes.clear();
 
         undoStack.clear();
         redoStack.clear();
-
-        refreshRowNumbers();
 
         loadProductsTable();
         loadProductStats();
@@ -973,8 +1111,12 @@ public class ProductController {
     private void saveAllChanges() {
 
         try {
-            for (Product product : pendingProducts) {
-                productDAO.insertProduct(product, product.getStock());
+            for (PendingProductAdd item : pendingAdds) {
+                productDAO.insertProduct(
+                        item.product,
+                        item.stock,
+                        item.warehouseId,
+                        item.supplierId);
             }
 
             for (Product product : pendingUpdates) {
@@ -985,6 +1127,7 @@ public class ProductController {
                 productDAO.deleteProduct(product.getProductID());
             }
 
+            pendingAdds.clear();
             pendingProducts.clear();
             pendingUpdates.clear();
             pendingDeletes.clear();

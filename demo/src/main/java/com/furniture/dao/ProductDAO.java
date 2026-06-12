@@ -25,10 +25,15 @@ public class ProductDAO {
                         p.color,
                         p.material,
                         p.ProductStatus,
-                        COALESCE(SUM(i.quantity), 0) AS totalStock
+                        COALESCE(SUM(i.quantity), 0) AS totalStock,
+                        GROUP_CONCAT(DISTINCT w.WarehouseName SEPARATOR ', ') AS WarehouseName,
+                        GROUP_CONCAT(DISTINCT CONCAT(s.firstName, ' ', s.middelInitial, ' ', s.lastName) SEPARATOR ', ') AS SupplierName
                     FROM Product p
                     JOIN Category c ON p.CategoryID = c.CategoryID
                     LEFT JOIN Inventory i ON p.ProductID = i.ProductID
+                    LEFT JOIN Warehouse w ON i.WarehouseID = w.WarehouseID
+                    LEFT JOIN Product_Supplier ps ON p.ProductID = ps.ProductID
+                    LEFT JOIN Supplier s ON ps.SupplierID = s.SupplierID
                     GROUP BY
                         p.ProductID,
                         p.ProductName,
@@ -54,6 +59,8 @@ public class ProductDAO {
                         rs.getString("ProductName"),
                         rs.getDouble("price"),
                         rs.getString("CategoryName"),
+                        rs.getString("WarehouseName"),
+                        rs.getString("SupplierName"),
                         rs.getString("color"),
                         rs.getString("material"),
                         rs.getString("ProductStatus"),
@@ -396,16 +403,69 @@ public class ProductDAO {
         return -1;
     }
 
-    public void insertProduct(Product product, double stock) {
+    public int getWarehouseIdByName(String warehouseName) {
+
+        String sql = "SELECT WarehouseID FROM Warehouse WHERE WarehouseName = ?";
+
+        try (Connection conn = DBConnection.getConnection();
+                PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, warehouseName);
+
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("WarehouseID");
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return -1;
+    }
+
+    public int getSupplierIdByName(String supplierName) {
+
+        String sql = """
+                SELECT SupplierID
+                FROM Supplier
+                WHERE CONCAT(firstName, ' ', middelInitial, ' ', lastName) = ?
+                """;
+
+        try (Connection conn = DBConnection.getConnection();
+                PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, supplierName);
+
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("SupplierID");
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return -1;
+    }
+
+    public void insertProduct(Product product, double stock, int warehouseId, int supplierId) {
+
         String insertProductSql = """
-                                INSERT INTO Product
+                INSERT INTO Product
                 (ProductName, price, CategoryID, color, material, ProductStatus, CreatedDate, imagePath)
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-                                """;
+                """;
 
         String insertInventorySql = """
                 INSERT INTO Inventory
-                (ProductID, quantity)
+                (WarehouseID, ProductID, quantity)
+                VALUES (?, ?, ?)
+                """;
+
+        String insertSupplierSql = """
+                INSERT INTO Product_Supplier
+                (SupplierID, ProductID)
                 VALUES (?, ?)
                 """;
 
@@ -422,9 +482,9 @@ public class ProductDAO {
                 ps.setInt(3, product.getCategory_id());
                 ps.setString(4, product.getColor());
                 ps.setString(5, product.getMaterial());
-                ps.setString(7, product.getStatus());
-                ps.setObject(8, product.getCreatedDate());
-                ps.setString(9, product.getImagePath());
+                ps.setString(6, product.getStatus());
+                ps.setObject(7, product.getCreatedDate());
+                ps.setString(8, product.getImagePath());
 
                 ps.executeUpdate();
 
@@ -433,9 +493,15 @@ public class ProductDAO {
                         int productId = rs.getInt(1);
 
                         try (PreparedStatement ps2 = conn.prepareStatement(insertInventorySql)) {
-                            ps2.setInt(1, productId);
-                            ps2.setDouble(2, stock);
+                            ps2.setInt(1, warehouseId);
+                            ps2.setInt(2, productId);
+                            ps2.setDouble(3, stock);
                             ps2.executeUpdate();
+                        }
+                        try (PreparedStatement ps3 = conn.prepareStatement(insertSupplierSql)) {
+                            ps3.setInt(1, supplierId);
+                            ps3.setInt(2, productId);
+                            ps3.executeUpdate();
                         }
                     }
                 }

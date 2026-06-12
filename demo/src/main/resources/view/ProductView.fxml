@@ -421,6 +421,53 @@
                                                                                 maxWidth="Infinity"
                                                                                 styleClass="luxury-combo" />
                                                                 </VBox>
+                                                                <VBox spacing="3"
+                                                                        styleClass="form-field-box">
+                                                                        <HBox spacing="8"
+                                                                                alignment="CENTER_LEFT">
+                                                                                <Label text="🏠"
+                                                                                        styleClass="form-icon" />
+                                                                                <Label
+                                                                                        text="Warehouse"
+                                                                                        styleClass="form-label" />
+                                                                                <Label
+                                                                                        fx:id="warehouseWarningLabel"
+                                                                                        text="⚠"
+                                                                                        visible="false"
+                                                                                        managed="false"
+                                                                                        styleClass="warning-label" />
+
+                                                                        </HBox>
+                                                                        <ComboBox
+                                                                                fx:id="addWarehouseCombo"
+                                                                                promptText="Warehouse"
+                                                                                maxWidth="Infinity"
+                                                                                styleClass="luxury-combo" />
+                                                                </VBox>
+                                                                <VBox spacing="3"
+                                                                        styleClass="form-field-box">
+                                                                        <HBox spacing="8"
+                                                                                alignment="CENTER_LEFT">
+                                                                                <Label
+                                                                                        text="👨🏻‍🔧"
+                                                                                        styleClass="form-icon" />
+                                                                                <Label
+                                                                                        text="Supplier"
+                                                                                        styleClass="form-label" />
+                                                                                <Label
+                                                                                        fx:id="supplierWarningLabel"
+                                                                                        text="⚠"
+                                                                                        visible="false"
+                                                                                        managed="false"
+                                                                                        styleClass="warning-label" />
+
+                                                                        </HBox>
+                                                                        <ComboBox
+                                                                                fx:id="addSupplierCombo"
+                                                                                promptText="Supplier"
+                                                                                maxWidth="Infinity"
+                                                                                styleClass="luxury-combo" />
+                                                                </VBox>
 
                                                                 <VBox spacing="3"
                                                                         styleClass="form-field-box">
@@ -556,9 +603,7 @@
 
                                                         <TableView fx:id="productTable"
                                                                 styleClass="product-table"
-                                                                prefHeight="430"
-                                                                maxHeight="430"
-                                                                maxWidth="Infinity">
+                                                                VBox.vgrow="ALWAYS">
 
                                                                 <columns>
                                                                         <TableColumn fx:id="colNo"
@@ -582,6 +627,14 @@
                                                                                 fx:id="colCategory"
                                                                                 text="Category"
                                                                                 prefWidth="130" />
+                                                                        <TableColumn
+                                                                                fx:id="colWarehouse"
+                                                                                text="Warehouse"
+                                                                                prefWidth="130" />
+                                                                        <TableColumn
+                                                                                fx:id="colSupplier"
+                                                                                text="Supplier"
+                                                                                prefWidth="150" />
                                                                         <TableColumn
                                                                                 fx:id="colColor"
                                                                                 text="Color"
@@ -610,18 +663,22 @@
                                                                 alignment="CENTER_LEFT"
                                                                 styleClass="table-actions-bar">
 
-                                                                <Button fx:id="undoBtn" text="↶  UNDO"
+                                                                <Button fx:id="undoBtn"
+                                                                        text="↶  UNDO"
                                                                         styleClass="action-dark-btn" />
 
-                                                                <Button fx:id="redoBtn" text="↷  REDO"
+                                                                <Button fx:id="redoBtn"
+                                                                        text="↷  REDO"
                                                                         styleClass="action-dark-btn" />
 
-                                                                <Button fx:id="resetBtn" text="⟳  RESET"
+                                                                <Button fx:id="resetBtn"
+                                                                        text="⟳  RESET"
                                                                         styleClass="action-reset-btn" />
 
                                                                 <Region HBox.hgrow="ALWAYS" />
 
-                                                                <Button fx:id="saveAllBtn" text="💾  SAVE"
+                                                                <Button fx:id="saveAllBtn"
+                                                                        text="💾  SAVE"
                                                                         styleClass="action-save-btn" />
 
                                                         </HBox>

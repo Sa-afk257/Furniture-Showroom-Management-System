@@ -231,7 +231,7 @@
 .product-table .table-row-cell {
     -fx-background-color: rgba(255,255,255,0.018);
     -fx-border-color: rgba(255,255,255,0.045);
-    -fx-cell-size: 54px;
+    -fx-cell-size: 58px;
 }
 
 .product-table .table-cell {
@@ -240,7 +240,14 @@
     -fx-alignment: CENTER;
     -fx-border-color: rgba(255,255,255,0.045);
 }
+.product-table .virtual-flow {
+    -fx-background-color: rgba(10,10,10,0.95);
+}
 
+.product-table .scroll-bar:vertical {
+    -fx-opacity: 1;
+    -fx-pref-width: 12;
+}
 .products-content-row {
     -fx-padding: 0 0 0 0;
 }
