@@ -24,7 +24,9 @@ public class ProductDAO {
                         c.CategoryName,
                         p.color,
                         p.material,
+                        p.ProductDescription,
                         p.ProductStatus,
+                        p.CreatedDate,
                         COALESCE(SUM(i.quantity), 0) AS totalStock,
                         GROUP_CONCAT(DISTINCT w.WarehouseName SEPARATOR ', ') AS WarehouseName,
                         GROUP_CONCAT(DISTINCT CONCAT(s.firstName, ' ', s.middelInitial, ' ', s.lastName) SEPARATOR ', ') AS SupplierName
@@ -42,7 +44,8 @@ public class ProductDAO {
                         c.CategoryName,
                         p.color,
                         p.material,
-                        p.ProductStatus
+                        p.ProductStatus,
+                        p.CreatedDate
                     ORDER BY p.ProductID
                 """;
 
@@ -53,7 +56,7 @@ public class ProductDAO {
             int no = 1;
 
             while (rs.next()) {
-                products.add(new Product(
+                Product product = new Product(
                         no++,
                         rs.getInt("ProductID"),
                         rs.getString("ProductName"),
@@ -63,9 +66,15 @@ public class ProductDAO {
                         rs.getString("SupplierName"),
                         rs.getString("color"),
                         rs.getString("material"),
+                        rs.getString("ProductDescription"),
                         rs.getString("ProductStatus"),
                         rs.getString("imagePath"),
-                        rs.getDouble("totalStock")));
+                        rs.getDouble("totalStock"));
+
+                if (rs.getTimestamp("CreatedDate") != null) {
+                    product.setCreatedDate(rs.getTimestamp("CreatedDate").toLocalDateTime());
+                }
+                products.add(product);
             }
 
         } catch (SQLException e) {
@@ -453,8 +462,8 @@ public class ProductDAO {
 
         String insertProductSql = """
                 INSERT INTO Product
-                (ProductName, price, CategoryID, color, material, ProductStatus, CreatedDate, imagePath)
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+                (ProductName, price, CategoryID, color, material, ProductDescription, ProductStatus, CreatedDate, imagePath)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
                 """;
 
         String insertInventorySql = """
@@ -482,9 +491,10 @@ public class ProductDAO {
                 ps.setInt(3, product.getCategory_id());
                 ps.setString(4, product.getColor());
                 ps.setString(5, product.getMaterial());
-                ps.setString(6, product.getStatus());
-                ps.setObject(7, product.getCreatedDate());
-                ps.setString(8, product.getImagePath());
+                ps.setString(6, product.getDescription());
+                ps.setString(7, product.getStatus());
+                ps.setObject(8, product.getCreatedDate());
+                ps.setString(9, product.getImagePath());
 
                 ps.executeUpdate();
 
@@ -546,6 +556,7 @@ public class ProductDAO {
                     CategoryID = ?,
                     color = ?,
                     material = ?,
+                    ProductDescription = ?,
                     ProductStatus = ?,
                     imagePath = ?
                 WHERE ProductID = ?
@@ -570,9 +581,10 @@ public class ProductDAO {
                     ps.setInt(3, product.getCategory_id());
                     ps.setString(4, product.getColor());
                     ps.setString(5, product.getMaterial());
-                    ps.setString(6, product.getStatus());
-                    ps.setString(7, product.getImagePath());
-                    ps.setInt(8, product.getProductID());
+                    ps.setString(6, product.getDescription());
+                    ps.setString(7, product.getStatus());
+                    ps.setString(8, product.getImagePath());
+                    ps.setInt(9, product.getProductID());
 
                     ps.executeUpdate();
                 }

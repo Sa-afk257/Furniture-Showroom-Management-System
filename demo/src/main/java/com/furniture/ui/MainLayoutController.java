@@ -136,11 +136,44 @@ public class MainLayoutController {
                 break;
 
             case "customersItem":
-                // goToCustomerPage(event);
+                goToCustomers(event);
                 break;
 
             case "salesItem":
-                // goToSalesPage(event);
+                // goToSales(event);
+                break;
+            case "purchasesItem":
+                // goToPurchases(event);
+                break;
+            case "warehousesItem":
+                // goToWarehouse(event);
+                break;
+            case "employeesItem":
+                // goToEmployee(event);
+                break;
+            case "categoriesItem":
+                // goToCategories(event);
+                break;
+            case "inventoryItem":
+                // goToInventory(event);
+                break;
+            case "deliveriesItem":
+                // goToDeliveries(event);
+                break;
+            case "paymentsItem":
+                // goToPayments(event);
+                break;
+            case "returnsItem":
+                // goToReturns(event);
+                break;
+            case "discountsItem":
+                // goToDiscounts(event);
+                break;
+            case "stockMovementItem":
+                // goToStockMovement(event);
+                break;
+            case "reportsItem":
+                // goToReports(event);
                 break;
         }
     }
@@ -173,8 +206,7 @@ public class MainLayoutController {
     private void loadPage(String fxmlPath, String title) {
 
         try {
-            FXMLLoader loader =
-                new FXMLLoader(getClass().getResource(fxmlPath));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
 
             Parent page = loader.load();
 
@@ -186,16 +218,6 @@ public class MainLayoutController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    @FXML
-    private void goToDashboard(MouseEvent event) {
-        loadPage("/view/DashboardView.fxml", "Dashboard");
-    }
-
-    @FXML
-    private void goToProducts(MouseEvent event) {
-        loadPage("/view/ProductView.fxml", "Products");
     }
 
     @FXML
@@ -224,4 +246,80 @@ public class MainLayoutController {
             e.printStackTrace();
         }
     }
+
+    @FXML
+    private void goToDashboard(MouseEvent event) {
+        loadPage("/view/DashboardView.fxml", "Dashboard");
+    }
+
+    @FXML
+    private void goToProducts(MouseEvent event) {
+        loadPage("/view/ProductView.fxml", "Products");
+    }
+
+    @FXML
+    private void goToCustomers(MouseEvent event) {
+        loadPage("/view/CustomerView.fxml", "Customers");
+    }
+
+    @FXML
+    private void goToSales(MouseEvent event) {
+        loadPage("/view/SaleView.fxml", "Sales");
+    }
+
+    @FXML
+    private void goToPurchases(MouseEvent event) {
+        loadPage("/view/PurchaseView.fxml", "Purchases");
+    }
+
+    @FXML
+    private void goToWarehouses(MouseEvent event) {
+        loadPage("/view/WarehouseView.fxml", "Warehouses");
+    }
+
+    @FXML
+    private void goToEmployees(MouseEvent event) {
+        loadPage("/view/EmployeeView.fxml", "Employees");
+    }
+
+    @FXML
+    private void goToCategories(MouseEvent event) {
+        loadPage("/view/CategoryView.fxml", "Categories");
+    }
+
+    @FXML
+    private void goToInventory(MouseEvent event) {
+        loadPage("/view/InventoryView.fxml", "Inventory");
+    }
+
+    @FXML
+    private void goToDeliveries(MouseEvent event) {
+        loadPage("/view/DeliveryView.fxml", "Deliveries");
+    }
+
+    @FXML
+    private void goToPayments(MouseEvent event) {
+        loadPage("/view/PaymentView.fxml", "Payments");
+    }
+
+    @FXML
+    private void goToReturns(MouseEvent event) {
+        loadPage("/view/ReturnView.fxml", "Returns");
+    }
+
+    @FXML
+    private void goToDiscounts(MouseEvent event) {
+        loadPage("/view/DiscountView.fxml", "Discounts");
+    }
+
+    @FXML
+    private void goToStockMovement(MouseEvent event) {
+        loadPage("/view/StockMovementView.fxml", "Stock Movement");
+    }
+
+    @FXML
+    private void goToReports(MouseEvent event) {
+        loadPage("/view/ReportView.fxml", "Reports");
+    }
+
 }

@@ -27,7 +27,7 @@ public class Product {
     }
 
     public Product(int no, int productID, String productName, double price,
-            String categoryName, String warehouseName, String supplierName, String color, String material,
+            String categoryName, String warehouseName, String supplierName, String color, String material,String description,
             String status, String imagePath, double stock) {
 
         this.no = no;
@@ -39,6 +39,7 @@ public class Product {
         this.supplierName = supplierName;
         this.color = color;
         this.material = material;
+        this.description = description;
         this.status = status;
         this.imagePath = imagePath;
         this.stock = stock;

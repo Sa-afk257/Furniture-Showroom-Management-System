@@ -3,6 +3,7 @@ package com.furniture.ui;
 import java.io.File;
 import java.io.InputStream;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -26,13 +27,16 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.scene.Node;
-import java.io.InputStream;
 import org.apache.poi.ss.usermodel.*;
+import javafx.scene.control.DatePicker;
+import java.time.LocalDate;
+import javafx.scene.control.TableCell;
 
 public class ProductController {
 
@@ -108,7 +112,11 @@ public class ProductController {
     private TableColumn<Product, String> colStatus;
     @FXML
     private TableColumn<Product, Void> colAction;
+    @FXML
+    private TableColumn<Product, String> colDescription;
 
+    @FXML
+    private TextArea addDescriptionArea;
     @FXML
     private VBox filterPanel;
     @FXML
@@ -175,7 +183,21 @@ public class ProductController {
     @FXML
     private Button resetBtn;
     @FXML
+    private Button exportBtn;
+    @FXML
     private Button saveAllBtn;
+    @FXML
+    private TextField searchField;
+    @FXML
+    private TableColumn<Product, LocalDateTime> colCreatedDate;
+    @FXML
+    private DatePicker createdDatePicker;
+    @FXML
+    private Label createdDateWarningLabel;
+    @FXML
+    private DatePicker fromCreatedDatePicker;
+    @FXML
+    private DatePicker toCreatedDatePicker;
 
     private File selectedImageFile;
 
@@ -203,12 +225,19 @@ public class ProductController {
         loadAddProductFormData();
         loadProductFilters();
 
+        setupSearch();
         setupAddProductButtons();
         setupImageChooser();
         setupSaveProduct();
         setupLiveValidation();
         setupUndoRedoReset();
 
+        fromCreatedDatePicker.valueProperty().addListener(
+                (obs, oldVal, newVal) -> applyFilters());
+
+        toCreatedDatePicker.valueProperty().addListener(
+                (obs, oldVal, newVal) -> applyFilters());
+                
         applyFiltersBtn.setOnAction(e -> applyFilters());
         resetFiltersBtn.setOnAction(e -> resetFilters());
 
@@ -229,6 +258,7 @@ public class ProductController {
                 openAddForm();
             }
         });
+        exportBtn.setOnAction(e -> exportProductsToExcel());
         saveAllBtn.setOnAction(e -> saveAllChanges());
     }
 
@@ -292,8 +322,25 @@ public class ProductController {
         colSupplier.setCellValueFactory(new PropertyValueFactory<>("supplierName"));
         colColor.setCellValueFactory(new PropertyValueFactory<>("color"));
         colMaterial.setCellValueFactory(new PropertyValueFactory<>("material"));
+        colDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
         colQuantity.setCellValueFactory(new PropertyValueFactory<>("stock"));
         colStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
+        colCreatedDate.setCellValueFactory(new PropertyValueFactory<>("createdDate"));
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+        colCreatedDate.setCellFactory(column -> new TableCell<>() {
+            @Override
+            protected void updateItem(LocalDateTime item, boolean empty) {
+                super.updateItem(item, empty);
+
+                if (empty || item == null) {
+                    setText(null);
+                } else {
+                    setText(item.format(formatter));
+                }
+            }
+        });
 
         setupActionColumn();
     }
@@ -485,10 +532,46 @@ public class ProductController {
         });
     }
 
+    private void setupSearch() {
+
+        searchField.textProperty().addListener((obs, oldValue, newValue) -> {
+
+            String keyword = newValue.toLowerCase().trim();
+
+            if (keyword.isEmpty()) {
+                productTable.setItems(FXCollections.observableArrayList(originalProducts));
+                refreshRowNumbers();
+                return;
+            }
+
+            List<Product> filtered = originalProducts.stream()
+                    .filter(p -> contains(p.getProductName(), keyword) ||
+                            contains(String.valueOf(p.getProductID()), keyword) ||
+                            contains(String.valueOf(p.getPrice()), keyword) ||
+                            contains(p.getCategoryName(), keyword) ||
+                            contains(p.getWarehouseName(), keyword) ||
+                            contains(p.getSupplierName(), keyword) ||
+                            contains(p.getColor(), keyword) ||
+                            contains(p.getMaterial(), keyword) ||
+                            contains(p.getStatus(), keyword) ||
+                            contains(String.valueOf(p.getStock()), keyword))
+                    .toList();
+
+            productTable.setItems(FXCollections.observableArrayList(filtered));
+            refreshRowNumbers();
+        });
+    }
+
+    private boolean contains(String value, String keyword) {
+        return value != null && value.toLowerCase().contains(keyword);
+    }
+
     private void openAddForm() {
         productBeingUpdated = null;
 
         clearAddForm();
+
+        createdDatePicker.setValue(LocalDate.now());
 
         formTitleLabel.setText("✚ ADD PRODUCT");
         saveProductBtn.setText("ADD");
@@ -513,7 +596,14 @@ public class ProductController {
         String material = addMaterialField.getText().trim();
         String status = addStatusCombo.getValue();
         double stock = Double.parseDouble(addStockField.getText().trim());
+        String description = addDescriptionArea.getText().trim();
+        LocalDate selectedDate = createdDatePicker.getValue();
 
+        LocalDateTime createdDate = selectedDate.atStartOfDay();
+
+        if (description.isEmpty()) {
+            description = "No description";
+        }
         int categoryId = productDAO.getCategoryIdByName(categoryName);
         String imagePath = saveImageToResources(selectedImageFile);
         int warehouseId = productDAO.getWarehouseIdByName(warehouseName);
@@ -525,9 +615,9 @@ public class ProductController {
                 categoryId,
                 color,
                 material,
-                "No description",
+                description,
                 status,
-                LocalDateTime.now(),
+                createdDate,
                 imagePath);
 
         saveStateForUndo();
@@ -578,6 +668,7 @@ public class ProductController {
         valid &= validateTextField(addMaterialField, materialWarningLabel);
         valid &= validateComboBox(addStatusCombo, statusWarningLabel);
         valid &= validateNumberField(addStockField, stockWarningLabel);
+        valid &= validateDatePicker(createdDatePicker, createdDateWarningLabel);
 
         boolean imageValid = selectedImageFile != null;
         imageWarningLabel.setVisible(!imageValid);
@@ -640,6 +731,21 @@ public class ProductController {
         return valid;
     }
 
+    private boolean validateDatePicker(DatePicker datePicker, Label warningLabel) {
+        boolean valid = datePicker.getValue() != null;
+
+        datePicker.getStyleClass().remove("validation-error");
+
+        if (!valid) {
+            datePicker.getStyleClass().add("validation-error");
+        }
+
+        warningLabel.setVisible(!valid);
+        warningLabel.setManaged(!valid);
+
+        return valid;
+    }
+
     private void setupLiveValidation() {
 
         addProductNameField.textProperty().addListener((obs, oldVal, newVal) -> {
@@ -683,6 +789,11 @@ public class ProductController {
                 validateComboBox(addStatusCombo, statusWarningLabel);
             }
         });
+        createdDatePicker.valueProperty().addListener((obs, oldVal, newVal) -> {
+            if (!clearingForm) {
+                validateDatePicker(createdDatePicker, createdDateWarningLabel);
+            }
+        });
     }
 
     private void clearAddForm() {
@@ -693,6 +804,7 @@ public class ProductController {
         addPriceField.clear();
         addColorField.clear();
         addMaterialField.clear();
+        addDescriptionArea.clear();
         addStockField.clear();
 
         addCategoryCombo.getSelectionModel().clearSelection();
@@ -702,6 +814,7 @@ public class ProductController {
 
         selectedImageFile = null;
         selectedImageLabel.setText("No image selected");
+        createdDatePicker.setValue(null);
 
         clearingForm = false;
 
@@ -722,6 +835,7 @@ public class ProductController {
                 materialWarningLabel,
                 statusWarningLabel,
                 stockWarningLabel,
+                createdDateWarningLabel,
                 imageWarningLabel
         };
 
@@ -737,6 +851,7 @@ public class ProductController {
         addColorField.getStyleClass().remove("validation-error");
         addMaterialField.getStyleClass().remove("validation-error");
         addStockField.getStyleClass().remove("validation-error");
+        createdDatePicker.getStyleClass().remove("validation-error");
 
         addCategoryCombo.getStyleClass().remove("validation-error");
         addStatusCombo.getStyleClass().remove("validation-error");
@@ -753,6 +868,7 @@ public class ProductController {
         addCategoryCombo.setValue(product.getCategoryName());
         addColorField.setText(product.getColor());
         addMaterialField.setText(product.getMaterial());
+        addDescriptionArea.setText(product.getDescription());
         addStockField.setText(String.valueOf(product.getStock()));
         addStatusCombo.setValue(product.getStatus());
 
@@ -781,6 +897,11 @@ public class ProductController {
         String categoryName = addCategoryCombo.getValue();
         String color = addColorField.getText().trim();
         String material = addMaterialField.getText().trim();
+        String description = addDescriptionArea.getText().trim();
+
+        if (description.isEmpty()) {
+            description = "No description";
+        }
         String status = addStatusCombo.getValue();
         double stock = Double.parseDouble(addStockField.getText().trim());
 
@@ -792,6 +913,7 @@ public class ProductController {
         productBeingUpdated.setCategoryName(categoryName);
         productBeingUpdated.setColor(color);
         productBeingUpdated.setMaterial(material);
+        productBeingUpdated.setDescription(description);
         productBeingUpdated.setStatus(status);
         productBeingUpdated.setStock(stock);
 
@@ -891,17 +1013,91 @@ public class ProductController {
     }
 
     private void applyFilters() {
+
         String category = categoryCombo.getValue();
         String warehouse = warehouseCombo.getValue();
         String supplier = supplierCombo.getValue();
         String stockLevel = stockLevelCombo.getValue();
 
-        String minPrice = minPriceField.getText();
-        String maxPrice = maxPriceField.getText();
+        double minPrice = parseDoubleOrDefault(minPriceField.getText(), 0);
+        double maxPrice = parseDoubleOrDefault(maxPriceField.getText(), Double.MAX_VALUE);
+
+        LocalDate fromDate = fromCreatedDatePicker.getValue();
+        LocalDate toDate = toCreatedDatePicker.getValue();
 
         List<String> selectedColors = getSelectedColors();
         List<String> selectedMaterials = getSelectedChips(materialsPane);
 
+        List<Product> filtered = originalProducts.stream()
+                .filter(p -> category == null || category.equals("All Categories")
+                        || category.equals(p.getCategoryName()))
+
+                .filter(p -> warehouse == null || warehouse.equals("All Warehouses")
+                        || contains(p.getWarehouseName(), warehouse.toLowerCase()))
+
+                .filter(p -> supplier == null || supplier.equals("All Suppliers")
+                        || contains(p.getSupplierName(), supplier.toLowerCase()))
+
+                .filter(p -> p.getPrice() >= minPrice && p.getPrice() <= maxPrice)
+
+                .filter(p -> {
+
+                    if (fromDate == null && toDate == null)
+                        return true;
+
+                    if (p.getCreatedDate() == null)
+                        return false;
+
+                    LocalDate productDate = p.getCreatedDate().toLocalDate();
+
+                    boolean afterFrom = fromDate == null ||
+                            !productDate.isBefore(fromDate);
+
+                    boolean beforeTo = toDate == null ||
+                            !productDate.isAfter(toDate);
+
+                    return afterFrom && beforeTo;
+                })
+
+                .filter(p -> stockMatches(p, stockLevel))
+
+                .filter(p -> selectedColors.isEmpty()
+                        || selectedColors.contains(p.getColor()))
+
+                .filter(p -> selectedMaterials.isEmpty()
+                        || selectedMaterials.contains(p.getMaterial()))
+
+                .toList();
+
+        productTable.setItems(FXCollections.observableArrayList(filtered));
+        productsFoundLabel.setText(String.valueOf(filtered.size()));
+
+        refreshRowNumbers();
+    }
+
+    private double parseDoubleOrDefault(String text, double defaultValue) {
+        try {
+            return Double.parseDouble(text.trim());
+        } catch (Exception e) {
+            return defaultValue;
+        }
+    }
+
+    private boolean stockMatches(Product p, String stockLevel) {
+
+        if (stockLevel == null || stockLevel.equals("All")) {
+            return true;
+        }
+
+        double stock = p.getStock();
+
+        return switch (stockLevel) {
+            case "Available In Stock" -> stock > 5;
+            case "Low Stock" -> stock > 0 && stock <= 5;
+            case "Out of Stock" -> stock == 0;
+            case "Overstocked" -> stock >= 20;
+            default -> true;
+        };
     }
 
     private List<String> getSelectedChips(FlowPane pane) {
@@ -927,6 +1123,9 @@ public class ProductController {
         discountStatusCombo.getSelectionModel().selectFirst();
         returnRateCombo.getSelectionModel().selectFirst();
 
+        fromCreatedDatePicker.setValue(null);
+        toCreatedDatePicker.setValue(null);
+
         clearSelectedChips(colorsPane);
         clearSelectedChips(materialsPane);
 
@@ -935,6 +1134,7 @@ public class ProductController {
         maxPriceField.setText(String.valueOf((int) range[1]));
 
         productsFoundLabel.setText(String.valueOf(productDAO.countProducts()));
+        loadProductsTable();
     }
 
     private void clearSelectedChips(FlowPane pane) {
@@ -1148,6 +1348,81 @@ public class ProductController {
 
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    private void exportProductsToExcel() {
+
+        try {
+            File exportFolder = new File("src/main/resources/exports");
+
+            if (!exportFolder.exists()) {
+                exportFolder.mkdirs();
+            }
+
+            String fileName = "products_" + java.time.LocalDate.now() + ".xlsx";
+            File file = new File(exportFolder, fileName);
+
+            Workbook workbook = new org.apache.poi.xssf.usermodel.XSSFWorkbook();
+            Sheet sheet = workbook.createSheet("Products");
+
+            String[] headers = {
+                    "Product ID", "Created Date", "Product Name", "Price",
+                    "Category", "Warehouse", "Supplier", "Color",
+                    "Material", "Stock", "Status", "Description"
+            };
+
+            Row headerRow = sheet.createRow(0);
+
+            for (int i = 0; i < headers.length; i++) {
+                Cell cell = headerRow.createCell(i);
+                cell.setCellValue(headers[i]);
+            }
+
+            int rowIndex = 1;
+
+            for (Product p : productTable.getItems()) {
+                Row row = sheet.createRow(rowIndex++);
+
+                row.createCell(0).setCellValue(p.getProductID());
+                row.createCell(2).setCellValue(p.getProductName());
+                row.createCell(3).setCellValue(p.getPrice());
+                row.createCell(4).setCellValue(p.getCategoryName());
+                row.createCell(5).setCellValue(p.getWarehouseName());
+                row.createCell(6).setCellValue(p.getSupplierName());
+                row.createCell(1)
+                        .setCellValue(p.getCreatedDate() == null ? "" : p.getCreatedDate().toLocalDate().toString());
+                row.createCell(7).setCellValue(p.getColor());
+                row.createCell(8).setCellValue(p.getMaterial());
+                row.createCell(9).setCellValue(p.getStock());
+                row.createCell(10).setCellValue(p.getStatus());
+                row.createCell(11).setCellValue(p.getDescription());
+            }
+
+            for (int i = 0; i < headers.length; i++) {
+                sheet.autoSizeColumn(i);
+            }
+
+            try (java.io.FileOutputStream outputStream = new java.io.FileOutputStream(file)) {
+                workbook.write(outputStream);
+            }
+
+            workbook.close();
+
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Export Success");
+            alert.setHeaderText(null);
+            alert.setContentText("Excel file exported successfully!\n\nSaved to:\n" + file.getAbsolutePath());
+            alert.showAndWait();
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Export Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Failed to export Excel file.");
+            alert.showAndWait();
         }
     }
 

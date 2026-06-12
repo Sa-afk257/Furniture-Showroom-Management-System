@@ -14,12 +14,6 @@
         prefHeight="780"
         styleClass="root-pane">
 
-
-        <!-- TOP HEADER -->
-
-
-        <!-- LEFT PANEL -->
-
         <!-- MAIN CONTENT -->
         <center>
 
@@ -190,7 +184,7 @@
                                                 styleClass="product-toolbar">
 
                                                 <HBox styleClass="search-box">
-                                                        <TextField fx:id="txtSearch"
+                                                        <TextField fx:id="searchField"
                                                                 promptText="Search product by name, category..."
                                                                 styleClass="search-field"
                                                                 HBox.hgrow="ALWAYS" />
@@ -216,7 +210,7 @@
 
                                                 </Button>
 
-                                                <Button styleClass="export-btn">
+                                                <Button fx:id="exportBtn" styleClass="export-btn">
 
                                                         <graphic>
                                                                 <Label text="➜]"
@@ -278,6 +272,18 @@
                                                                         styleClass="price-input" />
                                                         </HBox>
 
+                                                        <Label text="Created Date"
+                                                                styleClass="filter-label" />
+                                                        <HBox spacing="8" alignment="CENTER_LEFT">
+                                                                <DatePicker fx:id="fromCreatedDatePicker"
+                                                                        promptText="From"
+                                                                        styleClass="luxury-date-picker" />
+                                                                <Label text="-"
+                                                                        styleClass="filter-small-text" />
+                                                                <DatePicker fx:id="toCreatedDatePicker"
+                                                                        promptText="To"
+                                                                        styleClass="luxury-date-picker" />
+                                                        </HBox>
 
                                                         <Label text="Stock Level"
                                                                 styleClass="filter-label" />
@@ -362,6 +368,8 @@
                                                                                 <Label
                                                                                         text="Product Name"
                                                                                         styleClass="form-label" />
+                                                                                <Label text="*"
+                                                                                        style="-fx-text-fill: red; -fx-font-weight: bold; -fx-font-size: 14px;" />
                                                                                 <Label
                                                                                         fx:id="nameWarningLabel"
                                                                                         text="⚠"
@@ -384,6 +392,8 @@
                                                                                         styleClass="form-icon" />
                                                                                 <Label text="Price"
                                                                                         styleClass="form-label" />
+                                                                                <Label text="*"
+                                                                                        style="-fx-text-fill: red; -fx-font-weight: bold; -fx-font-size: 14px;" />
                                                                                 <Label
                                                                                         fx:id="priceWarningLabel"
                                                                                         text="⚠"
@@ -407,6 +417,8 @@
                                                                                 <Label
                                                                                         text="Category"
                                                                                         styleClass="form-label" />
+                                                                                <Label text="*"
+                                                                                        style="-fx-text-fill: red; -fx-font-weight: bold; -fx-font-size: 14px;" />
                                                                                 <Label
                                                                                         fx:id="categoryWarningLabel"
                                                                                         text="⚠"
@@ -430,6 +442,8 @@
                                                                                 <Label
                                                                                         text="Warehouse"
                                                                                         styleClass="form-label" />
+                                                                                <Label text="*"
+                                                                                        style="-fx-text-fill: red; -fx-font-weight: bold; -fx-font-size: 14px;" />
                                                                                 <Label
                                                                                         fx:id="warehouseWarningLabel"
                                                                                         text="⚠"
@@ -454,6 +468,8 @@
                                                                                 <Label
                                                                                         text="Supplier"
                                                                                         styleClass="form-label" />
+                                                                                <Label text="*"
+                                                                                        style="-fx-text-fill: red; -fx-font-weight: bold; -fx-font-size: 14px;" />
                                                                                 <Label
                                                                                         fx:id="supplierWarningLabel"
                                                                                         text="⚠"
@@ -477,6 +493,8 @@
                                                                                         styleClass="form-icon" />
                                                                                 <Label text="Color"
                                                                                         styleClass="form-label" />
+                                                                                <Label text="*"
+                                                                                        style="-fx-text-fill: red; -fx-font-weight: bold; -fx-font-size: 14px;" />
                                                                                 <Label
                                                                                         fx:id="colorWarningLabel"
                                                                                         text="⚠"
@@ -500,6 +518,8 @@
                                                                                 <Label
                                                                                         text="Material"
                                                                                         styleClass="form-label" />
+                                                                                <Label text="*"
+                                                                                        style="-fx-text-fill: red; -fx-font-weight: bold; -fx-font-size: 14px;" />
                                                                                 <Label
                                                                                         fx:id="materialWarningLabel"
                                                                                         text="⚠"
@@ -522,6 +542,8 @@
                                                                                         styleClass="form-icon" />
                                                                                 <Label text="Status"
                                                                                         styleClass="form-label" />
+                                                                                <Label text="*"
+                                                                                        style="-fx-text-fill: red; -fx-font-weight: bold; -fx-font-size: 14px;" />
                                                                                 <Label
                                                                                         fx:id="statusWarningLabel"
                                                                                         text="⚠"
@@ -536,29 +558,6 @@
                                                                                 maxWidth="Infinity"
                                                                                 styleClass="luxury-combo" />
                                                                 </VBox>
-                                                                <Button fx:id="chooseImageBtn"
-                                                                        text="🖼  Choose Image"
-                                                                        maxWidth="Infinity"
-                                                                        styleClass="luxury-cancel-btn" />
-
-
-                                                                <HBox spacing="8"
-                                                                        alignment="CENTER_LEFT">
-
-                                                                        <Label
-                                                                                fx:id="selectedImageLabel"
-                                                                                text="No image selected" />
-
-                                                                        <Label
-                                                                                fx:id="imageWarningLabel"
-                                                                                text="⚠"
-                                                                                visible="false"
-                                                                                managed="false"
-                                                                                styleClass="warning-label" />
-
-                                                                </HBox>
-
-
                                                                 <VBox spacing="3"
                                                                         styleClass="form-field-box">
                                                                         <HBox spacing="8"
@@ -568,6 +567,8 @@
                                                                                 <Label
                                                                                         text="Initial Stock"
                                                                                         styleClass="form-label" />
+                                                                                <Label text="*"
+                                                                                        style="-fx-text-fill: red; -fx-font-weight: bold; -fx-font-size: 14px;" />
                                                                                 <Label
                                                                                         fx:id="stockWarningLabel"
                                                                                         text="⚠"
@@ -580,6 +581,87 @@
                                                                                 fx:id="addStockField"
                                                                                 promptText="Initial stock"
                                                                                 styleClass="luxury-input" />
+                                                                </VBox>
+                                                                <VBox spacing="3"
+                                                                        styleClass="form-field-box">
+
+                                                                        <HBox spacing="8"
+                                                                                alignment="CENTER_LEFT">
+
+                                                                                <Label text="📅"
+                                                                                        styleClass="form-icon" />
+
+                                                                                <Label
+                                                                                        text="Created Date"
+                                                                                        styleClass="form-label" />
+
+                                                                                <Label text="*"
+                                                                                        style="-fx-text-fill: red; -fx-font-weight: bold; -fx-font-size: 14px;" />
+
+                                                                                <Label
+                                                                                        fx:id="createdDateWarningLabel"
+                                                                                        text="⚠"
+                                                                                        visible="false"
+                                                                                        managed="false"
+                                                                                        styleClass="warning-label" />
+
+                                                                        </HBox>
+
+                                                                        <DatePicker
+                                                                                fx:id="createdDatePicker"
+                                                                                promptText="Select date"
+                                                                                maxWidth="Infinity"
+                                                                                styleClass="luxury-date-picker" />
+
+                                                                </VBox>
+
+                                                                <HBox spacing="8"
+                                                                        alignment="CENTER_LEFT">
+                                                                        <Label text="🖼"
+                                                                                styleClass="form-icon" />
+
+                                                                        <Label text="Image"
+                                                                                styleClass="form-label" />
+
+                                                                        <Label text="*"
+                                                                                style="-fx-text-fill: red; -fx-font-weight: bold; -fx-font-size: 14px;" />
+
+                                                                        <Label
+                                                                                fx:id="imageWarningLabel"
+                                                                                text="⚠"
+                                                                                visible="false"
+                                                                                managed="false"
+                                                                                styleClass="warning-label" />
+                                                                </HBox>
+
+                                                                <Button fx:id="chooseImageBtn"
+                                                                        text="🖼  Choose Image"
+                                                                        maxWidth="Infinity"
+                                                                        styleClass="luxury-cancel-btn" />
+                                                                <Label fx:id="selectedImageLabel"
+                                                                        text="No image selected"
+                                                                        styleClass="selected-image-label" />
+
+
+                                                                <VBox spacing="3"
+                                                                        styleClass="form-field-box">
+                                                                        <HBox spacing="8"
+                                                                                alignment="CENTER_LEFT">
+                                                                                <Label text="📝"
+                                                                                        styleClass="form-icon" />
+                                                                                <Label
+                                                                                        text="Description (Optional)"
+                                                                                        styleClass="form-label" />
+                                                                        </HBox>
+                                                                        <TextArea
+                                                                                fx:id="addDescriptionArea"
+                                                                                promptText="Enter product description..."
+                                                                                prefRowCount="1"
+                                                                                minHeight="34"
+                                                                                prefHeight="34"
+                                                                                maxHeight="90"
+                                                                                wrapText="true"
+                                                                                styleClass="form-textarea-field" />
                                                                 </VBox>
 
                                                         </VBox>
@@ -636,6 +718,10 @@
                                                                                 text="Supplier"
                                                                                 prefWidth="150" />
                                                                         <TableColumn
+                                                                                fx:id="colCreatedDate"
+                                                                                text="Created Date"
+                                                                                prefWidth="150" />
+                                                                        <TableColumn
                                                                                 fx:id="colColor"
                                                                                 text="Color"
                                                                                 prefWidth="100" />
@@ -650,6 +736,10 @@
                                                                         <TableColumn
                                                                                 fx:id="colStatus"
                                                                                 text="Status"
+                                                                                prefWidth="120" />
+                                                                        <TableColumn
+                                                                                fx:id="colDescription"
+                                                                                text="Description"
                                                                                 prefWidth="120" />
                                                                         <TableColumn
                                                                                 fx:id="colAction"
