@@ -140,7 +140,7 @@ public class MainLayoutController {
                 break;
 
             case "salesItem":
-                // goToSales(event);
+                goToSales(event);
                 break;
             case "purchasesItem":
                 // goToPurchases(event);
