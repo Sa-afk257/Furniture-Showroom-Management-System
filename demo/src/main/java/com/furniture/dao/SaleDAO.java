@@ -194,6 +194,8 @@ public class SaleDAO {
 
                     COALESCE(SUM(p.amount),0) AS paidAmount,
 
+                    p.Payment_Method AS paymentMethod,
+
                     d.Delivary_status,
                     d.Delivary_Date
 
@@ -222,6 +224,7 @@ public class SaleDAO {
                     s.total_Amount,
                     customerName,
                     employeeName,
+                    p.Payment_Method,
                     d.Delivary_status,
                     d.Delivary_Date
 
@@ -255,6 +258,8 @@ public class SaleDAO {
 
                 sale.setItemsCount(
                         rs.getInt("itemsCount"));
+                sale.setPaymentMethod(
+                        rs.getString("paymentMethod"));
 
                 double paid = rs.getDouble("paidAmount");
 
@@ -348,8 +353,8 @@ public class SaleDAO {
                 """;
 
         String paymentSql = """
-                INSERT INTO Payment (SaleID, amount, Payment_Date)
-                VALUES (?, ?, ?)
+                INSERT INTO Payment (SaleID, amount, Payment_Date, Payment_Method)
+                VALUES (?, ?, ?, ?)
                 """;
 
         String deliverySql = """
@@ -394,6 +399,8 @@ public class SaleDAO {
                     ps.setInt(1, saleID);
                     ps.setDouble(2, sale.getPaidAmount());
                     ps.setDate(3, java.sql.Date.valueOf(sale.getSaleDate()));
+                    ps.setString(4, sale.getPaymentMethod());
+
                     ps.executeUpdate();
                 }
             }
@@ -556,8 +563,8 @@ public class SaleDAO {
 
         String insertSql = """
                 INSERT INTO Payment
-                (SaleID, amount, Payment_Date)
-                VALUES (?, ?, ?)
+                (SaleID, amount, Payment_Date, Payment_Method)
+                VALUES (?, ?, ?, ?)
                 """;
 
         try (PreparedStatement ps = conn.prepareStatement(insertSql)) {
@@ -569,6 +576,9 @@ public class SaleDAO {
                     3,
                     java.sql.Date.valueOf(
                             sale.getSaleDate()));
+            ps.setString(
+                    4,
+                    sale.getPaymentMethod());
 
             ps.executeUpdate();
         }

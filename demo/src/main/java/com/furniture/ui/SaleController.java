@@ -601,9 +601,12 @@ public class SaleController {
         detailsDeliveryDateLabel.setText(formatDate(sale.getDeliveryDate()));
         detailsPaymentMethodLabel.setText(emptyToDash(sale.getPaymentMethod()));
 
+        List<SaleDetailes> details = saleDAO.getSaleDetailes(sale.getSaleID());
+
+        System.out.println("Sale ID = " + sale.getSaleID());
+        System.out.println("Details Found = " + details.size());
         SaleDetailesTable.setItems(
-                FXCollections.observableArrayList(
-                        saleDAO.getSaleDetailes(sale.getSaleID())));
+                FXCollections.observableArrayList(details));
 
         showOnlyPanel(saleDetailsPanel);
     }
