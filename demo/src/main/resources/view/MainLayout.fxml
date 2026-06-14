@@ -148,6 +148,17 @@
                         <Label text="Employees" styleClass="sidebar-text" />
 
                     </HBox>
+                    <!-- SUPPLIERS -->
+                    <HBox fx:id="supliersItem"
+                        alignment="CENTER_LEFT"
+                        spacing="14"
+                        styleClass="sidebar-item"
+                        onMouseClicked="#handleSidebarClick">
+
+                        <Label text="👨🏻‍💼" styleClass="sidebar-icon" />
+                        <Label text="Suppliers" styleClass="sidebar-text" />
+
+                    </HBox>
 
                     <!-- CATEGORIES -->
                     <HBox fx:id="categoriesItem"
