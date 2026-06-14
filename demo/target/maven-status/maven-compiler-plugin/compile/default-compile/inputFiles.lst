@@ -1,6 +1,7 @@
 C:\Users\IMOE001\Desktop\university\Data base\DataBase_2026_Dr.Basem\Project\Furniture Showroom Management System\demo\src\main\java\com\furniture\dao\CustomerDAO.java
 C:\Users\IMOE001\Desktop\university\Data base\DataBase_2026_Dr.Basem\Project\Furniture Showroom Management System\demo\src\main\java\com\furniture\dao\DashboardDAO.java
 C:\Users\IMOE001\Desktop\university\Data base\DataBase_2026_Dr.Basem\Project\Furniture Showroom Management System\demo\src\main\java\com\furniture\dao\ProductDAO.java
+C:\Users\IMOE001\Desktop\university\Data base\DataBase_2026_Dr.Basem\Project\Furniture Showroom Management System\demo\src\main\java\com\furniture\dao\PurchaseDAO.java
 C:\Users\IMOE001\Desktop\university\Data base\DataBase_2026_Dr.Basem\Project\Furniture Showroom Management System\demo\src\main\java\com\furniture\dao\SaleDAO.java
 C:\Users\IMOE001\Desktop\university\Data base\DataBase_2026_Dr.Basem\Project\Furniture Showroom Management System\demo\src\main\java\com\furniture\DBConnection.java
 C:\Users\IMOE001\Desktop\university\Data base\DataBase_2026_Dr.Basem\Project\Furniture Showroom Management System\demo\src\main\java\com\furniture\Main.java
@@ -26,4 +27,5 @@ C:\Users\IMOE001\Desktop\university\Data base\DataBase_2026_Dr.Basem\Project\Fur
 C:\Users\IMOE001\Desktop\university\Data base\DataBase_2026_Dr.Basem\Project\Furniture Showroom Management System\demo\src\main\java\com\furniture\ui\HomePageController.java
 C:\Users\IMOE001\Desktop\university\Data base\DataBase_2026_Dr.Basem\Project\Furniture Showroom Management System\demo\src\main\java\com\furniture\ui\MainLayoutController.java
 C:\Users\IMOE001\Desktop\university\Data base\DataBase_2026_Dr.Basem\Project\Furniture Showroom Management System\demo\src\main\java\com\furniture\ui\ProductController.java
+C:\Users\IMOE001\Desktop\university\Data base\DataBase_2026_Dr.Basem\Project\Furniture Showroom Management System\demo\src\main\java\com\furniture\ui\PurchaseController.java
 C:\Users\IMOE001\Desktop\university\Data base\DataBase_2026_Dr.Basem\Project\Furniture Showroom Management System\demo\src\main\java\com\furniture\ui\SaleController.java

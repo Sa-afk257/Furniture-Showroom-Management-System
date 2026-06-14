@@ -504,6 +504,8 @@
                                                     <TableColumn fx:id="colAddRemove"
                                                         text=""
                                                         prefWidth="50" />
+                                                    <TableColumn fx:id="colAddEdit" text=""
+                                                        prefWidth="50" />
                                                 </columns>
 
                                             </TableView>
@@ -611,7 +613,7 @@
                                                 </HBox>
 
                                                 <DatePicker fx:id="addDeliveryDatePicker"
-                                                    promptText="choose date"
+                                                    promptText="Select delivery date"
                                                     maxWidth="Infinity"
                                                     styleClass="luxury-date-picker" />
                                             </VBox>

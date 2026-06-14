@@ -163,6 +163,8 @@ public class SaleController {
     private TableColumn<SaleDetailes, Double> colAddSubtotal;
     @FXML
     private TableColumn<SaleDetailes, Void> colAddRemove;
+    @FXML
+    private TableColumn<SaleDetailes, Void> colAddEdit;
 
     @FXML
     private TextField addPaidAmountField;
@@ -257,6 +259,7 @@ public class SaleController {
     private Sale saleBeingUpdated = null;
     private boolean clearingForm = false;
     private Sale selectedSaleForDetails = null;
+    private SaleDetailes saleItemBeingEdited = null;
 
     @FXML
     private void initialize() {
@@ -524,6 +527,37 @@ public class SaleController {
                 setGraphic(empty ? null : deleteBtn);
             }
         });
+        colAddEdit.setCellFactory(column -> new TableCell<>() {
+
+            private final Button editBtn = new Button("✏");
+
+            {
+                editBtn.getStyleClass().add("table-edit-btn");
+
+                editBtn.setOnAction(e -> {
+
+                    SaleDetailes item = getTableView().getItems().get(getIndex());
+
+                    saleItemBeingEdited = item;
+
+                    addProductCombo.setValue(item.getProductName());
+
+                    addQuantityField.setText(
+                            String.valueOf(item.getQuantity()));
+
+                    selectedProductPriceLabel.setText(
+                            String.format("$%.2f", item.getPrice()));
+
+                    addItemToSaleBtn.setText("UPDATE ITEM");
+                });
+            }
+
+            @Override
+            protected void updateItem(Void item, boolean empty) {
+                super.updateItem(item, empty);
+                setGraphic(empty ? null : editBtn);
+            }
+        });
     }
 
     private void setupPaymentAndDeliveryCombos() {
@@ -601,12 +635,18 @@ public class SaleController {
         detailsDeliveryDateLabel.setText(formatDate(sale.getDeliveryDate()));
         detailsPaymentMethodLabel.setText(emptyToDash(sale.getPaymentMethod()));
 
-        List<SaleDetailes> details = saleDAO.getSaleDetailes(sale.getSaleID());
+        List<SaleDetailes> details;
 
-        System.out.println("Sale ID = " + sale.getSaleID());
-        System.out.println("Details Found = " + details.size());
+        if (sale.getItems() != null && !sale.getItems().isEmpty()) {
+            details = sale.getItems();
+        } else {
+            details = saleDAO.getSaleDetailes(sale.getSaleID());
+        }
+
         SaleDetailesTable.setItems(
                 FXCollections.observableArrayList(details));
+
+        SaleDetailesTable.refresh();
 
         showOnlyPanel(saleDetailsPanel);
     }
@@ -644,9 +684,33 @@ public class SaleController {
         int productId = saleDAO.getProductIdByName(productName);
         double price = saleDAO.getProductPrice(productName);
 
-        SaleDetailes item = new SaleDetailes(productId, productName, quantity, price);
+        SaleDetailes item = new SaleDetailes(
+                productId,
+                productName,
+                quantity,
+                price);
 
-        addSaleDetailesTable.getItems().add(item);
+        if (saleItemBeingEdited != null) {
+
+            int index = addSaleDetailesTable
+                    .getItems()
+                    .indexOf(saleItemBeingEdited);
+
+            addSaleDetailesTable
+                    .getItems()
+                    .set(index, item);
+
+            saleItemBeingEdited = null;
+
+            addItemToSaleBtn.setText("✚ ADD ITEM");
+
+        } else {
+
+            addSaleDetailesTable
+                    .getItems()
+                    .add(item);
+        }
+
         productWarningLabel.setVisible(false);
         productWarningLabel.setManaged(false);
 
@@ -770,6 +834,7 @@ public class SaleController {
 
         clearAddForm();
         addSaleDatePicker.setValue(LocalDate.now());
+        
 
         formTitleLabel.setText("✚ ADD SALE");
         saveSaleBtn.setText("ADD");
@@ -1002,7 +1067,7 @@ public class SaleController {
 
         addPaymentMethodCombo.getSelectionModel().selectFirst();
         addDeliveryStatusCombo.getSelectionModel().selectFirst();
-        addDeliveryDatePicker.setValue(null);
+        addDeliveryDatePicker.setValue(LocalDate.now());
 
         addTotalAmountLabel.setText("$0.00");
         addBalanceLabel.setText("$0.00");
@@ -1013,6 +1078,8 @@ public class SaleController {
         removeAllValidationErrors();
 
         saleBeingUpdated = null;
+        saleItemBeingEdited = null;
+        addItemToSaleBtn.setText("✚ ADD ITEM");
         formTitleLabel.setText("✚ ADD SALE");
         saveSaleBtn.setText("✚  ADD SALE");
     }
@@ -1050,6 +1117,7 @@ public class SaleController {
     private void openUpdateForm(Sale sale) {
 
         saleBeingUpdated = sale;
+        saleItemBeingEdited = null;
 
         showOnlyPanel(addSalePanel);
 
@@ -1060,9 +1128,16 @@ public class SaleController {
             addSaleDatePicker.setValue(sale.getSaleDate());
         }
 
+        List<SaleDetailes> details;
+
+        if (sale.getItems() != null && !sale.getItems().isEmpty()) {
+            details = sale.getItems();
+        } else {
+            details = saleDAO.getSaleDetailes(sale.getSaleID());
+        }
+
         addSaleDetailesTable.setItems(
-                FXCollections.observableArrayList(
-                        saleDAO.getSaleDetailes(sale.getSaleID())));
+                FXCollections.observableArrayList(details));
 
         addPaidAmountField.setText(
                 String.valueOf(sale.getPaidAmount()));
@@ -1078,7 +1153,7 @@ public class SaleController {
         }
 
         updateSaleSummary();
-
+        addItemToSaleBtn.setText("✚ ADD ITEM");
         formTitleLabel.setText("✏ UPDATE SALE");
         saveSaleBtn.setText("UPDATE");
     }

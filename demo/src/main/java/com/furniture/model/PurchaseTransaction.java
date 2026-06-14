@@ -1,69 +1,131 @@
 package com.furniture.model;
 
-import java.sql.Date;
+import java.time.LocalDate;
+import java.util.List;
 
 public class PurchaseTransaction {
 
-    private int purchase_id;
-    private int supplier_id;
-    private Date purchase_date;
-    private int employee_id;
-    private double total_amount;
+    private int no;
+    private int purchaseID;
+    private int supplierID;
+    private int employeeID;
+    private LocalDate purchaseDate;
+    private double totalAmount;
+
+    private String supplierName;
+    private String supplierType;
+    private String supplierEmail;
+    private String employeeName;
+
+    private int itemsCount;
+    private double totalQuantity;
+
+    private List<PurchaseDetails> items;
 
     public PurchaseTransaction() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
-    
-    public PurchaseTransaction(int supplier_id, Date purchase_date, int employee_id, double total_amount) {
-        this.supplier_id = supplier_id;
-        this.purchase_date = purchase_date;
-        this.employee_id = employee_id;
-        this.total_amount = total_amount;
     }
 
-    public PurchaseTransaction(int purchase_id, int supplier_id, Date purchase_date, int employee_id, double total_amount) {
-        super();
-        this.purchase_id = purchase_id;
-        this.supplier_id = supplier_id;
-        this.purchase_date = purchase_date;
-        this.employee_id = employee_id;
-        this.total_amount = total_amount;
+    public int getNo() {
+        return no;
     }
-    public int getPurchase_id() {
-        return purchase_id;
+
+    public void setNo(int no) {
+        this.no = no;
     }
-    public void setPurchase_id(int purchase_id) {
-        this.purchase_id = purchase_id;
+
+    public int getPurchaseID() {
+        return purchaseID;
     }
-    public int getSupplier_id() {
-        return supplier_id;
+
+    public void setPurchaseID(int purchaseID) {
+        this.purchaseID = purchaseID;
     }
-    public void setSupplier_id(int supplier_id) {
-        this.supplier_id = supplier_id;
+
+    public int getSupplierID() {
+        return supplierID;
     }
-    public Date getPurchase_date() {
-        return purchase_date;
+
+    public void setSupplierID(int supplierID) {
+        this.supplierID = supplierID;
     }
-    public void setPurchase_date(Date purchase_date) {
-        this.purchase_date = purchase_date;
+
+    public int getEmployeeID() {
+        return employeeID;
     }
-    public int getEmployee_id() {
-        return employee_id;
+
+    public void setEmployeeID(int employeeID) {
+        this.employeeID = employeeID;
     }
-    public void setEmployee_id(int employee_id) {
-        this.employee_id = employee_id;
+
+    public LocalDate getPurchaseDate() {
+        return purchaseDate;
     }
-    public double getTotal_amount() {
-        return total_amount;
+
+    public void setPurchaseDate(LocalDate purchaseDate) {
+        this.purchaseDate = purchaseDate;
     }
-    public void setTotal_amount(double total_amount) {
-        this.total_amount = total_amount;
+
+    public double getTotalAmount() {
+        return totalAmount;
     }
-    @Override
-    public String toString() {
-        return "PurchaseTransaction [purchase_id=" + purchase_id + ", supplier_id=" + supplier_id + ", purchase_date="
-                + purchase_date + ", employee_id=" + employee_id + ", total_amount=" + total_amount + "]";
+
+    public void setTotalAmount(double totalAmount) {
+        this.totalAmount = totalAmount;
+    }
+
+    public String getSupplierName() {
+        return supplierName;
+    }
+
+    public void setSupplierName(String supplierName) {
+        this.supplierName = supplierName;
+    }
+
+    public String getSupplierType() {
+        return supplierType;
+    }
+
+    public void setSupplierType(String supplierType) {
+        this.supplierType = supplierType;
+    }
+
+    public String getSupplierEmail() {
+        return supplierEmail;
+    }
+
+    public void setSupplierEmail(String supplierEmail) {
+        this.supplierEmail = supplierEmail;
+    }
+
+    public String getEmployeeName() {
+        return employeeName;
+    }
+
+    public void setEmployeeName(String employeeName) {
+        this.employeeName = employeeName;
+    }
+
+    public int getItemsCount() {
+        return itemsCount;
+    }
+
+    public void setItemsCount(int itemsCount) {
+        this.itemsCount = itemsCount;
+    }
+
+    public double getTotalQuantity() {
+        return totalQuantity;
+    }
+
+    public void setTotalQuantity(double totalQuantity) {
+        this.totalQuantity = totalQuantity;
+    }
+
+    public List<PurchaseDetails> getItems() {
+        return items;
+    }
+
+    public void setItems(List<PurchaseDetails> items) {
+        this.items = items;
     }
 }
-
