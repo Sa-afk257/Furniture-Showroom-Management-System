@@ -191,7 +191,7 @@
 
                         <HBox styleClass="search-box">
                             <TextField fx:id="searchField"
-                                promptText="Search customer by supplier, type..."
+                                promptText="Search purchase by supplier, type..."
                                 styleClass="search-field"
                                 HBox.hgrow="ALWAYS" />
 
@@ -623,22 +623,60 @@
 
                             <VBox spacing="14" styleClass="details-inner-card">
 
-                                <Label fx:id="detailsPurchaseIdLabel"
-                                    text="Purchase #0"
-                                    styleClass="details-main-name" />
+                                <HBox spacing="12"
+                                    alignment="CENTER_LEFT"
+                                    styleClass="details-header-card">
 
-                                <HBox spacing="8" alignment="CENTER_LEFT">
-                                    <Label text="🏢" styleClass="details-gold-icon" />
-                                    <Label fx:id="detailsSupplierNameLabel"
-                                        text="Supplier Name"
-                                        styleClass="details-sub-text" />
-                                </HBox>
+                                    <StackPane styleClass="customer-avatar-circle">
 
-                                <HBox spacing="8" alignment="CENTER_LEFT">
-                                    <Label text="💰" styleClass="details-gold-icon" />
-                                    <Label fx:id="detailsTotalAmountLabel"
-                                        text="\$0.00"
-                                        styleClass="details-money-large" />
+                                        <Label text="📦"
+                                            styleClass="customer-avatar-icon" />
+
+                                    </StackPane>
+
+                                    <VBox spacing="5"
+                                        HBox.hgrow="ALWAYS">
+
+                                        <Label fx:id="detailsPurchaseIdLabel"
+                                            text="Purchase #0"
+                                            styleClass="details-customer-name" />
+
+                                        <HBox spacing="8">
+
+                                            <Label text="🏭"
+                                                styleClass="details-gold-icon" />
+
+                                            <Label fx:id="detailsSupplierNameLabel"
+                                                text="Modern Design"
+                                                styleClass="details-text" />
+
+                                        </HBox>
+
+                                        <HBox spacing="8">
+
+                                            <Label text="📅"
+                                                styleClass="details-gold-icon" />
+
+                                            <Label fx:id="detailsPurchaseDateLabel"
+                                                text="20/07/2026"
+                                                styleClass="details-text" />
+
+                                        </HBox>
+
+                                    </VBox>
+
+                                    <VBox spacing="2"
+                                        alignment="CENTER_RIGHT">
+
+                                        <Label text="TOTAL"
+                                            styleClass="details-small-title" />
+
+                                        <Label fx:id="detailsTotalAmountLabel"
+                                            text="\$0"
+                                            styleClass="details-money" />
+
+                                    </VBox>
+
                                 </HBox>
 
                                 <Separator styleClass="filter-separator" />

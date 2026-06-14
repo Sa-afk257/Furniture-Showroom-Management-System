@@ -146,7 +146,7 @@ public class MainLayoutController {
                 goToPurchases(event);
                 break;
             case "warehousesItem":
-                //goToWarehouse(event);
+                goToWarehouse(event);
                 break;
             case "employeesItem":
                 // goToEmployee(event);
@@ -273,7 +273,7 @@ public class MainLayoutController {
     }
 
     @FXML
-    private void goToWarehouses(MouseEvent event) {
+    private void goToWarehouse(MouseEvent event) {
         loadPage("/view/WarehouseView.fxml", "Warehouses");
     }
 

@@ -8,8 +8,8 @@
 
 <BorderPane xmlns="http://javafx.com/javafx"
     xmlns:fx="http://javafx.com/fxml"
-    fx:controller="com.furniture.ui.PurchaseController"
-    stylesheets="@../style/purchase.css"
+    fx:controller="com.furniture.ui.WarehouseController"
+    stylesheets="@../style/warehouse.css"
     prefWidth="1300"
     prefHeight="780"
     styleClass="root-pane">
@@ -44,7 +44,7 @@
 
                                 <image>
                                     <Image
-                                        url="@../images/icons/totalPurchase_icon.jpg" />
+                                        url="@../images/icons/totalWarehouse_icon.jpg" />
                                 </image>
 
                             </ImageView>
@@ -53,11 +53,11 @@
                                 HBox.hgrow="ALWAYS"
                                 alignment="CENTER_LEFT">
 
-                                <Label fx:id="totalPurchasesLabel"
+                                <Label fx:id="totalWarehousesLabel"
                                     text="0"
                                     styleClass="product-card-number" />
 
-                                <Label text="Total Purchases"
+                                <Label text="Total Warehouses"
                                     styleClass="product-card-title" />
 
                             </VBox>
@@ -74,7 +74,7 @@
 
                                 <image>
                                     <Image
-                                        url="@../images/icons/purchaseCost_icon.jpg" />
+                                        url="@../images/icons/totalCapacity_icon.jpg" />
                                 </image>
 
                             </ImageView>
@@ -83,11 +83,11 @@
                                 HBox.hgrow="ALWAYS"
                                 alignment="CENTER_LEFT">
 
-                                <Label fx:id="totalPurchaseCostLabel"
+                                <Label fx:id="totalCapacityLabel"
                                     text="0"
                                     styleClass="product-card-number" />
 
-                                <Label text="Total Purchase Cost"
+                                <Label text="Total Capacity"
                                     styleClass="product-card-title" />
 
                             </VBox>
@@ -104,7 +104,7 @@
 
                                 <image>
                                     <Image
-                                        url="@../images/icons/productsPurchased_icon.jpg" />
+                                        url="@../images/icons/usedCapacity_icon.jpg" />
                                 </image>
 
                             </ImageView>
@@ -113,11 +113,11 @@
                                 HBox.hgrow="ALWAYS"
                                 alignment="CENTER_LEFT">
 
-                                <Label fx:id="productsPurchasedLabel"
+                                <Label fx:id="usedCapacityLabel"
                                     text="0"
                                     styleClass="product-card-number" />
 
-                                <Label text="Products Purchased"
+                                <Label text="Used Capacity"
                                     styleClass="product-card-title" />
 
                             </VBox>
@@ -134,7 +134,7 @@
 
                                 <image>
                                     <Image
-                                        url="@../images/icons/activeSupplier_icon.jpg" />
+                                        url="@../images/icons/availableCapacity_icon.jpg" />
                                 </image>
 
                             </ImageView>
@@ -143,11 +143,11 @@
                                 HBox.hgrow="ALWAYS"
                                 alignment="CENTER_LEFT">
 
-                                <Label fx:id="activeSuppliersLabel"
+                                <Label fx:id="availableCapacityLabel"
                                     text="0"
                                     styleClass="product-card-number" />
 
-                                <Label text="Active Suppliers"
+                                <Label text="Available Capacity"
                                     styleClass="product-card-title" />
 
                             </VBox>
@@ -164,7 +164,7 @@
 
                                 <image>
                                     <Image
-                                        url="@../images/icons/lowStock_icon.jpg" />
+                                        url="@../images/icons/fullWarehouses_icon.jpg" />
                                 </image>
 
                             </ImageView>
@@ -173,11 +173,11 @@
                                 HBox.hgrow="ALWAYS"
                                 alignment="CENTER_LEFT">
 
-                                <Label fx:id="lowStockItemsLabel"
-                                    text="128"
+                                <Label fx:id="fullWarehousesLabel"
+                                    text="0"
                                     styleClass="product-card-number" />
 
-                                <Label text="Low Stock"
+                                <Label text="Full Warehouses"
                                     styleClass="product-card-title" />
 
                             </VBox>
@@ -191,7 +191,7 @@
 
                         <HBox styleClass="search-box">
                             <TextField fx:id="searchField"
-                                promptText="Search purchase by supplier, type..."
+                                promptText="Search warehouse by name, manager..."
                                 styleClass="search-field"
                                 HBox.hgrow="ALWAYS" />
 
@@ -204,7 +204,7 @@
                         <Button fx:id="filterToggleBtn"
                             text="🝖 FILTER"
                             styleClass="filter-toggle-btn" />
-                        <Button fx:id="addPurchaseBtn"
+                        <Button fx:id="addWarehouseBtn"
                             styleClass="add-product-btn">
 
                             <graphic>
@@ -212,7 +212,7 @@
                                     styleClass="button-icon" />
                             </graphic>
 
-                            <text>ADD Purchase</text>
+                            <text>ADD Warehouse</text>
 
                         </Button>
 
@@ -241,41 +241,11 @@
                             managed="false">
 
                             <VBox spacing="2">
-                                <Label text="🝖  FILTER PURCHASES"
+                                <Label text="🝖  FILTER WAREHOUSES"
                                     styleClass="filter-title" />
                             </VBox>
 
                             <Separator styleClass="filter-separator" />
-
-                            <Label text="Supplier"
-                                styleClass="filter-label" />
-                            <ComboBox fx:id="supplierCombo"
-                                promptText="All Suppliers"
-                                styleClass="filter-combo" />
-
-                            <Label text="Supplier Type"
-                                styleClass="filter-label" />
-                            <ComboBox fx:id="supplierTypeCombo"
-                                promptText="All Types"
-                                styleClass="filter-combo" />
-
-                            <Label text="Employee"
-                                styleClass="filter-label" />
-                            <ComboBox fx:id="employeeCombo"
-                                promptText="All Employees"
-                                styleClass="filter-combo" />
-
-                            <Label text="Product"
-                                styleClass="filter-label" />
-                            <ComboBox fx:id="productCombo"
-                                promptText="All Products"
-                                styleClass="filter-combo" />
-
-                            <Label text="Category"
-                                styleClass="filter-label" />
-                            <ComboBox fx:id="categoryCombo"
-                                promptText="All Categories"
-                                styleClass="filter-combo" />
 
                             <Label text="Warehouse"
                                 styleClass="filter-label" />
@@ -283,47 +253,50 @@
                                 promptText="All Warehouses"
                                 styleClass="filter-combo" />
 
-                            <Label text="Purchase Date"
+                            <Label text="Manager"
+                                styleClass="filter-label" />
+                            <ComboBox fx:id="managerCombo"
+                                promptText="All Managers"
+                                styleClass="filter-combo" />
+
+                            <Label text="City"
+                                styleClass="filter-label" />
+                            <ComboBox fx:id="cityCombo"
+                                promptText="All Cities"
+                                styleClass="filter-combo" />
+
+                            <Label text="Status"
+                                styleClass="filter-label" />
+                            <ComboBox fx:id="warehouseStatusCombo"
+                                promptText="All Status"
+                                styleClass="filter-combo" />
+
+                            <Label text="Capacity Range"
                                 styleClass="filter-label" />
                             <HBox spacing="8" alignment="CENTER_LEFT">
-                                <DatePicker fx:id="fromPurchaseDatePicker"
-                                    promptText="From"
-                                    styleClass="luxury-date-picker" />
-
-                                <Label text="-"
-                                    styleClass="filter-small-text" />
-
-                                <DatePicker fx:id="toPurchaseDatePicker"
-                                    promptText="To"
-                                    styleClass="luxury-date-picker" />
-                            </HBox>
-
-                            <Label text="Total Amount Range"
-                                styleClass="filter-label" />
-                            <HBox spacing="8" alignment="CENTER_LEFT">
-                                <TextField fx:id="minTotalField"
+                                <TextField fx:id="minCapacityField"
                                     promptText="Min"
                                     styleClass="price-input" />
 
                                 <Label text="-"
                                     styleClass="filter-small-text" />
 
-                                <TextField fx:id="maxTotalField"
+                                <TextField fx:id="maxCapacityField"
                                     promptText="Max"
                                     styleClass="price-input" />
                             </HBox>
 
-                            <Label text="Quantity Range"
+                            <Label text="Used % Range"
                                 styleClass="filter-label" />
                             <HBox spacing="8" alignment="CENTER_LEFT">
-                                <TextField fx:id="minQuantityField"
+                                <TextField fx:id="minUsedPercentField"
                                     promptText="Min"
                                     styleClass="price-input" />
 
                                 <Label text="-"
                                     styleClass="filter-small-text" />
 
-                                <TextField fx:id="maxQuantityField"
+                                <TextField fx:id="maxUsedPercentField"
                                     promptText="Max"
                                     styleClass="price-input" />
                             </HBox>
@@ -344,14 +317,14 @@
                             <HBox spacing="14" alignment="CENTER_LEFT"
                                 styleClass="found-box">
 
-                                <Label text="📦"
+                                <Label text="🏬"
                                     styleClass="found-icon" />
 
                                 <VBox spacing="0">
-                                    <Label text="Purchases Found"
+                                    <Label text="Warehouses Found"
                                         styleClass="found-title" />
 
-                                    <Label fx:id="purchasesFoundLabel"
+                                    <Label fx:id="warehousesFoundLabel"
                                         text="0"
                                         styleClass="found-number" />
                                 </VBox>
@@ -359,8 +332,7 @@
                             </HBox>
 
                         </VBox>
-
-                        <VBox fx:id="addPurchasePanel"
+                        <VBox fx:id="addWarehousePanel"
                             spacing="16"
                             styleClass="add-product-panel"
                             visible="false"
@@ -376,222 +348,136 @@
 
                                         <VBox spacing="3" styleClass="add-title-box">
                                             <Label fx:id="formTitleLabel"
-                                                text="✚  ADD PURCHASE"
+                                                text="✚  ADD WAREHOUSE"
                                                 styleClass="add-panel-title" />
                                         </VBox>
 
                                         <VBox spacing="14">
 
-                                            <VBox spacing="3" styleClass="form-field-box">
-                                                <Label text="PURCHASE INFORMATION"
-                                                    styleClass="form-section-title" />
+                                            <Label text="WAREHOUSE INFORMATION"
+                                                styleClass="form-section-title" />
 
+                                            <VBox spacing="3" styleClass="form-field-box">
                                                 <HBox spacing="8" alignment="CENTER_LEFT">
-                                                    <Label text="🏢" styleClass="form-icon" />
-                                                    <Label text="Supplier" styleClass="form-label" />
+                                                    <Label text="🏬" styleClass="form-icon" />
+                                                    <Label text="Warehouse Name"
+                                                        styleClass="form-label" />
                                                     <Label text="*"
                                                         style="-fx-text-fill: red; -fx-font-weight: bold;" />
-                                                    <Label fx:id="supplierWarningLabel"
+                                                    <Label fx:id="warehouseNameWarningLabel"
                                                         text="⚠"
                                                         visible="false"
                                                         managed="false"
                                                         styleClass="warning-label" />
                                                 </HBox>
 
-                                                <ComboBox fx:id="addSupplierCombo"
-                                                    promptText="Select supplier"
-                                                    maxWidth="Infinity"
-                                                    styleClass="filter-combo" />
+                                                <TextField fx:id="addWarehouseNameField"
+                                                    promptText="Warehouse Name"
+                                                    styleClass="luxury-input" />
                                             </VBox>
 
                                             <VBox spacing="3" styleClass="form-field-box">
                                                 <HBox spacing="8" alignment="CENTER_LEFT">
                                                     <Label text="🧑‍💼" styleClass="form-icon" />
-                                                    <Label text="Employee" styleClass="form-label" />
+                                                    <Label text="Manager" styleClass="form-label" />
                                                     <Label text="*"
                                                         style="-fx-text-fill: red; -fx-font-weight: bold;" />
-                                                    <Label fx:id="employeeWarningLabel"
+                                                    <Label fx:id="managerWarningLabel"
                                                         text="⚠"
                                                         visible="false"
                                                         managed="false"
                                                         styleClass="warning-label" />
                                                 </HBox>
 
-                                                <ComboBox fx:id="addEmployeeCombo"
-                                                    promptText="Select employee"
+                                                <ComboBox fx:id="addManagerCombo"
+                                                    promptText="Select Manager"
                                                     maxWidth="Infinity"
                                                     styleClass="filter-combo" />
                                             </VBox>
 
                                             <VBox spacing="3" styleClass="form-field-box">
-                                                <HBox spacing="8" alignment="CENTER_LEFT">
-                                                    <Label text="📅" styleClass="form-icon" />
-                                                    <Label text="Purchase Date"
-                                                        styleClass="form-label" />
-                                                    <Label text="*"
-                                                        style="-fx-text-fill: red; -fx-font-weight: bold;" />
-                                                    <Label fx:id="purchaseDateWarningLabel"
-                                                        text="⚠"
-                                                        visible="false"
-                                                        managed="false"
-                                                        styleClass="warning-label" />
-                                                </HBox>
-
-                                                <DatePicker fx:id="addPurchaseDatePicker"
-                                                    promptText="Select purchase date"
-                                                    maxWidth="Infinity"
-                                                    styleClass="luxury-date-picker" />
-                                            </VBox>
-
-                                            <Separator styleClass="filter-separator" />
-
-                                            <VBox spacing="3" styleClass="form-field-box">
-                                                <Label text="ADD PRODUCT TO PURCHASE"
-                                                    styleClass="form-section-title" />
-
                                                 <HBox spacing="8" alignment="CENTER_LEFT">
                                                     <Label text="📦" styleClass="form-icon" />
-                                                    <Label text="Product" styleClass="form-label" />
+                                                    <Label text="Capacity" styleClass="form-label" />
                                                     <Label text="*"
                                                         style="-fx-text-fill: red; -fx-font-weight: bold;" />
-                                                    <Label fx:id="productWarningLabel"
+                                                    <Label fx:id="capacityWarningLabel"
                                                         text="⚠"
                                                         visible="false"
                                                         managed="false"
                                                         styleClass="warning-label" />
                                                 </HBox>
 
-                                                <ComboBox fx:id="addProductCombo"
-                                                    promptText="Select product"
-                                                    maxWidth="Infinity"
-                                                    styleClass="filter-combo" />
-                                            </VBox>
-
-                                            <VBox spacing="3" styleClass="form-field-box">
-                                                <HBox spacing="8" alignment="CENTER_LEFT">
-                                                    <Label text="🏬" styleClass="form-icon" />
-                                                    <Label text="Warehouse" styleClass="form-label" />
-                                                    <Label text="*"
-                                                        style="-fx-text-fill: red; -fx-font-weight: bold;" />
-                                                    <Label fx:id="warehouseWarningLabel"
-                                                        text="⚠"
-                                                        visible="false"
-                                                        managed="false"
-                                                        styleClass="warning-label" />
-                                                </HBox>
-
-                                                <ComboBox fx:id="addWarehouseCombo"
-                                                    promptText="Select warehouse"
-                                                    maxWidth="Infinity"
-                                                    styleClass="filter-combo" />
-                                            </VBox>
-
-                                            <VBox spacing="3" styleClass="form-field-box">
-                                                <HBox spacing="8" alignment="CENTER_LEFT">
-                                                    <Label text="🔢" styleClass="form-icon" />
-                                                    <Label text="Quantity" styleClass="form-label" />
-                                                    <Label text="*"
-                                                        style="-fx-text-fill: red; -fx-font-weight: bold;" />
-                                                    <Label fx:id="quantityWarningLabel"
-                                                        text="⚠"
-                                                        visible="false"
-                                                        managed="false"
-                                                        styleClass="warning-label" />
-                                                </HBox>
-
-                                                <TextField fx:id="addQuantityField"
-                                                    promptText="Quantity"
+                                                <TextField fx:id="addCapacityField"
+                                                    promptText="Warehouse Capacity"
                                                     styleClass="luxury-input" />
                                             </VBox>
-
-                                            <VBox spacing="3" styleClass="form-field-box">
-                                                <HBox spacing="8" alignment="CENTER_LEFT">
-                                                    <Label text="💰" styleClass="form-icon" />
-                                                    <Label text="Unit Price" styleClass="form-label" />
-                                                    <Label text="*"
-                                                        style="-fx-text-fill: red; -fx-font-weight: bold;" />
-                                                    <Label fx:id="priceWarningLabel"
-                                                        text="⚠"
-                                                        visible="false"
-                                                        managed="false"
-                                                        styleClass="warning-label" />
-                                                </HBox>
-
-                                                <TextField fx:id="addPriceField"
-                                                    promptText="Unit price"
-                                                    styleClass="luxury-input" />
-                                            </VBox>
-
-                                            <HBox spacing="12" alignment="CENTER_LEFT"
-                                                styleClass="details-small-card">
-
-                                                <Label text="📦" styleClass="details-gold-icon" />
-                                                <Label text="Current Stock In Warehouse:"
-                                                    styleClass="details-small-title" />
-                                                <Label fx:id="selectedProductStockLabel"
-                                                    text="0"
-                                                    styleClass="details-value" />
-
-                                            </HBox>
-
-                                            <Button fx:id="addItemToPurchaseBtn"
-                                                text="✚  ADD ITEM"
-                                                maxWidth="Infinity"
-                                                styleClass="luxury-add-btn" />
-
-                                            <Label text="📦 PRODUCTS IN THIS PURCHASE"
-                                                styleClass="form-section-title" />
-
-                                            <TableView fx:id="addPurchaseDetailsTable"
-                                                prefHeight="170"
-                                                styleClass="product-table">
-
-                                                <columns>
-                                                    <TableColumn fx:id="colAddProductName"
-                                                        text="Product" prefWidth="120" />
-                                                    <TableColumn fx:id="colAddCategory"
-                                                        text="Category" prefWidth="95" />
-                                                    <TableColumn fx:id="colAddWarehouse"
-                                                        text="Warehouse" prefWidth="110" />
-                                                    <TableColumn fx:id="colAddQuantity" text="Qty"
-                                                        prefWidth="55" />
-                                                    <TableColumn fx:id="colAddUnitPrice"
-                                                        text="Price" prefWidth="75" />
-                                                    <TableColumn fx:id="colAddSubtotal"
-                                                        text="Subtotal" prefWidth="90" />
-                                                    <TableColumn fx:id="colAddRemove" text=""
-                                                        prefWidth="50" />
-                                                    <TableColumn fx:id="colAddEdit" text=""
-                                                        prefWidth="50" />
-                                                </columns>
-
-                                            </TableView>
 
                                             <Separator styleClass="filter-separator" />
 
-                                            <VBox spacing="10" styleClass="details-small-card">
-                                                <Label text="PURCHASE SUMMARY"
-                                                    styleClass="form-section-title" />
+                                            <Label text="ADDRESS INFORMATION"
+                                                styleClass="form-section-title" />
 
-                                                <HBox spacing="10" alignment="CENTER_LEFT">
-                                                    <Label text="🔢" styleClass="details-gold-icon" />
-                                                    <Label text="Total Quantity"
-                                                        styleClass="details-small-title" />
-                                                    <Region HBox.hgrow="ALWAYS" />
-                                                    <Label fx:id="addTotalQuantityLabel"
-                                                        text="0"
-                                                        styleClass="details-value" />
+                                            <VBox spacing="3" styleClass="form-field-box">
+                                                <HBox spacing="8" alignment="CENTER_LEFT">
+                                                    <Label text="🏙️" styleClass="form-icon" />
+                                                    <Label text="City" styleClass="form-label" />
+                                                    <Label text="*"
+                                                        style="-fx-text-fill: red; -fx-font-weight: bold;" />
+                                                    <Label fx:id="cityWarningLabel"
+                                                        text="⚠"
+                                                        visible="false"
+                                                        managed="false"
+                                                        styleClass="warning-label" />
                                                 </HBox>
 
-                                                <HBox spacing="10" alignment="CENTER_LEFT">
-                                                    <Label text="💰" styleClass="details-gold-icon" />
-                                                    <Label text="Total Amount"
-                                                        styleClass="details-small-title" />
-                                                    <Region HBox.hgrow="ALWAYS" />
-                                                    <Label fx:id="addTotalAmountLabel"
-                                                        text="\$0.00"
-                                                        styleClass="details-money" />
+                                                <TextField fx:id="addCityField"
+                                                    promptText="City"
+                                                    styleClass="luxury-input" />
+                                            </VBox>
+
+                                            <VBox spacing="3" styleClass="form-field-box">
+                                                <HBox spacing="8" alignment="CENTER_LEFT">
+                                                    <Label text="📍" styleClass="form-icon" />
+                                                    <Label text="Town" styleClass="form-label" />
                                                 </HBox>
+
+                                                <TextField fx:id="addTownField"
+                                                    promptText="Town"
+                                                    styleClass="luxury-input" />
+                                            </VBox>
+
+                                            <VBox spacing="3" styleClass="form-field-box">
+                                                <HBox spacing="8" alignment="CENTER_LEFT">
+                                                    <Label text="📌" styleClass="form-icon" />
+                                                    <Label text="Area" styleClass="form-label" />
+                                                </HBox>
+
+                                                <TextField fx:id="addAreaField"
+                                                    promptText="Area"
+                                                    styleClass="luxury-input" />
+                                            </VBox>
+
+                                            <VBox spacing="3" styleClass="form-field-box">
+                                                <HBox spacing="8" alignment="CENTER_LEFT">
+                                                    <Label text="🛣️" styleClass="form-icon" />
+                                                    <Label text="Street" styleClass="form-label" />
+                                                </HBox>
+
+                                                <TextField fx:id="addStreetField"
+                                                    promptText="Street"
+                                                    styleClass="luxury-input" />
+                                            </VBox>
+
+                                            <VBox spacing="3" styleClass="form-field-box">
+                                                <HBox spacing="8" alignment="CENTER_LEFT">
+                                                    <Label text="🏠" styleClass="form-icon" />
+                                                    <Label text="Building" styleClass="form-label" />
+                                                </HBox>
+
+                                                <TextField fx:id="addBuildingField"
+                                                    promptText="Building"
+                                                    styleClass="luxury-input" />
                                             </VBox>
 
                                         </VBox>
@@ -599,8 +485,8 @@
                                 </content>
                             </ScrollPane>
 
-                            <Button fx:id="savePurchaseBtn"
-                                text="✚  ADD PURCHASE"
+                            <Button fx:id="saveWarehouseBtn"
+                                text="✚  ADD WAREHOUSE"
                                 maxWidth="Infinity"
                                 styleClass="luxury-add-btn" />
 
@@ -610,15 +496,15 @@
                                 styleClass="luxury-cancel-btn" />
 
                         </VBox>
-                        <VBox fx:id="PurchaseDetailsPanel"
+                        <VBox fx:id="warehouseDetailsPanel"
                             spacing="14"
                             styleClass="customer-details-panel"
                             visible="false"
                             managed="false">
 
                             <HBox alignment="CENTER_LEFT" spacing="8">
-                                <Label text="📦" styleClass="details-title-icon" />
-                                <Label text="PURCHASE DETAILS" styleClass="details-title" />
+                                <Label text="🏬" styleClass="details-title-icon" />
+                                <Label text="WAREHOUSE DETAILS" styleClass="details-title" />
                             </HBox>
 
                             <VBox spacing="14" styleClass="details-inner-card">
@@ -628,58 +514,50 @@
                                     styleClass="details-header-card">
 
                                     <StackPane styleClass="customer-avatar-circle">
-
-                                        <Label text="📦"
+                                        <Label text="🏬"
                                             styleClass="customer-avatar-icon" />
-
                                     </StackPane>
 
-                                    <VBox spacing="5"
-                                        HBox.hgrow="ALWAYS">
+                                    <VBox spacing="5" HBox.hgrow="ALWAYS">
 
-                                        <Label fx:id="detailsPurchaseIdLabel"
-                                            text="Purchase #0"
+                                        <Label fx:id="detailsWarehouseIdLabel"
+                                            text="Warehouse #2"
                                             styleClass="details-customer-name" />
 
                                         <HBox spacing="8">
-
-                                            <Label text="🏭"
+                                            <Label text="🏷"
                                                 styleClass="details-gold-icon" />
-
-                                            <Label fx:id="detailsSupplierNameLabel"
-                                                text="Modern Design"
+                                            <Label fx:id="detailsWarehouseNameLabel"
+                                                text="Secondary Warehouse"
                                                 styleClass="details-text" />
-
                                         </HBox>
 
                                         <HBox spacing="8">
-
-                                            <Label text="📅"
+                                            <Label text="🧑‍💼"
                                                 styleClass="details-gold-icon" />
-
-                                            <Label fx:id="detailsPurchaseDateLabel"
-                                                text="20/07/2026"
+                                            <Label fx:id="detailsManagerNameLabel"
+                                                text="Dana S Omar"
                                                 styleClass="details-text" />
-
                                         </HBox>
 
                                     </VBox>
 
-                                    <VBox spacing="2"
-                                        alignment="CENTER_RIGHT">
-
-                                        <Label text="TOTAL"
+                                    <VBox spacing="2" alignment="CENTER_RIGHT">
+                                        <Label text="STATUS"
                                             styleClass="details-small-title" />
-
-                                        <Label fx:id="detailsTotalAmountLabel"
-                                            text="\$0"
-                                            styleClass="details-money" />
-
+                                        <Label fx:id="detailsWarehouseStatusLabel"
+                                            text="-"
+                                            styleClass="details-type-badge" />
                                     </VBox>
 
                                 </HBox>
 
-                                <Separator styleClass="filter-separator" />
+                                <HBox alignment="CENTER_LEFT" spacing="10">
+                                    <Label text="CAPACITY SUMMARY"
+                                        styleClass="details-section-title" />
+                                    <Separator HBox.hgrow="ALWAYS"
+                                        styleClass="details-separator" />
+                                </HBox>
 
                                 <GridPane hgap="12" vgap="12">
 
@@ -692,13 +570,12 @@
                                         GridPane.columnIndex="0" GridPane.rowIndex="0">
 
                                         <HBox spacing="7" alignment="CENTER_LEFT">
-                                            <Label text="🏷" styleClass="details-gold-icon" />
-                                            <Label text="Supplier Type"
-                                                styleClass="details-small-title" />
+                                            <Label text="📦" styleClass="details-gold-icon" />
+                                            <Label text="Capacity" styleClass="details-small-title" />
                                         </HBox>
 
-                                        <Label fx:id="detailsSupplierTypeLabel"
-                                            text="-"
+                                        <Label fx:id="detailsCapacityLabel"
+                                            text="0"
                                             styleClass="details-value" />
                                     </VBox>
 
@@ -706,13 +583,12 @@
                                         GridPane.columnIndex="1" GridPane.rowIndex="0">
 
                                         <HBox spacing="7" alignment="CENTER_LEFT">
-                                            <Label text="✉" styleClass="details-gold-icon" />
-                                            <Label text="Supplier Email"
-                                                styleClass="details-small-title" />
+                                            <Label text="📊" styleClass="details-gold-icon" />
+                                            <Label text="Used %" styleClass="details-small-title" />
                                         </HBox>
 
-                                        <Label fx:id="detailsSupplierEmailLabel"
-                                            text="-"
+                                        <Label fx:id="detailsUsedPercentLabel"
+                                            text="0%"
                                             styleClass="details-value" />
                                     </VBox>
 
@@ -720,12 +596,13 @@
                                         GridPane.columnIndex="0" GridPane.rowIndex="1">
 
                                         <HBox spacing="7" alignment="CENTER_LEFT">
-                                            <Label text="🧑‍💼" styleClass="details-gold-icon" />
-                                            <Label text="Employee" styleClass="details-small-title" />
+                                            <Label text="📥" styleClass="details-gold-icon" />
+                                            <Label text="Used Capacity"
+                                                styleClass="details-small-title" />
                                         </HBox>
 
-                                        <Label fx:id="detailsEmployeeLabel"
-                                            text="-"
+                                        <Label fx:id="detailsUsedCapacityLabel"
+                                            text="0"
                                             styleClass="details-value" />
                                     </VBox>
 
@@ -733,13 +610,12 @@
                                         GridPane.columnIndex="1" GridPane.rowIndex="1">
 
                                         <HBox spacing="7" alignment="CENTER_LEFT">
-                                            <Label text="📅" styleClass="details-gold-icon" />
-                                            <Label text="Purchase Date"
-                                                styleClass="details-small-title" />
+                                            <Label text="📤" styleClass="details-gold-icon" />
+                                            <Label text="Remaining" styleClass="details-small-title" />
                                         </HBox>
 
-                                        <Label fx:id="detailsPurchaseDateLabel"
-                                            text="-"
+                                        <Label fx:id="detailsRemainingCapacityLabel"
+                                            text="0"
                                             styleClass="details-value" />
                                     </VBox>
 
@@ -747,12 +623,11 @@
                                         GridPane.columnIndex="0" GridPane.rowIndex="2">
 
                                         <HBox spacing="7" alignment="CENTER_LEFT">
-                                            <Label text="🛒" styleClass="details-gold-icon" />
-                                            <Label text="Items Count"
-                                                styleClass="details-small-title" />
+                                            <Label text="🛋" styleClass="details-gold-icon" />
+                                            <Label text="Products" styleClass="details-small-title" />
                                         </HBox>
 
-                                        <Label fx:id="detailsItemsCountLabel"
+                                        <Label fx:id="detailsProductsCountLabel"
                                             text="0"
                                             styleClass="details-value" />
                                     </VBox>
@@ -761,13 +636,64 @@
                                         GridPane.columnIndex="1" GridPane.rowIndex="2">
 
                                         <HBox spacing="7" alignment="CENTER_LEFT">
-                                            <Label text="📦" styleClass="details-gold-icon" />
-                                            <Label text="Total Quantity"
-                                                styleClass="details-small-title" />
+                                            <Label text="🏷" styleClass="details-gold-icon" />
+                                            <Label text="Status" styleClass="details-small-title" />
                                         </HBox>
 
-                                        <Label fx:id="detailsTotalQuantityLabel"
-                                            text="0"
+                                        <Label fx:id="detailsWarehouseStatusGridLabel"
+                                            text="-"
+                                            styleClass="details-value" />
+                                    </VBox>
+
+                                </GridPane>
+
+                                <Separator styleClass="filter-separator" />
+
+                                <HBox spacing="8" alignment="CENTER_LEFT">
+                                    <Label text="📍" styleClass="details-gold-icon" />
+                                    <Label text="ADDRESS INFORMATION"
+                                        styleClass="form-section-title" />
+                                </HBox>
+
+                                <GridPane hgap="12" vgap="12">
+
+                                    <columnConstraints>
+                                        <ColumnConstraints percentWidth="50" />
+                                        <ColumnConstraints percentWidth="50" />
+                                    </columnConstraints>
+
+                                    <VBox spacing="3" styleClass="details-mini-box"
+                                        GridPane.columnIndex="0" GridPane.rowIndex="0">
+                                        <Label text="City" styleClass="details-small-title" />
+                                        <Label fx:id="detailsCityLabel" text="-"
+                                            styleClass="details-value" />
+                                    </VBox>
+
+                                    <VBox spacing="3" styleClass="details-mini-box"
+                                        GridPane.columnIndex="1" GridPane.rowIndex="0">
+                                        <Label text="Town" styleClass="details-small-title" />
+                                        <Label fx:id="detailsTownLabel" text="-"
+                                            styleClass="details-value" />
+                                    </VBox>
+
+                                    <VBox spacing="3" styleClass="details-mini-box"
+                                        GridPane.columnIndex="0" GridPane.rowIndex="1">
+                                        <Label text="Area" styleClass="details-small-title" />
+                                        <Label fx:id="detailsAreaLabel" text="-"
+                                            styleClass="details-value" />
+                                    </VBox>
+
+                                    <VBox spacing="3" styleClass="details-mini-box"
+                                        GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                        <Label text="Street" styleClass="details-small-title" />
+                                        <Label fx:id="detailsStreetLabel" text="-"
+                                            styleClass="details-value" />
+                                    </VBox>
+
+                                    <VBox spacing="3" styleClass="details-mini-box"
+                                        GridPane.columnIndex="0" GridPane.rowIndex="2">
+                                        <Label text="Building" styleClass="details-small-title" />
+                                        <Label fx:id="detailsBuildingLabel" text="-"
                                             styleClass="details-value" />
                                     </VBox>
 
@@ -775,42 +701,36 @@
 
                                 <HBox spacing="8" alignment="CENTER_LEFT">
                                     <Label text="📦" styleClass="details-gold-icon" />
-                                    <Label text="PRODUCTS IN THIS PURCHASE"
+                                    <Label text="PRODUCTS IN THIS WAREHOUSE"
                                         styleClass="form-section-title" />
                                 </HBox>
 
-                                <TableView fx:id="purchaseDetailsTable"
+                                <TableView fx:id="warehouseProductsTable"
                                     prefHeight="230"
                                     styleClass="product-table">
 
                                     <columns>
+
                                         <TableColumn fx:id="colDetailProductName"
                                             text="Product"
-                                            prefWidth="120" />
+                                            prefWidth="130" />
 
                                         <TableColumn fx:id="colDetailCategory"
                                             text="Category"
-                                            prefWidth="100" />
-
-                                        <TableColumn fx:id="colDetailWarehouse"
-                                            text="Warehouse"
-                                            prefWidth="110" />
+                                            prefWidth="105" />
 
                                         <TableColumn fx:id="colDetailQuantity"
                                             text="Qty"
-                                            prefWidth="65" />
-
-                                        <TableColumn fx:id="colDetailUnitPrice"
-                                            text="Price"
-                                            prefWidth="80" />
-
-                                        <TableColumn fx:id="colDetailSubtotal"
-                                            text="Subtotal"
-                                            prefWidth="90" />
-
-                                        <TableColumn fx:id="colDetailCurrentStock"
-                                            text="Stock"
                                             prefWidth="75" />
+
+                                        <TableColumn fx:id="colDetailPrice"
+                                            text="Price"
+                                            prefWidth="85" />
+
+                                        <TableColumn fx:id="colDetailStatus"
+                                            text="Status"
+                                            prefWidth="100" />
+
                                     </columns>
 
                                 </TableView>
@@ -828,7 +748,7 @@
                             spacing="10"
                             minWidth="0">
 
-                            <TableView fx:id="purchaseTable"
+                            <TableView fx:id="warehouseTable"
                                 styleClass="product-table"
                                 VBox.vgrow="ALWAYS">
 
@@ -838,37 +758,33 @@
                                         text="No."
                                         prefWidth="60" />
 
-                                    <TableColumn fx:id="colPurchaseID"
-                                        text="Purchase ID"
-                                        prefWidth="105" />
+                                    <TableColumn fx:id="colWarehouseID"
+                                        text="Warehouse ID"
+                                        prefWidth="110" />
 
-                                    <TableColumn fx:id="colSupplierName"
-                                        text="Supplier"
-                                        prefWidth="170" />
+                                    <TableColumn fx:id="colWarehouseName"
+                                        text="Warehouse Name"
+                                        prefWidth="180" />
 
-                                    <TableColumn fx:id="colSupplierType"
-                                        text="Type"
-                                        prefWidth="115" />
+                                    <TableColumn fx:id="colManagerName"
+                                        text="Manager"
+                                        prefWidth="160" />
 
-                                    <TableColumn fx:id="colEmployeeName"
-                                        text="Employee"
-                                        prefWidth="150" />
+                                    <TableColumn fx:id="colCapacity"
+                                        text="Capacity"
+                                        prefWidth="110" />
 
-                                    <TableColumn fx:id="colPurchaseDate"
-                                        text="Purchase Date"
-                                        prefWidth="140" />
-
-                                    <TableColumn fx:id="colItemsCount"
-                                        text="Items"
-                                        prefWidth="80" />
-
-                                    <TableColumn fx:id="colTotalQuantity"
-                                        text="Total Qty"
+                                    <TableColumn fx:id="colUsedPercent"
+                                        text="Used %"
                                         prefWidth="100" />
 
-                                    <TableColumn fx:id="colTotalAmount"
-                                        text="Total Amount"
-                                        prefWidth="125" />
+                                    <TableColumn fx:id="colProductsCount"
+                                        text="Products"
+                                        prefWidth="95" />
+
+                                    <TableColumn fx:id="colWarehouseStatus"
+                                        text="Status"
+                                        prefWidth="110" />
 
                                     <TableColumn fx:id="colAction"
                                         text="Actions"

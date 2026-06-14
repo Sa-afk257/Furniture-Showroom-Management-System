@@ -1,6 +1,7 @@
 package com.furniture.ui;
 
 import java.io.File;
+import java.sql.Date;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,6 +9,7 @@ import java.util.Optional;
 import java.util.Stack;
 
 import com.furniture.dao.SaleDAO;
+import com.furniture.model.Return;
 import com.furniture.model.Sale;
 import com.furniture.model.SaleDetailes;
 import com.furniture.dao.SaleDAO.SaleStats;
@@ -23,6 +25,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import org.apache.poi.ss.usermodel.*;
@@ -101,6 +104,8 @@ public class SaleController {
     private VBox addSalePanel;
     @FXML
     private VBox saleDetailsPanel;
+    @FXML
+    private VBox returnPanel;
 
     /* Buttons */
     @FXML
@@ -247,6 +252,55 @@ public class SaleController {
     @FXML
     private TableColumn<SaleDetailes, Double> colDetailSubtotal;
 
+    @FXML
+    private TableView<Return> returnHistoryTable;
+
+    @FXML
+    private TableColumn<Return, String> colReturnProduct;
+
+    @FXML
+    private TableColumn<Return, Double> colReturnQty;
+
+    @FXML
+    private TableColumn<Return, Date> colReturnDate;
+
+    @FXML
+    private TableColumn<Return, String> colReturnComments;
+
+    /* Return Panel */
+    @FXML
+    private Label returnSaleIdLabel;
+
+    @FXML
+    private Label returnCustomerLabel;
+
+    @FXML
+    private ComboBox<String> returnProductCombo;
+
+    @FXML
+    private Label returnSoldQtyLabel;
+
+    @FXML
+    private Label alreadyReturnedQtyLabel;
+
+    @FXML
+    private Label availableReturnQtyLabel;
+
+    @FXML
+    private TextField returnQtyField;
+
+    @FXML
+    private DatePicker returnDatePicker;
+
+    @FXML
+    private TextArea returnCommentsArea;
+
+    @FXML
+    private Button confirmReturnBtn;
+
+    @FXML
+    private Button cancelReturnBtn;
+
     /* Lists */
     private List<Sale> originalSales = new ArrayList<>();
     private Stack<List<Sale>> undoStack = new Stack<>();
@@ -255,8 +309,11 @@ public class SaleController {
     private List<Sale> pendingAdds = new ArrayList<>();
     private List<Sale> pendingUpdates = new ArrayList<>();
     private List<Sale> pendingDeletes = new ArrayList<>();
+    private List<SaleDetailes> currentReturnItems = new ArrayList<>();
+    private List<Return> pendingReturns = new ArrayList<>();
 
     private Sale saleBeingUpdated = null;
+    private Sale currentReturnSale;
     private boolean clearingForm = false;
     private Sale selectedSaleForDetails = null;
     private SaleDetailes saleItemBeingEdited = null;
@@ -280,6 +337,8 @@ public class SaleController {
         setupUndoRedoReset();
         setupAddSaleDetailesTable();
         setupPaymentAndDeliveryCombos();
+        setupReturnPanel();
+        setupReturnHistoryTable();
 
         addItemToSaleBtn.setOnAction(e -> addItemToSale());
 
@@ -408,6 +467,21 @@ public class SaleController {
         setupActionColumn();
     }
 
+    private void setupReturnHistoryTable() {
+
+        colReturnProduct.setCellValueFactory(
+                new PropertyValueFactory<>("productName"));
+
+        colReturnQty.setCellValueFactory(
+                new PropertyValueFactory<>("quantity"));
+
+        colReturnDate.setCellValueFactory(
+                new PropertyValueFactory<>("return_date"));
+
+        colReturnComments.setCellValueFactory(
+                new PropertyValueFactory<>("comments"));
+    }
+
     private void setupDetailsTables() {
 
         colDetailProductName.setCellValueFactory(
@@ -430,15 +504,21 @@ public class SaleController {
             private final Button viewBtn = new Button("👁");
             private final Button editBtn = new Button("✎");
             private final Button deleteBtn = new Button("🗑");
+            private final Button returnBtn = new Button("↩");
 
-            private final HBox box = new HBox(8, viewBtn, editBtn, deleteBtn);
-
+            private final HBox box = new HBox(
+                    6,
+                    viewBtn,
+                    editBtn,
+                    deleteBtn,
+                    returnBtn);
             {
                 box.setAlignment(javafx.geometry.Pos.CENTER);
 
                 viewBtn.getStyleClass().add("table-show-btn");
                 editBtn.getStyleClass().add("table-edit-btn");
                 deleteBtn.getStyleClass().add("table-delete-btn");
+                returnBtn.getStyleClass().add("table-return-btn");
 
                 viewBtn.setOnAction(e -> {
                     Sale sale = getTableView().getItems().get(getIndex());
@@ -476,6 +556,13 @@ public class SaleController {
                 editBtn.setOnAction(e -> {
                     Sale sale = getTableView().getItems().get(getIndex());
                     openUpdateForm(sale);
+                });
+
+                returnBtn.setOnAction(e -> {
+
+                    Sale sale = getTableView().getItems().get(getIndex());
+
+                    openReturnForm(sale);
                 });
             }
 
@@ -577,6 +664,126 @@ public class SaleController {
         addDeliveryStatusCombo.getSelectionModel().selectFirst();
     }
 
+    private void setupReturnPanel() {
+
+        returnPanel.setVisible(false);
+        returnPanel.setManaged(false);
+
+        returnDatePicker.setValue(LocalDate.now());
+
+        returnProductCombo.setOnAction(e -> updateReturnProductInfo());
+        cancelReturnBtn.setOnAction(e -> {
+
+            returnPanel.setVisible(false);
+            returnPanel.setManaged(false);
+
+            returnProductCombo.getSelectionModel().clearSelection();
+
+            returnQtyField.clear();
+            returnCommentsArea.clear();
+
+            returnSoldQtyLabel.setText("0");
+            alreadyReturnedQtyLabel.setText("0");
+            availableReturnQtyLabel.setText("0");
+        });
+        confirmReturnBtn.setOnAction(e -> confirmReturn());
+    }
+
+    private void updateReturnProductInfo() {
+
+        String selectedProduct = returnProductCombo.getValue();
+
+        if (selectedProduct == null || currentReturnSale == null) {
+            return;
+        }
+
+        for (SaleDetailes item : currentReturnItems) {
+
+            if (item.getProductName().equals(selectedProduct)) {
+
+                int soldQty = item.getQuantity();
+
+                double alreadyReturned = saleDAO.getAlreadyReturnedQty(
+                        currentReturnSale.getSaleID(),
+                        item.getProduct_id());
+
+                double available = soldQty - alreadyReturned;
+
+                returnSoldQtyLabel.setText(String.valueOf(soldQty));
+                alreadyReturnedQtyLabel.setText(String.valueOf(alreadyReturned));
+                availableReturnQtyLabel.setText(String.valueOf(available));
+
+                returnQtyField.clear();
+
+                return;
+            }
+        }
+    }
+
+    private void confirmReturn() {
+
+        if (returnProductCombo.getValue() == null) {
+            showWarning("Return Product", "Please select a product.");
+            return;
+        }
+
+        int returnQty;
+
+        try {
+            returnQty = Integer.parseInt(returnQtyField.getText().trim());
+        } catch (Exception e) {
+            showWarning("Return Product", "Return quantity must be a number.");
+            return;
+        }
+
+        if (returnQty <= 0) {
+            showWarning("Return Product", "Return quantity must be greater than 0.");
+            return;
+        }
+
+        int availableQty = (int) Double.parseDouble(availableReturnQtyLabel.getText());
+
+        if (returnQty > availableQty) {
+            showWarning("Return Product", "Return quantity cannot be greater than available quantity.");
+            return;
+        }
+
+        if (returnDatePicker.getValue() == null) {
+            showWarning("Return Product", "Please select return date.");
+            return;
+        }
+
+        String productName = returnProductCombo.getValue();
+
+        int productId = saleDAO.getProductIdByName(productName);
+
+        Return returnItem = new Return(
+                currentReturnSale.getSaleID(),
+                productId,
+                returnQty,
+                java.sql.Date.valueOf(
+                        returnDatePicker.getValue()),
+                returnCommentsArea.getText().trim().isEmpty()
+                        ? "No Comment"
+                        : returnCommentsArea.getText().trim());
+
+        pendingReturns.add(returnItem);
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Return Product");
+        alert.setHeaderText(null);
+        alert.setContentText("Return added temporarily. Click SAVE to save it to database.");
+        alert.showAndWait();
+
+        returnPanel.setVisible(false);
+        returnPanel.setManaged(false);
+
+        returnProductCombo.getSelectionModel().clearSelection();
+        returnQtyField.clear();
+        returnCommentsArea.clear();
+
+    }
+
     private void loadCustomers() {
         addCustomerCombo.getItems().setAll(
                 saleDAO.getCustomerNames());
@@ -645,10 +852,66 @@ public class SaleController {
 
         SaleDetailesTable.setItems(
                 FXCollections.observableArrayList(details));
-
+        returnHistoryTable.setItems(
+                FXCollections.observableArrayList(
+                        saleDAO.getReturnsBySale(
+                                sale.getSaleID())));
+        returnHistoryTable.refresh();
         SaleDetailesTable.refresh();
 
         showOnlyPanel(saleDetailsPanel);
+    }
+
+    private void openReturnForm(Sale sale) {
+
+        currentReturnSale = sale;
+
+        returnSaleIdLabel.setText(
+                String.valueOf(sale.getSaleID()));
+
+        returnCustomerLabel.setText(
+                sale.getCustomerName());
+
+        List<SaleDetailes> details;
+
+        if (sale.getItems() != null
+                && !sale.getItems().isEmpty()) {
+
+            details = sale.getItems();
+
+        } else {
+
+            details = saleDAO.getSaleDetailes(
+                    sale.getSaleID());
+        }
+
+        currentReturnItems.clear();
+        currentReturnItems.addAll(details);
+
+        returnProductCombo.getItems().clear();
+
+        for (SaleDetailes item : details) {
+
+            returnProductCombo.getItems().add(
+                    item.getProductName());
+        }
+
+        returnProductCombo.getSelectionModel().clearSelection();
+
+        returnSoldQtyLabel.setText("0");
+        alreadyReturnedQtyLabel.setText("0");
+        availableReturnQtyLabel.setText("0");
+
+        returnQtyField.clear();
+        returnCommentsArea.clear();
+
+        returnDatePicker.setValue(
+                LocalDate.now());
+
+        showOnlyPanel(returnPanel);
+
+        returnPanel.setVisible(true);
+        returnPanel.setManaged(true);
     }
 
     private void addItemToSale() {
@@ -834,7 +1097,6 @@ public class SaleController {
 
         clearAddForm();
         addSaleDatePicker.setValue(LocalDate.now());
-        
 
         formTitleLabel.setText("✚ ADD SALE");
         saveSaleBtn.setText("ADD");
@@ -1390,6 +1652,9 @@ public class SaleController {
         saleDetailsPanel.setVisible(false);
         saleDetailsPanel.setManaged(false);
 
+        returnPanel.setVisible(false);
+        returnPanel.setManaged(false);
+
         panel.setVisible(true);
         panel.setManaged(true);
     }
@@ -1440,6 +1705,7 @@ public class SaleController {
         pendingAdds.clear();
         pendingUpdates.clear();
         pendingDeletes.clear();
+        pendingReturns.clear();
 
         undoStack.clear();
         redoStack.clear();
@@ -1473,9 +1739,14 @@ public class SaleController {
                 saleDAO.deleteSale(sale.getSaleID());
             }
 
+            for (Return returnItem : pendingReturns) {
+                saleDAO.addReturn(returnItem);
+            }
+
             pendingAdds.clear();
             pendingUpdates.clear();
             pendingDeletes.clear();
+            pendingReturns.clear();
 
             undoStack.clear();
             redoStack.clear();

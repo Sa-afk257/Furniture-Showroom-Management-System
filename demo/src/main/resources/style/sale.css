@@ -677,6 +677,7 @@
 
 .table-edit-btn,
 .table-delete-btn,
+.table-return-btn,
 .table-show-btn {
     -fx-background-color: #111111;
     -fx-border-color: #c28b2c;
@@ -690,6 +691,7 @@
 
 .table-edit-btn:hover,
 .table-show-btn:hover,
+.table-return-btn:hover,
 .table-delete-btn:hover {
     -fx-background-color: #2a2a2a;
     -fx-border-color: #f8d77a;
@@ -943,4 +945,52 @@
     -fx-padding: 10 0 4 0;
     -fx-border-color: transparent transparent #8c6725 transparent;
     -fx-border-width: 0 0 1 0;
+}
+
+.return-panel {
+    -fx-background-color: linear-gradient(to bottom, #151515, #0b0b0b);
+    -fx-border-color: #8c6725;
+    -fx-border-width: 1;
+    -fx-border-radius: 14;
+    -fx-background-radius: 14;
+    -fx-padding: 14;
+    -fx-effect: dropshadow(gaussian, rgba(248, 215, 122, 0.18), 10, 0.2, 0, 0);
+}
+
+.return-title {
+    -fx-text-fill: #f8d77a;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+.return-value {
+    -fx-text-fill: white;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+}
+
+.comment-area {
+    -fx-background-color: #1a1a1a;
+    -fx-control-inner-background: #1a1a1a;
+
+    -fx-text-fill: #FFF4CF;
+    -fx-prompt-text-fill: #8a8a8a;
+
+    -fx-border-color: #C28B2C;
+    -fx-border-width: 1.5;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+
+    -fx-font-size: 12px;
+    -fx-padding: 6;
+
+    -fx-highlight-fill: #D9A441;
+    -fx-highlight-text-fill: black;
+}
+
+.comment-area:focused {
+    -fx-border-color: #F8D77A;
+    -fx-effect: dropshadow(gaussian,
+            rgba(248,215,122,0.25),
+            10,0,0,0);
 }

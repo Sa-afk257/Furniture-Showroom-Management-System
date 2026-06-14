@@ -9,6 +9,7 @@ import java.util.List;
 import com.furniture.model.Sale;
 import com.furniture.model.SaleDetailes;
 import com.furniture.DBConnection;
+import com.furniture.model.Return;
 
 public class SaleDAO {
     public static class SaleStats {
@@ -393,6 +394,7 @@ public class SaleDAO {
                 }
                 ps.executeBatch();
             }
+            decreaseInventoryAfterSale(conn, sale.getItems());
 
             if (sale.getPaidAmount() > 0) {
                 try (PreparedStatement ps = conn.prepareStatement(paymentSql)) {
@@ -420,6 +422,31 @@ public class SaleDAO {
 
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    private void decreaseInventoryAfterSale(Connection conn, List<SaleDetailes> items)
+            throws Exception {
+
+        String sql = """
+                    UPDATE Inventory
+                    SET quantity = quantity - ?
+                    WHERE ProductID = ?
+                      AND quantity >= ?
+                    ORDER BY quantity DESC
+                    LIMIT 1
+                """;
+
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            for (SaleDetailes item : items) {
+                ps.setInt(1, item.getQuantity());
+                ps.setInt(2, item.getProduct_id());
+                ps.setInt(3, item.getQuantity());
+                ps.addBatch();
+            }
+
+            ps.executeBatch();
         }
     }
 
@@ -487,11 +514,17 @@ public class SaleDAO {
                 ps.executeUpdate();
             }
 
+            List<SaleDetailes> oldItems = getSaleDetailes(sale.getSaleID());
+
+            increaseInventoryAfterReturn(conn, oldItems);
+
             deleteSaleDetails(conn, sale.getSaleID());
 
             insertSaleDetails(conn,
                     sale.getSaleID(),
                     sale.getItems());
+
+            decreaseInventoryAfterSale(conn, sale.getItems());
 
             updatePayment(conn, sale);
 
@@ -501,6 +534,29 @@ public class SaleDAO {
 
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    private void increaseInventoryAfterReturn(Connection conn, List<SaleDetailes> items)
+            throws Exception {
+
+        String sql = """
+                    UPDATE Inventory
+                    SET quantity = quantity + ?
+                    WHERE ProductID = ?
+                    ORDER BY quantity DESC
+                    LIMIT 1
+                """;
+
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            for (SaleDetailes item : items) {
+                ps.setInt(1, item.getQuantity());
+                ps.setInt(2, item.getProduct_id());
+                ps.addBatch();
+            }
+
+            ps.executeBatch();
         }
     }
 
@@ -779,6 +835,139 @@ public class SaleDAO {
         }
 
         return -1;
+    }
+
+    public void addReturn(Return returnItem) {
+
+        String insertReturnSql = """
+                INSERT INTO ProductReturn
+                (SaleID, ProductID, quantity, ProductReturn_Date, comments)
+                VALUES (?, ?, ?, ?, ?)
+                """;
+
+        String updateInventorySql = """
+                UPDATE Inventory
+                SET quantity = quantity + ?
+                WHERE ProductID = ?
+                ORDER BY quantity DESC
+                LIMIT 1
+                """;
+
+        try (Connection conn = DBConnection.getConnection()) {
+
+            conn.setAutoCommit(false);
+
+            try (PreparedStatement ps = conn.prepareStatement(insertReturnSql)) {
+
+                ps.setInt(1, returnItem.getSale_id());
+                ps.setInt(2, returnItem.getProduct_id());
+
+                ps.setDouble(3,
+                        returnItem.getQuantity());
+
+                ps.setDate(4,
+                        returnItem.getReturn_date());
+
+                ps.setString(5,
+                        returnItem.getComments());
+
+                ps.executeUpdate();
+            }
+
+            try (PreparedStatement ps = conn.prepareStatement(updateInventorySql)) {
+
+                ps.setDouble(1,
+                        returnItem.getQuantity());
+
+                ps.setInt(2,
+                        returnItem.getProduct_id());
+
+                ps.executeUpdate();
+            }
+
+            conn.commit();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public double getAlreadyReturnedQty(int saleID, int productID) {
+
+        String sql = """
+                SELECT COALESCE(SUM(quantity), 0) AS returnedQty
+                FROM ProductReturn
+                WHERE SaleID = ?
+                  AND ProductID = ?
+                """;
+
+        try (Connection conn = DBConnection.getConnection();
+                PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, saleID);
+            ps.setInt(2, productID);
+
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                return rs.getDouble("returnedQty");
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return 0;
+    }
+
+    public List<Return> getReturnsBySale(int saleID) {
+
+        List<Return> returns = new ArrayList<>();
+
+        String sql = """
+                SELECT
+                    pr.ProductReturnID,
+                    pr.SaleID,
+                    pr.ProductID,
+                    pr.quantity,
+                    pr.ProductReturn_Date,
+                    pr.comments,
+                    p.ProductName
+                FROM ProductReturn pr
+                JOIN Product p
+                    ON pr.ProductID = p.ProductID
+                WHERE pr.SaleID = ?
+                ORDER BY pr.ProductReturn_Date DESC
+                """;
+
+        try (Connection conn = DBConnection.getConnection();
+                PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, saleID);
+
+            try (ResultSet rs = ps.executeQuery()) {
+
+                while (rs.next()) {
+
+                    Return r = new Return();
+
+                    r.setReturn_id(rs.getInt("ProductReturnID"));
+                    r.setSale_id(rs.getInt("SaleID"));
+                    r.setProduct_id(rs.getInt("ProductID"));
+                    r.setQuantity(rs.getDouble("quantity"));
+                    r.setReturn_date(rs.getDate("ProductReturn_Date"));
+                    r.setComments(rs.getString("comments"));
+                    r.setProductName(rs.getString("ProductName"));
+
+                    returns.add(r);
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return returns;
     }
 
 }

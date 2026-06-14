@@ -3,6 +3,7 @@ C:\Users\IMOE001\Desktop\university\Data base\DataBase_2026_Dr.Basem\Project\Fur
 C:\Users\IMOE001\Desktop\university\Data base\DataBase_2026_Dr.Basem\Project\Furniture Showroom Management System\demo\src\main\java\com\furniture\dao\ProductDAO.java
 C:\Users\IMOE001\Desktop\university\Data base\DataBase_2026_Dr.Basem\Project\Furniture Showroom Management System\demo\src\main\java\com\furniture\dao\PurchaseDAO.java
 C:\Users\IMOE001\Desktop\university\Data base\DataBase_2026_Dr.Basem\Project\Furniture Showroom Management System\demo\src\main\java\com\furniture\dao\SaleDAO.java
+C:\Users\IMOE001\Desktop\university\Data base\DataBase_2026_Dr.Basem\Project\Furniture Showroom Management System\demo\src\main\java\com\furniture\dao\WarehouseDAO.java
 C:\Users\IMOE001\Desktop\university\Data base\DataBase_2026_Dr.Basem\Project\Furniture Showroom Management System\demo\src\main\java\com\furniture\DBConnection.java
 C:\Users\IMOE001\Desktop\university\Data base\DataBase_2026_Dr.Basem\Project\Furniture Showroom Management System\demo\src\main\java\com\furniture\Main.java
 C:\Users\IMOE001\Desktop\university\Data base\DataBase_2026_Dr.Basem\Project\Furniture Showroom Management System\demo\src\main\java\com\furniture\model\Category.java
@@ -21,7 +22,7 @@ C:\Users\IMOE001\Desktop\university\Data base\DataBase_2026_Dr.Basem\Project\Fur
 C:\Users\IMOE001\Desktop\university\Data base\DataBase_2026_Dr.Basem\Project\Furniture Showroom Management System\demo\src\main\java\com\furniture\model\SaleDetailes.java
 C:\Users\IMOE001\Desktop\university\Data base\DataBase_2026_Dr.Basem\Project\Furniture Showroom Management System\demo\src\main\java\com\furniture\model\StockMovement.java
 C:\Users\IMOE001\Desktop\university\Data base\DataBase_2026_Dr.Basem\Project\Furniture Showroom Management System\demo\src\main\java\com\furniture\model\Supplier.java
-C:\Users\IMOE001\Desktop\university\Data base\DataBase_2026_Dr.Basem\Project\Furniture Showroom Management System\demo\src\main\java\com\furniture\model\Werehouse.java
+C:\Users\IMOE001\Desktop\university\Data base\DataBase_2026_Dr.Basem\Project\Furniture Showroom Management System\demo\src\main\java\com\furniture\model\Warehouse.java
 C:\Users\IMOE001\Desktop\university\Data base\DataBase_2026_Dr.Basem\Project\Furniture Showroom Management System\demo\src\main\java\com\furniture\ui\CustomerController.java
 C:\Users\IMOE001\Desktop\university\Data base\DataBase_2026_Dr.Basem\Project\Furniture Showroom Management System\demo\src\main\java\com\furniture\ui\DashboardController.java
 C:\Users\IMOE001\Desktop\university\Data base\DataBase_2026_Dr.Basem\Project\Furniture Showroom Management System\demo\src\main\java\com\furniture\ui\HomePageController.java
@@ -29,3 +30,4 @@ C:\Users\IMOE001\Desktop\university\Data base\DataBase_2026_Dr.Basem\Project\Fur
 C:\Users\IMOE001\Desktop\university\Data base\DataBase_2026_Dr.Basem\Project\Furniture Showroom Management System\demo\src\main\java\com\furniture\ui\ProductController.java
 C:\Users\IMOE001\Desktop\university\Data base\DataBase_2026_Dr.Basem\Project\Furniture Showroom Management System\demo\src\main\java\com\furniture\ui\PurchaseController.java
 C:\Users\IMOE001\Desktop\university\Data base\DataBase_2026_Dr.Basem\Project\Furniture Showroom Management System\demo\src\main\java\com\furniture\ui\SaleController.java
+C:\Users\IMOE001\Desktop\university\Data base\DataBase_2026_Dr.Basem\Project\Furniture Showroom Management System\demo\src\main\java\com\furniture\ui\WarehouseController.java

@@ -191,7 +191,7 @@
 
                         <HBox styleClass="search-box">
                             <TextField fx:id="searchField"
-                                promptText="Search customer by customer, employee..."
+                                promptText="Search sale by customer, employee..."
                                 styleClass="search-field"
                                 HBox.hgrow="ALWAYS" />
 
@@ -849,6 +849,39 @@
                                     </columns>
 
                                 </TableView>
+                                <HBox alignment="CENTER_LEFT" spacing="10">
+                                    <Label text="RETURN HISTORY"
+                                        styleClass="details-section-title" />
+
+                                    <Separator HBox.hgrow="ALWAYS"
+                                        styleClass="details-separator" />
+                                </HBox>
+
+                                <TableView fx:id="returnHistoryTable"
+                                    prefHeight="120"
+                                    styleClass="product-table">
+
+                                    <columns>
+
+                                        <TableColumn fx:id="colReturnProduct"
+                                            text="Product"
+                                            prefWidth="120" />
+
+                                        <TableColumn fx:id="colReturnQty"
+                                            text="Qty"
+                                            prefWidth="60" />
+
+                                        <TableColumn fx:id="colReturnDate"
+                                            text="Date"
+                                            prefWidth="100" />
+
+                                        <TableColumn fx:id="colReturnComments"
+                                            text="Comments"
+                                            prefWidth="180" />
+
+                                    </columns>
+
+                                </TableView>
 
                             </VBox>
 
@@ -859,6 +892,230 @@
                                     HBox.hgrow="ALWAYS"
                                     styleClass="luxury-cancel-btn" />
                             </HBox>
+
+                        </VBox>
+                        <VBox fx:id="returnPanel"
+                            spacing="16"
+                            styleClass="add-product-panel"
+                            visible="false"
+                            managed="false">
+
+                            <ScrollPane fitToWidth="true"
+                                hbarPolicy="NEVER"
+                                vbarPolicy="AS_NEEDED"
+                                styleClass="form-scroll">
+
+                                <content>
+
+                                    <VBox spacing="14">
+
+                                        <VBox spacing="3"
+                                            styleClass="add-title-box">
+
+                                            <Label text="↩  RETURN PRODUCT"
+                                                styleClass="add-panel-title" />
+
+                                        </VBox>
+
+                                        <VBox spacing="14">
+
+                                            <VBox spacing="3"
+                                                styleClass="form-field-box">
+
+                                                <Label text="SALE INFORMATION"
+                                                    styleClass="form-section-title" />
+
+                                                <HBox spacing="8"
+                                                    alignment="CENTER_LEFT">
+
+                                                    <Label text="🧾"
+                                                        styleClass="form-icon" />
+
+                                                    <Label text="Sale ID"
+                                                        styleClass="form-label" />
+
+                                                </HBox>
+
+                                                <Label fx:id="returnSaleIdLabel"
+                                                    text="-"
+                                                    styleClass="details-value" />
+
+                                            </VBox>
+
+                                            <VBox spacing="3"
+                                                styleClass="form-field-box">
+
+                                                <HBox spacing="8"
+                                                    alignment="CENTER_LEFT">
+
+                                                    <Label text="👤"
+                                                        styleClass="form-icon" />
+
+                                                    <Label text="Customer"
+                                                        styleClass="form-label" />
+
+                                                </HBox>
+
+                                                <Label fx:id="returnCustomerLabel"
+                                                    text="-"
+                                                    styleClass="details-value" />
+
+                                            </VBox>
+
+                                            <Separator styleClass="filter-separator" />
+
+                                            <VBox spacing="3"
+                                                styleClass="form-field-box">
+
+                                                <Label text="PRODUCT INFORMATION"
+                                                    styleClass="form-section-title" />
+
+                                                <HBox spacing="8"
+                                                    alignment="CENTER_LEFT">
+
+                                                    <Label text="📦"
+                                                        styleClass="form-icon" />
+
+                                                    <Label text="Product"
+                                                        styleClass="form-label" />
+
+                                                </HBox>
+
+                                                <ComboBox fx:id="returnProductCombo"
+                                                    promptText="Select product"
+                                                    maxWidth="Infinity"
+                                                    styleClass="filter-combo" />
+
+                                            </VBox>
+
+                                            <HBox spacing="12"
+                                                alignment="CENTER_LEFT"
+                                                styleClass="details-small-card">
+
+                                                <Label text="📦"
+                                                    styleClass="details-gold-icon" />
+
+                                                <Label text="Sold Qty:"
+                                                    styleClass="details-small-title" />
+
+                                                <Label fx:id="returnSoldQtyLabel"
+                                                    text="0"
+                                                    styleClass="details-value" />
+
+                                            </HBox>
+
+                                            <HBox spacing="12"
+                                                alignment="CENTER_LEFT"
+                                                styleClass="details-small-card">
+
+                                                <Label text="↩"
+                                                    styleClass="details-gold-icon" />
+
+                                                <Label text="Already Returned:"
+                                                    styleClass="details-small-title" />
+
+                                                <Label fx:id="alreadyReturnedQtyLabel"
+                                                    text="0"
+                                                    styleClass="details-value" />
+
+                                            </HBox>
+
+                                            <HBox spacing="12"
+                                                alignment="CENTER_LEFT"
+                                                styleClass="details-small-card">
+
+                                                <Label text="✔"
+                                                    styleClass="details-gold-icon" />
+
+                                                <Label text="Available:"
+                                                    styleClass="details-small-title" />
+
+                                                <Label fx:id="availableReturnQtyLabel"
+                                                    text="0"
+                                                    styleClass="details-money" />
+
+                                            </HBox>
+
+                                            <Separator styleClass="filter-separator" />
+
+                                            <VBox spacing="3"
+                                                styleClass="form-field-box">
+
+                                                <HBox spacing="8"
+                                                    alignment="CENTER_LEFT">
+
+                                                    <Label text="🔢"
+                                                        styleClass="form-icon" />
+
+                                                    <Label text="Return Quantity"
+                                                        styleClass="form-label" />
+
+                                                </HBox>
+
+                                                <TextField fx:id="returnQtyField"
+                                                    promptText="Enter quantity"
+                                                    styleClass="luxury-input" />
+
+                                            </VBox>
+
+                                            <VBox spacing="3"
+                                                styleClass="form-field-box">
+
+                                                <HBox spacing="8"
+                                                    alignment="CENTER_LEFT">
+
+                                                    <Label text="📅"
+                                                        styleClass="form-icon" />
+
+                                                    <Label text="Return Date"
+                                                        styleClass="form-label" />
+
+                                                </HBox>
+
+                                                <DatePicker fx:id="returnDatePicker"
+                                                    maxWidth="Infinity"
+                                                    styleClass="luxury-date-picker" />
+
+                                            </VBox>
+
+                                            <VBox spacing="3"
+                                                styleClass="form-field-box">
+
+                                                <HBox spacing="8"
+                                                    alignment="CENTER_LEFT">
+
+                                                    <Label text="📝"
+                                                        styleClass="form-icon" />
+
+                                                    <Label text="Comments"
+                                                        styleClass="form-label" />
+
+                                                </HBox>
+
+                                                <TextArea fx:id="returnCommentsArea"
+                                                    prefRowCount="3"
+                                                    promptText="Damaged item / customer changed mind ..."
+                                                    styleClass="comment-area" />
+
+                                            </VBox>
+
+                                        </VBox>
+
+                                    </VBox>
+
+                                </content>
+
+                            </ScrollPane>
+
+                            <Button fx:id="confirmReturnBtn"
+                                text="↩  CONFIRM RETURN"
+                                maxWidth="Infinity"
+                                styleClass="luxury-add-btn" />
+
+                            <Button fx:id="cancelReturnBtn"
+                                text="CANCEL"
+                                maxWidth="Infinity"
+                                styleClass="luxury-cancel-btn" />
 
                         </VBox>
 
@@ -915,7 +1172,7 @@
 
                                     <TableColumn fx:id="colAction"
                                         text="Actions"
-                                        prefWidth="130" />
+                                        prefWidth="170" />
 
                                 </columns>
 

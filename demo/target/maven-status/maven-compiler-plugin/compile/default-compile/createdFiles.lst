@@ -9,7 +9,6 @@ com\furniture\model\StockMovement.class
 com\furniture\dao\ProductDAO$ProductStats.class
 com\furniture\ui\DashboardController.class
 com\furniture\model\PurchaseDetails.class
-com\furniture\model\Werehouse.class
 com\furniture\model\Product.class
 com\furniture\model\SaleDetailes.class
 com\furniture\model\Supplier.class
