@@ -199,6 +199,39 @@ public class ProductController {
     @FXML
     private DatePicker toCreatedDatePicker;
 
+    @FXML
+    private VBox productDetailsPanel;
+
+    @FXML
+    private Label detailsProductNameLabel;
+    @FXML
+    private Label detailsProductStatusLabel;
+    @FXML
+    private Label detailsProductPriceLabel;
+    @FXML
+    private Label detailsProductStockLabel;
+    @FXML
+    private Label detailsProductCategoryLabel;
+    @FXML
+    private Label detailsProductWarehouseLabel;
+    @FXML
+    private Label detailsProductIdLabel;
+    @FXML
+    private Label detailsProductSupplierLabel;
+    @FXML
+    private Label detailsProductColorLabel;
+    @FXML
+    private Label detailsProductMaterialLabel;
+    @FXML
+    private Label detailsProductCreatedDateLabel;
+    @FXML
+    private Label detailsProductDescriptionLabel;
+    @FXML
+    private javafx.scene.image.ImageView detailsProductImageView;
+
+    @FXML
+    private Button closeDetailsBtn;
+
     private File selectedImageFile;
 
     private List<Product> originalProducts = new ArrayList<>();
@@ -237,7 +270,7 @@ public class ProductController {
 
         toCreatedDatePicker.valueProperty().addListener(
                 (obs, oldVal, newVal) -> applyFilters());
-                
+
         applyFiltersBtn.setOnAction(e -> applyFilters());
         resetFiltersBtn.setOnAction(e -> resetFilters());
 
@@ -257,6 +290,13 @@ public class ProductController {
             } else {
                 openAddForm();
             }
+        });
+
+        closeDetailsBtn.setOnAction(e -> {
+
+            productDetailsPanel.setVisible(false);
+            productDetailsPanel.setManaged(false);
+
         });
         exportBtn.setOnAction(e -> exportProductsToExcel());
         saveAllBtn.setOnAction(e -> saveAllChanges());
@@ -349,15 +389,28 @@ public class ProductController {
 
         colAction.setCellFactory(column -> new javafx.scene.control.TableCell<>() {
 
+            private final Button viewBtn = new Button("👁");
             private final Button editBtn = new Button("✎");
             private final Button deleteBtn = new Button("🗑");
-            private final HBox box = new HBox(8, editBtn, deleteBtn);
+
+            private final HBox box = new HBox(8, viewBtn, editBtn, deleteBtn);
 
             {
                 box.setAlignment(javafx.geometry.Pos.CENTER);
 
+                viewBtn.getStyleClass().add("table-show-btn");
                 editBtn.getStyleClass().add("table-edit-btn");
                 deleteBtn.getStyleClass().add("table-delete-btn");
+
+                viewBtn.setOnAction(e -> {
+                    Product product = getTableView().getItems().get(getIndex());
+                    openProductDetails(product);
+                });
+
+                editBtn.setOnAction(e -> {
+                    Product product = getTableView().getItems().get(getIndex());
+                    openUpdateForm(product);
+                });
 
                 deleteBtn.setOnAction(e -> {
 
@@ -384,11 +437,6 @@ public class ProductController {
                     refreshRowNumbers();
 
                     redoStack.clear();
-                });
-
-                editBtn.setOnAction(e -> {
-                    Product product = getTableView().getItems().get(getIndex());
-                    openUpdateForm(product);
                 });
             }
 
@@ -1206,6 +1254,9 @@ public class ProductController {
         addProductPanel.setVisible(false);
         addProductPanel.setManaged(false);
 
+        productDetailsPanel.setVisible(false);
+        productDetailsPanel.setManaged(false);
+
         panel.setVisible(true);
         panel.setManaged(true);
     }
@@ -1245,6 +1296,81 @@ public class ProductController {
         }
 
         return null;
+    }
+
+    private void openProductDetails(Product product) {
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+        detailsProductNameLabel.setText(
+                emptyToDash(product.getProductName()));
+
+        detailsProductStatusLabel.setText(
+                emptyToDash(product.getStatus()));
+
+        detailsProductPriceLabel.setText(
+                String.format("$%,.2f", product.getPrice()));
+
+        detailsProductStockLabel.setText(
+                String.valueOf(product.getStock()));
+
+        detailsProductCategoryLabel.setText(
+                emptyToDash(product.getCategoryName()));
+
+        detailsProductWarehouseLabel.setText(
+                emptyToDash(product.getWarehouseName()));
+
+        detailsProductIdLabel.setText(
+                String.valueOf(product.getProductID()));
+
+        detailsProductSupplierLabel.setText(
+                emptyToDash(product.getSupplierName()));
+
+        detailsProductColorLabel.setText(
+                emptyToDash(product.getColor()));
+
+        detailsProductMaterialLabel.setText(
+                emptyToDash(product.getMaterial()));
+
+        detailsProductDescriptionLabel.setText(
+                emptyToDash(product.getDescription()));
+
+        if (product.getCreatedDate() != null) {
+
+            detailsProductCreatedDateLabel.setText(
+                    product.getCreatedDate().format(formatter));
+
+        } else {
+
+            detailsProductCreatedDateLabel.setText("-");
+        }
+        try {
+            if (product.getImagePath() != null && !product.getImagePath().isBlank()) {
+                java.net.URL url = getClass().getResource(product.getImagePath());
+
+                if (url != null) {
+                    detailsProductImageView.setImage(
+                            new javafx.scene.image.Image(url.toExternalForm()));
+                } else {
+                    detailsProductImageView.setImage(null);
+                }
+            } else {
+                detailsProductImageView.setImage(null);
+            }
+        } catch (Exception e) {
+            detailsProductImageView.setImage(null);
+        }
+
+        showOnlyPanel(productDetailsPanel);
+    }
+
+    private String emptyToDash(String value) {
+
+        if (value == null || value.trim().isEmpty()) {
+            return "-";
+        }
+
+        return value;
     }
 
     private void setupUndoRedoReset() {

@@ -16,8 +16,8 @@
     -fx-pref-height: 40px;
     -fx-alignment: CENTER_LEFT;
 
-    -fx-background-color: rgba(18,18,18,0.96);
-    -fx-border-color: rgba(214,156,55,0.45);
+    -fx-background-color: rgba(18, 18, 18, 0.96);
+    -fx-border-color: rgba(214, 156, 55, 0.45);
     -fx-border-radius: 9;
     -fx-background-radius: 9;
 }
@@ -26,7 +26,7 @@
     -fx-background-color: transparent;
     -fx-border-color: transparent;
     -fx-text-fill: white;
-    -fx-prompt-text-fill: rgba(255,255,255,0.65);
+    -fx-prompt-text-fill: rgba(255, 255, 255, 0.65);
     -fx-padding: 0 10 0 14;
 }
 
@@ -45,19 +45,19 @@
     -fx-min-height: 72px;
     -fx-max-height: 72px;
 
-    -fx-background-color: linear-gradient(to bottom, rgba(18,18,18,0.98), rgba(5,5,5,1));
+    -fx-background-color: linear-gradient(to bottom, rgba(18, 18, 18, 0.98), rgba(5, 5, 5, 1));
     -fx-background-radius: 18;
     -fx-border-radius: 18;
     -fx-border-width: 1.2;
-    -fx-border-color: rgba(214,156,55,0.45);
+    -fx-border-color: rgba(214, 156, 55, 0.45);
     -fx-padding: 18 18 18 20;
 
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.35), 12,0.15,0,4);
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.35), 12, 0.15, 0, 4);
 }
 
 .dashboard-stat-card:hover {
-    -fx-border-color: rgba(255,220,120,0.85);
-    -fx-effect: dropshadow(gaussian, rgba(255,210,120,0.22), 18,0.28,0,0);
+    -fx-border-color: rgba(255, 220, 120, 0.85);
+    -fx-effect: dropshadow(gaussian, rgba(255, 210, 120, 0.22), 18, 0.28, 0, 0);
     -fx-translate-y: -2;
 }
 
@@ -71,8 +71,8 @@
     -fx-alignment: center;
 
     -fx-background-color: radial-gradient(center 50% 50%, radius 100%,
-        rgba(255,215,120,0.18),
-        rgba(255,215,120,0.02));
+            rgba(255, 215, 120, 0.18),
+            rgba(255, 215, 120, 0.02));
 
     -fx-background-radius: 50;
     -fx-border-color: #ffd978;
@@ -99,7 +99,7 @@
     -fx-font-family: "Segoe UI";
     -fx-font-weight: bold;
 
-    -fx-effect: dropshadow(gaussian, rgba(255,215,120,0.35), 10,0.25,0,0);
+    -fx-effect: dropshadow(gaussian, rgba(255, 215, 120, 0.35), 10, 0.25, 0, 0);
 }
 
 .product-card-number {
@@ -134,13 +134,13 @@
     -fx-pref-width: 470px;
     -fx-pref-height: 42px;
 
-    -fx-background-color: rgba(18,18,18,0.96);
-    -fx-border-color: rgba(214,156,55,0.45);
+    -fx-background-color: rgba(18, 18, 18, 0.96);
+    -fx-border-color: rgba(214, 156, 55, 0.45);
     -fx-border-radius: 9;
     -fx-background-radius: 9;
 
     -fx-text-fill: white;
-    -fx-prompt-text-fill: rgba(255,255,255,0.65);
+    -fx-prompt-text-fill: rgba(255, 255, 255, 0.65);
 
     -fx-padding: 0 14;
 }
@@ -163,8 +163,8 @@
     -fx-pref-width: 118px;
     -fx-pref-height: 42px;
 
-    -fx-background-color: rgba(10,10,10,0.75);
-    -fx-border-color: rgba(214,156,55,0.5);
+    -fx-background-color: rgba(10, 10, 10, 0.75);
+    -fx-border-color: rgba(214, 156, 55, 0.5);
     -fx-border-radius: 9;
     -fx-background-radius: 9;
 
@@ -185,11 +185,12 @@
     -fx-font-size: 15px;
     -fx-text-fill: inherit;
 }
+
 .filter-toggle-btn {
     -fx-pref-width: 115px;
     -fx-pref-height: 42px;
-    -fx-background-color: rgba(10,10,10,0.75);
-    -fx-border-color: rgba(214,156,55,0.5);
+    -fx-background-color: rgba(10, 10, 10, 0.75);
+    -fx-border-color: rgba(214, 156, 55, 0.5);
     -fx-border-radius: 9;
     -fx-background-radius: 9;
     -fx-text-fill: #f1c56d;
@@ -199,12 +200,13 @@
 }
 
 .filter-toggle-btn:hover {
-    -fx-background-color: rgba(214,156,55,0.12);
+    -fx-background-color: rgba(214, 156, 55, 0.12);
     -fx-border-color: #f1c56d;
 }
+
 .product-table {
-    -fx-background-color: rgba(10,10,10,0.95);
-    -fx-border-color: rgba(214,156,55,0.35);
+    -fx-background-color: rgba(10, 10, 10, 0.95);
+    -fx-border-color: rgba(214, 156, 55, 0.35);
     -fx-border-radius: 12;
     -fx-background-radius: 12;
 }
@@ -217,7 +219,7 @@
 
 .product-table .column-header {
     -fx-background-color: transparent;
-    -fx-border-color: rgba(214,156,55,0.12);
+    -fx-border-color: rgba(214, 156, 55, 0.12);
     -fx-border-width: 0 1 0 0;
     -fx-pref-height: 46px;
     -fx-size: 46px;
@@ -236,8 +238,8 @@
 }
 
 .product-table .table-row-cell {
-    -fx-background-color: rgba(255,255,255,0.018);
-    -fx-border-color: rgba(255,255,255,0.045);
+    -fx-background-color: rgba(255, 255, 255, 0.018);
+    -fx-border-color: rgba(255, 255, 255, 0.045);
     -fx-cell-size: 58px;
 }
 
@@ -245,28 +247,31 @@
     -fx-text-fill: white;
     -fx-font-size: 12px;
     -fx-alignment: CENTER;
-    -fx-border-color: rgba(255,255,255,0.045);
+    -fx-border-color: rgba(255, 255, 255, 0.045);
 }
+
 .product-table .virtual-flow {
-    -fx-background-color: rgba(10,10,10,0.95);
+    -fx-background-color: rgba(10, 10, 10, 0.95);
 }
 
 .product-table .scroll-bar:vertical {
     -fx-opacity: 1;
     -fx-pref-width: 12;
 }
+
 .products-content-row {
     -fx-padding: 0 0 0 0;
 }
+
 .smart-filter-panel {
     -fx-pref-width: 285px;
     -fx-min-width: 285px;
     -fx-padding: 18;
-    -fx-background-color: linear-gradient(to bottom, rgba(22,22,22,0.98), rgba(6,6,6,1));
-    -fx-border-color: rgba(214,156,55,0.45);
+    -fx-background-color: linear-gradient(to bottom, rgba(22, 22, 22, 0.98), rgba(6, 6, 6, 1));
+    -fx-border-color: rgba(214, 156, 55, 0.45);
     -fx-border-radius: 16;
     -fx-background-radius: 16;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.45), 18,0.25,0,6);
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.45), 18, 0.25, 0, 6);
 }
 
 .filter-title {
@@ -284,12 +289,12 @@
 .filter-combo,
 .price-input {
     -fx-pref-height: 33px;
-    -fx-background-color: rgba(8,8,8,0.95);
-    -fx-border-color: rgba(214,156,55,0.38);
+    -fx-background-color: rgba(8, 8, 8, 0.95);
+    -fx-border-color: rgba(214, 156, 55, 0.38);
     -fx-border-radius: 7;
     -fx-background-radius: 7;
     -fx-text-fill: white;
-    -fx-prompt-text-fill: rgba(255,255,255,0.45);
+    -fx-prompt-text-fill: rgba(255, 255, 255, 0.45);
 }
 
 .price-input {
@@ -301,8 +306,8 @@
 }
 
 .filter-chip {
-    -fx-background-color: rgba(255,255,255,0.035);
-    -fx-border-color: rgba(214,156,55,0.45);
+    -fx-background-color: rgba(255, 255, 255, 0.035);
+    -fx-border-color: rgba(214, 156, 55, 0.45);
     -fx-border-radius: 18;
     -fx-background-radius: 18;
     -fx-text-fill: #e8e8e8;
@@ -321,11 +326,9 @@
     -fx-pref-height: 42px;
 
     -fx-background-color:
-        linear-gradient(
-            to bottom,
+        linear-gradient(to bottom,
             #f5cb78,
-            #c98b2f
-        );
+            #c98b2f);
 
     -fx-background-radius: 12;
 
@@ -338,24 +341,20 @@
     -fx-cursor: hand;
 
     -fx-effect:
-        dropshadow(
-            gaussian,
-            rgba(241,197,109,0.25),
+        dropshadow(gaussian,
+            rgba(241, 197, 109, 0.25),
             12,
             0.2,
             0,
-            2
-        );
+            2);
 }
 
 .apply-filter-btn:hover {
 
     -fx-background-color:
-        linear-gradient(
-            to bottom,
+        linear-gradient(to bottom,
             #ffd889,
-            #d89c38
-        );
+            #d89c38);
 
     -fx-scale-x: 1.02;
     -fx-scale-y: 1.02;
@@ -366,10 +365,10 @@
     -fx-pref-height: 42px;
 
     -fx-background-color:
-        rgba(255,255,255,0.03);
+        rgba(255, 255, 255, 0.03);
 
     -fx-border-color:
-        rgba(214,156,55,0.5);
+        rgba(214, 156, 55, 0.5);
 
     -fx-border-radius: 12;
 
@@ -387,11 +386,12 @@
 .reset-filter-btn:hover {
 
     -fx-background-color:
-        rgba(214,156,55,0.08);
+        rgba(214, 156, 55, 0.08);
 
     -fx-border-color:
         #f1c56d;
 }
+
 .filter-actions {
     -fx-alignment: center;
     -fx-padding: 8 0 4 0;
@@ -403,6 +403,7 @@
     -fx-min-width: 210px;
     -fx-max-width: 210px;
 }
+
 .found-box {
     -fx-pref-width: 210px;
     -fx-min-height: 78px;
@@ -412,14 +413,14 @@
 
     -fx-background-color:
         linear-gradient(to bottom,
-        rgba(255,210,100,0.08),
-        rgba(255,255,255,0.025));
+            rgba(255, 210, 100, 0.08),
+            rgba(255, 255, 255, 0.025));
 
-    -fx-border-color: rgba(214,156,55,0.42);
+    -fx-border-color: rgba(214, 156, 55, 0.42);
     -fx-border-radius: 16;
     -fx-background-radius: 16;
 
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.35), 12,0.2,0,4);
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.35), 12, 0.2, 0, 4);
 }
 
 .found-icon {
@@ -443,7 +444,7 @@
     -fx-background-color: transparent;
 }
 
-.dashboard-scroll > .viewport {
+.dashboard-scroll>.viewport {
     -fx-background-color: transparent;
 }
 
@@ -472,7 +473,7 @@
 
     -fx-border-width: 1.5;
 
-    -fx-border-color: rgba(214,156,55,0.7);
+    -fx-border-color: rgba(214, 156, 55, 0.7);
 
     -fx-cursor: hand;
 }
@@ -484,14 +485,12 @@
     -fx-border-color: #f1c56d;
 
     -fx-effect:
-        dropshadow(
-            gaussian,
-            rgba(241,197,109,0.5),
+        dropshadow(gaussian,
+            rgba(241, 197, 109, 0.5),
             12,
             0.3,
             0,
-            0
-        );
+            0);
 
     -fx-scale-x: 1.12;
     -fx-scale-y: 1.12;
@@ -510,22 +509,22 @@
 
     -fx-background-color:
         linear-gradient(to bottom,
-        rgba(20,20,20,0.96),
-        rgba(5,5,5,0.98));
+            rgba(20, 20, 20, 0.96),
+            rgba(5, 5, 5, 0.98));
 
-    -fx-border-color: rgba(214,156,55,0.55);
+    -fx-border-color: rgba(214, 156, 55, 0.55);
     -fx-border-radius: 18;
     -fx-background-radius: 18;
 
     -fx-effect:
         dropshadow(gaussian,
-        rgba(214,156,55,0.18),
-        20,0.25,0,0);
+            rgba(214, 156, 55, 0.18),
+            20, 0.25, 0, 0);
 }
 
 .add-title-box {
     -fx-padding: 0 0 8 0;
-    -fx-border-color: transparent transparent rgba(214,156,55,0.35) transparent;
+    -fx-border-color: transparent transparent rgba(214, 156, 55, 0.35) transparent;
     -fx-border-width: 0 0 1 0;
 }
 
@@ -550,11 +549,11 @@
 
 .luxury-input {
     -fx-background-color: transparent;
-    -fx-border-color: transparent transparent rgba(241,197,109,0.6) transparent;
+    -fx-border-color: transparent transparent rgba(241, 197, 109, 0.6) transparent;
     -fx-border-width: 0 0 1.2 0;
 
     -fx-text-fill: white;
-    -fx-prompt-text-fill: rgba(255,255,255,0.55);
+    -fx-prompt-text-fill: rgba(255, 255, 255, 0.55);
 
     -fx-padding: 4 0 5 32;
     -fx-font-size: 12px;
@@ -564,13 +563,13 @@
     -fx-border-color: transparent transparent #f1c56d transparent;
     -fx-effect:
         dropshadow(gaussian,
-        rgba(241,197,109,0.25),
-        8,0.25,0,2);
+            rgba(241, 197, 109, 0.25),
+            8, 0.25, 0, 2);
 }
 
 .luxury-combo {
     -fx-background-color: transparent;
-    -fx-border-color: transparent transparent rgba(241,197,109,0.6) transparent;
+    -fx-border-color: transparent transparent rgba(241, 197, 109, 0.6) transparent;
     -fx-border-width: 0 0 1.2 0;
     -fx-padding: 0 0 3 28;
 }
@@ -602,7 +601,7 @@
 .luxury-cancel-btn {
     -fx-pref-height: 40px;
     -fx-background-color: transparent;
-    -fx-border-color: rgba(214,156,55,0.45);
+    -fx-border-color: rgba(214, 156, 55, 0.45);
     -fx-border-radius: 14;
     -fx-background-radius: 14;
     -fx-text-fill: white;
@@ -611,7 +610,7 @@
 }
 
 .luxury-cancel-btn:hover {
-    -fx-background-color: rgba(214,156,55,0.08);
+    -fx-background-color: rgba(214, 156, 55, 0.08);
 }
 
 .table-actions-bar {
@@ -682,6 +681,7 @@
 }
 
 .table-edit-btn,
+.table-show-btn,
 .table-delete-btn {
     -fx-background-color: #111111;
     -fx-border-color: #c28b2c;
@@ -694,6 +694,7 @@
 }
 
 .table-edit-btn:hover,
+.table-show-btn:hover,
 .table-delete-btn:hover {
     -fx-background-color: #2a2a2a;
     -fx-border-color: #f8d77a;
@@ -722,8 +723,8 @@
 .form-textarea-field {
     -fx-background-color: transparent;
     -fx-text-fill: white;
-    -fx-prompt-text-fill: rgba(255,255,255,0.45);
-    -fx-border-color: rgba(214,156,55,0.75);
+    -fx-prompt-text-fill: rgba(255, 255, 255, 0.45);
+    -fx-border-color: rgba(214, 156, 55, 0.75);
     -fx-border-width: 0 0 1 0;
     -fx-font-size: 12px;
 }
@@ -731,6 +732,7 @@
 .form-textarea-field .content {
     -fx-background-color: transparent;
 }
+
 .luxury-date-picker {
     -fx-background-color: #111111;
     -fx-border-color: rgba(241, 197, 109, 0.45);
@@ -819,4 +821,141 @@
 .date-picker-popup .next-month {
     -fx-background-color: #0b0b0b;
     -fx-text-fill: #555555;
+}
+
+.customer-details-panel {
+    -fx-pref-width: 540px;
+    -fx-min-width: 540px;
+    -fx-max-width: 540px;
+
+    -fx-padding: 16;
+
+    -fx-background-color:
+        linear-gradient(to bottom,
+            rgba(20, 20, 20, 0.98),
+            rgba(5, 5, 5, 1));
+
+    -fx-border-color: rgba(214, 156, 55, 0.7);
+    -fx-border-radius: 16;
+    -fx-background-radius: 16;
+}
+.customer-details-panel {
+    -fx-pref-width: 560px;
+    -fx-min-width: 560px;
+    -fx-max-width: 560px;
+    -fx-padding: 18;
+    -fx-background-color: linear-gradient(to bottom, #151515, #070707);
+    -fx-border-color: rgba(214, 156, 55, 0.55);
+    -fx-border-radius: 18;
+    -fx-background-radius: 18;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.45), 18, 0.25, 0, 6);
+}
+
+.details-inner-card {
+    -fx-padding: 14;
+    -fx-background-color: rgba(255, 255, 255, 0.025);
+    -fx-border-color: rgba(214, 156, 55, 0.25);
+    -fx-border-radius: 14;
+    -fx-background-radius: 14;
+}
+
+.product-details-header {
+    -fx-padding: 2 0 10 0;
+}
+
+.product-details-image-box {
+    -fx-pref-width: 132px;
+    -fx-pref-height: 105px;
+    -fx-min-width: 132px;
+    -fx-min-height: 105px;
+    -fx-background-color: #0d0d0d;
+    -fx-border-color: rgba(214, 156, 55, 0.65);
+    -fx-border-radius: 14;
+    -fx-background-radius: 14;
+    -fx-padding: 7;
+}
+
+.product-details-image {
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.45), 10, 0.2, 0, 3);
+}
+
+.details-title,
+.details-section-title {
+    -fx-text-fill: #f1c56d;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+}
+
+.details-customer-name {
+    -fx-text-fill: white;
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+}
+
+.details-type-badge {
+    -fx-text-fill: #111;
+    -fx-padding: 4 10;
+    -fx-background-color: linear-gradient(to bottom, #f8d77a, #c28b2c);
+    -fx-background-radius: 8;
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+}
+
+.details-muted-label {
+    -fx-text-fill: #f1c56d;
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+    -fx-min-width: 62;
+}
+
+.details-text,
+.details-value {
+    -fx-text-fill: white;
+    -fx-font-size: 12px;
+}
+
+.details-small-card {
+    -fx-padding: 12;
+    -fx-min-height: 48;
+    -fx-background-color: rgba(255,255,255,0.035);
+    -fx-border-color: rgba(255,255,255,0.08);
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+}
+
+.details-separator {
+    -fx-background-color: rgba(214, 156, 55, 0.65);
+}
+
+.details-gold-icon {
+    -fx-text-fill: #f1c56d;
+    -fx-font-size: 13px;
+    -fx-min-width: 22;
+    -fx-alignment: center;
+}
+.details-title-icon {
+
+    -fx-text-fill: #f1c56d;
+
+    -fx-font-size: 14px;
+
+    -fx-font-weight: bold;
+
+    -fx-min-width: 26px;
+    -fx-min-height: 26px;
+
+    -fx-max-width: 26px;
+    -fx-max-height: 26px;
+
+    -fx-alignment: center;
+
+    -fx-background-color:
+        rgba(241, 197, 109, 0.08);
+
+    -fx-border-color:
+        rgba(241, 197, 109, 0.55);
+
+    -fx-border-radius: 50;
+
+    -fx-background-radius: 50;
 }

@@ -182,30 +182,31 @@ public class WarehouseDAO {
         }
 
         String fullSql = """
-                    SELECT COUNT(*)
-                    FROM Warehouse w
-                    LEFT JOIN Inventory i
-                           ON w.WarehouseID = i.WarehouseID
-                    GROUP BY w.WarehouseID
-                    HAVING COALESCE(SUM(i.quantity),0) >= w.capacity
+                    SELECT COUNT(*) AS fullWarehouses
+                    FROM (
+                        SELECT
+                            w.WarehouseID,
+                            w.capacity,
+                            COALESCE(SUM(i.quantity), 0) AS usedCapacity
+                        FROM Warehouse w
+                        LEFT JOIN Inventory i
+                               ON w.WarehouseID = i.WarehouseID
+                        GROUP BY w.WarehouseID, w.capacity
+                    ) x
+                    WHERE x.usedCapacity >= x.capacity
                 """;
 
         try (Connection con = DBConnection.getConnection();
                 PreparedStatement ps = con.prepareStatement(fullSql);
                 ResultSet rs = ps.executeQuery()) {
 
-            int count = 0;
-
-            while (rs.next()) {
-                count++;
+            if (rs.next()) {
+                stats.setFullWarehouses(rs.getInt("fullWarehouses"));
             }
-
-            stats.setFullWarehouses(count);
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         return stats;
     }
 

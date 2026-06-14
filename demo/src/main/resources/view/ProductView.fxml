@@ -275,12 +275,14 @@
                                                         <Label text="Created Date"
                                                                 styleClass="filter-label" />
                                                         <HBox spacing="8" alignment="CENTER_LEFT">
-                                                                <DatePicker fx:id="fromCreatedDatePicker"
+                                                                <DatePicker
+                                                                        fx:id="fromCreatedDatePicker"
                                                                         promptText="From"
                                                                         styleClass="luxury-date-picker" />
                                                                 <Label text="-"
                                                                         styleClass="filter-small-text" />
-                                                                <DatePicker fx:id="toCreatedDatePicker"
+                                                                <DatePicker
+                                                                        fx:id="toCreatedDatePicker"
                                                                         promptText="To"
                                                                         styleClass="luxury-date-picker" />
                                                         </HBox>
@@ -345,6 +347,7 @@
                                                         </HBox>
 
                                                 </VBox>
+
                                                 <VBox fx:id="addProductPanel"
                                                         spacing="16"
                                                         styleClass="add-product-panel"
@@ -678,6 +681,228 @@
 
                                                 </VBox>
 
+                                                <VBox fx:id="productDetailsPanel"
+                                                        spacing="14"
+                                                        styleClass="customer-details-panel"
+                                                        visible="false"
+                                                        managed="false">
+
+                                                        <HBox alignment="CENTER_LEFT" spacing="8">
+                                                                <Label text="👁"
+                                                                        styleClass="details-title-icon" />
+                                                                <Label text="PRODUCT DETAILS"
+                                                                        styleClass="details-title" />
+                                                        </HBox>
+
+                                                        <VBox spacing="14"
+                                                                styleClass="details-inner-card">
+
+                                                                <HBox spacing="16"
+                                                                        alignment="CENTER_LEFT"
+                                                                        styleClass="product-details-header">
+
+                                                                        <StackPane
+                                                                                styleClass="product-details-image-box">
+                                                                                <ImageView
+                                                                                        fx:id="detailsProductImageView"
+                                                                                        fitWidth="120"
+                                                                                        fitHeight="95"
+                                                                                        preserveRatio="true"
+                                                                                        smooth="true"
+                                                                                        styleClass="product-details-image" />
+                                                                        </StackPane>
+
+                                                                        <VBox spacing="7"
+                                                                                HBox.hgrow="ALWAYS">
+                                                                                <HBox spacing="8"
+                                                                                        alignment="CENTER_LEFT">
+                                                                                        <Label
+                                                                                                fx:id="detailsProductNameLabel"
+                                                                                                text="Wooden Bed"
+                                                                                                wrapText="true"
+                                                                                                styleClass="details-customer-name" />
+
+                                                                                        <Label
+                                                                                                fx:id="detailsProductStatusLabel"
+                                                                                                text="available"
+                                                                                                styleClass="details-type-badge" />
+                                                                                </HBox>
+
+                                                                                <HBox spacing="8">
+                                                                                        <Label
+                                                                                                text="Category"
+                                                                                                styleClass="details-muted-label" />
+                                                                                        <Label
+                                                                                                fx:id="detailsProductCategoryLabel"
+                                                                                                text="Bedroom"
+                                                                                                styleClass="details-text" />
+                                                                                </HBox>
+
+                                                                                <HBox spacing="8">
+                                                                                        <Label
+                                                                                                text="Created"
+                                                                                                styleClass="details-muted-label" />
+                                                                                        <Label
+                                                                                                fx:id="detailsProductCreatedDateLabel"
+                                                                                                text="12/06/2026"
+                                                                                                styleClass="details-text" />
+                                                                                </HBox>
+                                                                        </VBox>
+
+                                                                </HBox>
+
+                                                                <HBox alignment="CENTER_LEFT"
+                                                                        spacing="10">
+                                                                        <Label text="SUMMARY"
+                                                                                styleClass="details-section-title" />
+                                                                        <Separator
+                                                                                HBox.hgrow="ALWAYS"
+                                                                                styleClass="details-separator" />
+                                                                </HBox>
+
+                                                                <VBox spacing="10">
+
+                                                                        <HBox spacing="10"
+                                                                                alignment="CENTER_LEFT"
+                                                                                styleClass="details-small-card">
+                                                                                <Label text="💰"
+                                                                                        styleClass="details-gold-icon" />
+                                                                                <Label text="Price"
+                                                                                        styleClass="details-small-title" />
+                                                                                <Region
+                                                                                        HBox.hgrow="ALWAYS" />
+                                                                                <Label
+                                                                                        fx:id="detailsProductPriceLabel"
+                                                                                        text="\$0"
+                                                                                        styleClass="details-money" />
+                                                                        </HBox>
+
+                                                                        <HBox spacing="10"
+                                                                                alignment="CENTER_LEFT"
+                                                                                styleClass="details-small-card">
+                                                                                <Label text="📦"
+                                                                                        styleClass="details-gold-icon" />
+                                                                                <Label text="Stock"
+                                                                                        styleClass="details-small-title" />
+                                                                                <Region
+                                                                                        HBox.hgrow="ALWAYS" />
+                                                                                <Label
+                                                                                        fx:id="detailsProductStockLabel"
+                                                                                        text="0"
+                                                                                        styleClass="details-value" />
+                                                                        </HBox>
+
+                                                                        <HBox spacing="10"
+                                                                                alignment="CENTER_LEFT"
+                                                                                styleClass="details-small-card">
+                                                                                <Label text="🏠"
+                                                                                        styleClass="details-gold-icon" />
+                                                                                <Label
+                                                                                        text="Warehouse"
+                                                                                        styleClass="details-small-title" />
+                                                                                <Region
+                                                                                        HBox.hgrow="ALWAYS" />
+                                                                                <Label
+                                                                                        fx:id="detailsProductWarehouseLabel"
+                                                                                        text="-"
+                                                                                        styleClass="details-value" />
+                                                                        </HBox>
+
+                                                                        <HBox spacing="10"
+                                                                                alignment="CENTER_LEFT"
+                                                                                styleClass="details-small-card">
+                                                                                <Label
+                                                                                        text="👨🏻‍💼"
+                                                                                        styleClass="details-gold-icon" />
+                                                                                <Label
+                                                                                        text="Supplier"
+                                                                                        styleClass="details-small-title" />
+                                                                                <Region
+                                                                                        HBox.hgrow="ALWAYS" />
+                                                                                <Label
+                                                                                        fx:id="detailsProductSupplierLabel"
+                                                                                        text="-"
+                                                                                        styleClass="details-value" />
+                                                                        </HBox>
+
+                                                                </VBox>
+
+                                                                <HBox alignment="CENTER_LEFT"
+                                                                        spacing="10">
+                                                                        <Label
+                                                                                text="ADDITIONAL INFORMATION"
+                                                                                styleClass="details-section-title" />
+                                                                        <Separator
+                                                                                HBox.hgrow="ALWAYS"
+                                                                                styleClass="details-separator" />
+                                                                </HBox>
+
+                                                                <HBox spacing="10"
+                                                                        alignment="CENTER_LEFT">
+                                                                        <Label text="🆔"
+                                                                                styleClass="details-gold-icon" />
+                                                                        <Label text="Product ID"
+                                                                                styleClass="details-small-title" />
+                                                                        <Region HBox.hgrow="ALWAYS" />
+                                                                        <Label
+                                                                                fx:id="detailsProductIdLabel"
+                                                                                text="-"
+                                                                                styleClass="details-value" />
+                                                                </HBox>
+
+                                                                <HBox spacing="10"
+                                                                        alignment="CENTER_LEFT">
+                                                                        <Label text="🎨"
+                                                                                styleClass="details-gold-icon" />
+                                                                        <Label text="Color"
+                                                                                styleClass="details-small-title" />
+                                                                        <Region HBox.hgrow="ALWAYS" />
+                                                                        <Label
+                                                                                fx:id="detailsProductColorLabel"
+                                                                                text="-"
+                                                                                styleClass="details-value" />
+                                                                </HBox>
+
+                                                                <HBox spacing="10"
+                                                                        alignment="CENTER_LEFT">
+                                                                        <Label text="🛠️"
+                                                                                styleClass="details-gold-icon" />
+                                                                        <Label text="Material"
+                                                                                styleClass="details-small-title" />
+                                                                        <Region HBox.hgrow="ALWAYS" />
+                                                                        <Label
+                                                                                fx:id="detailsProductMaterialLabel"
+                                                                                text="-"
+                                                                                styleClass="details-value" />
+                                                                </HBox>
+
+                                                                <HBox alignment="CENTER_LEFT"
+                                                                        spacing="10">
+                                                                        <Label text="DESCRIPTION"
+                                                                                styleClass="details-section-title" />
+                                                                        <Separator
+                                                                                HBox.hgrow="ALWAYS"
+                                                                                styleClass="details-separator" />
+                                                                </HBox>
+
+                                                                <Label
+                                                                        fx:id="detailsProductDescriptionLabel"
+                                                                        text="-"
+                                                                        wrapText="true"
+                                                                        styleClass="details-text" />
+
+                                                        </VBox>
+
+                                                        <HBox spacing="10" alignment="CENTER">
+                                                                <Button fx:id="closeDetailsBtn"
+                                                                        text="✖  CLOSE"
+                                                                        maxWidth="Infinity"
+                                                                        HBox.hgrow="ALWAYS"
+                                                                        styleClass="luxury-cancel-btn" />
+                                                        </HBox>
+
+                                                </VBox>
+
                                                 <!-- TABLE + ACTION BUTTONS -->
                                                 <VBox HBox.hgrow="ALWAYS"
                                                         spacing="10"
@@ -744,7 +969,7 @@
                                                                         <TableColumn
                                                                                 fx:id="colAction"
                                                                                 text="Actions"
-                                                                                prefWidth="120" />
+                                                                                prefWidth="150" />
                                                                 </columns>
 
                                                         </TableView>
