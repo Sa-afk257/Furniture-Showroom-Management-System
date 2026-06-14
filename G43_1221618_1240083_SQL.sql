@@ -33,8 +33,8 @@ USE FurnitureShowroomManagementSystem;
         gender VARCHAR(20) NOT NULL,
         Employee_role VARCHAR(32) NOT NULL,
         CHECK(gender IN ('Female', 'Male')),
-        CHECK(Employee_role IN ('warehouse', 'sales_person', 'delivery_managerShowroom',
-'delivery_managerWarehouse'))
+        CHECK(Employee_role IN ('warehouse_manager', 'sales_person', 'warehouse_staff',
+'delivery_manager'))
 		);
     
     CREATE TABLE Employee_Phone(
@@ -70,6 +70,7 @@ USE FurnitureShowroomManagementSystem;
 		SaleID INT NOT NULL,
 		amount DOUBLE NOT NULL,
 		Payment_Date Date NOT NULL,
+        Payment_Method VARCHAR(30) NOT NULL,
 		FOREIGN KEY (SaleID) REFERENCES Sale(SaleID)
 		);
         
@@ -86,7 +87,7 @@ USE FurnitureShowroomManagementSystem;
 		CreatedDate DATETIME NOT NULL,
         color VARCHAR(32) NOT NULL,
         material VARCHAR(32) NOT NULL,
-        ProductDescription VARCHAR(32) ,
+        ProductDescription VARCHAR(255) DEFAULT 'No Description' ,
         ProductStatus VARCHAR(32) NOT NULL,
         imagePath VARCHAR(255) NOT NULL,
 		FOREIGN KEY (CategoryID) REFERENCES Category(CategoryID),
@@ -156,10 +157,12 @@ USE FurnitureShowroomManagementSystem;
 	CREATE TABLE Discount(
         DiscountID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 		ProductID INT NOT NULL,
+        WarehouseID INT NOT NULL,
 		percentage DOUBLE NOT NULL,
 		start_Date Date NOT NULL,
 		end_Date Date NOT NULL,
-        FOREIGN KEY (ProductID) REFERENCES Product(ProductID) ON DELETE CASCADE
+        FOREIGN KEY (ProductID) REFERENCES Product(ProductID) ON DELETE CASCADE,
+        FOREIGN KEY (WarehouseID) REFERENCES Warehouse(WarehouseID) ON DELETE CASCADE
 		);
 	CREATE TABLE Inventory(
         WarehouseID INT NOT NULL,
