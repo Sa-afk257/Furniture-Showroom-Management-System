@@ -34,7 +34,7 @@ USE FurnitureShowroomManagementSystem;
         Employee_role VARCHAR(32) NOT NULL,
         CHECK(gender IN ('Female', 'Male')),
         CHECK(Employee_role IN ('warehouse_manager', 'sales_person', 'warehouse_staff',
-'delivery_manager'))
+'Delivery Employee','admin'))
 		);
     
     CREATE TABLE Employee_Phone(
@@ -45,24 +45,44 @@ USE FurnitureShowroomManagementSystem;
         );
         
 	CREATE TABLE Sale(
-		SaleID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-		CustomerID INT NOT NULL,
-		EmployeeID INT NOT NULL,
-		SaleDate DATE NOT NULL,
-		total_Amount DOUBLE NOT NULL,
-		FOREIGN KEY (CustomerID) REFERENCES Customer(CustomerID),
-        FOREIGN KEY (EmployeeID) REFERENCES Employee(EmployeeID)
-		);
+        SaleID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+        CustomerID INT NOT NULL,
+        EmployeeID INT NOT NULL,
+        SaleDate DATE NOT NULL,
+        total_Amount DOUBLE NOT NULL,
+        SaleStatus VARCHAR(30) NOT NULL,
+        ReviewNote TEXT NULL,
+
+        FOREIGN KEY (CustomerID) REFERENCES Customer(CustomerID),
+        FOREIGN KEY (EmployeeID) REFERENCES Employee(EmployeeID),
+
+        CHECK (SaleStatus IN (
+            'pending',
+            'under_review',
+            'waiting_warehouse',
+            'approved',
+            'rejected',
+            'sent_to_warehouse',
+            'completed'
+        ))
+    );
+
         
-	CREATE TABLE Delivary(
-		DelivaryID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	CREATE TABLE Delivery(
+		DeliveryID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 		SaleID INT NOT NULL,
 		EmployeeID INT NOT NULL,
-		Delivary_status VARCHAR(20) NOT NULL,
-		Delivary_Date Date NOT NULL,
+		Delivery_status VARCHAR(20) NOT NULL,
+		Delivery_Date Date NOT NULL,
 		FOREIGN KEY (SaleID) REFERENCES Sale(SaleID),
         FOREIGN KEY (EmployeeID) REFERENCES Employee(EmployeeID),
-        CHECK(Delivary_status IN ('pending', 'delivered', 'cancelled'))
+        CHECK(Delivery_status IN ('pending',
+								'assigned',
+								'picked_up',
+								'in_progress',
+								'delivered',
+								'issue_reported',
+								'cancelled'))
 		);
         
 	CREATE TABLE Payment(
@@ -104,7 +124,8 @@ USE FurnitureShowroomManagementSystem;
 		FOREIGN KEY (SaleID) REFERENCES Sale(SaleID),
         FOREIGN KEY (ProductID) REFERENCES Product(ProductID) ON DELETE CASCADE
 		);
-        
+
+    
 	CREATE TABLE SaleDetails(
         SaleID INT NOT NULL,
         ProductID INT NOT NULL,
@@ -167,7 +188,7 @@ USE FurnitureShowroomManagementSystem;
 	CREATE TABLE Inventory(
         WarehouseID INT NOT NULL,
 		ProductID INT NOT NULL,
-		quantity DOUBLE NOT NULL,
+		quantity INT NOT NULL,
 		PRIMARY KEY(WarehouseID, ProductID),
         FOREIGN KEY (ProductID) REFERENCES Product(ProductID) ON DELETE CASCADE,
         FOREIGN KEY (WarehouseID) REFERENCES Warehouse(WarehouseID)
@@ -198,8 +219,102 @@ USE FurnitureShowroomManagementSystem;
         movement_date Date NOT NULL,
         FOREIGN KEY (ProductID) REFERENCES Product(ProductID) ON DELETE CASCADE
 		);
-	
+        
+	CREATE TABLE Account (
+    account_id INT AUTO_INCREMENT PRIMARY KEY,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    password VARCHAR(100) NOT NULL,
+    role ENUM('ADMIN','EMPLOYEE','Customer') NOT NULL
+);
 
+CREATE TABLE Employee_Account (
+    account_id INT PRIMARY KEY,
+    EmployeeID INT NOT NULL UNIQUE,
+
+    FOREIGN KEY (account_id)
+        REFERENCES Account(account_id)
+        ON DELETE CASCADE,
+
+    FOREIGN KEY (EmployeeID)
+        REFERENCES Employee(EmployeeID)
+);
+
+CREATE TABLE Customer_Account (
+    account_id INT PRIMARY KEY,
+    CustomerID INT NOT NULL UNIQUE,
+
+    FOREIGN KEY (account_id)
+        REFERENCES Account(account_id)
+        ON DELETE CASCADE,
+
+    FOREIGN KEY (CustomerID)
+        REFERENCES Customer(CustomerID)
+);
+
+CREATE TABLE Favorite (
+    CustomerID INT NOT NULL,
+    ProductID INT NOT NULL,
+
+    PRIMARY KEY (CustomerID, ProductID),
+
+    FOREIGN KEY (CustomerID)
+        REFERENCES Customer(CustomerID)
+        ON DELETE CASCADE,
+
+    FOREIGN KEY (ProductID)
+        REFERENCES Product(ProductID)
+        ON DELETE CASCADE
+);
+
+CREATE TABLE Cart (
+    CartID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    CustomerID INT NOT NULL UNIQUE,
+
+    FOREIGN KEY (CustomerID)
+        REFERENCES Customer(CustomerID)
+        ON DELETE CASCADE
+);
+
+CREATE TABLE CartItem (
+    CartID INT NOT NULL,
+    ProductID INT NOT NULL,
+    Quantity INT NOT NULL DEFAULT 1,
+
+    PRIMARY KEY (CartID, ProductID),
+
+    FOREIGN KEY (CartID)
+        REFERENCES Cart(CartID)
+        ON DELETE CASCADE,
+
+    FOREIGN KEY (ProductID)
+        REFERENCES Product(ProductID)
+        ON DELETE CASCADE
+);
+	
+CREATE TABLE Warehouse_Request (
+    RequestID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    SaleID INT NOT NULL,
+    SalesEmployeeID INT NOT NULL,
+    WarehouseEmployeeID INT NULL,
+
+    RequestMessage TEXT NOT NULL,
+    ResponseMessage TEXT NULL,
+
+    RequestStatus VARCHAR(30) NOT NULL DEFAULT 'pending',
+    RequestDate DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    ResponseDate DATETIME NULL,
+
+    FOREIGN KEY (SaleID) REFERENCES Sale(SaleID),
+    FOREIGN KEY (SalesEmployeeID) REFERENCES Employee(EmployeeID),
+    FOREIGN KEY (WarehouseEmployeeID) REFERENCES Employee(EmployeeID),
+
+    CHECK (RequestStatus IN (
+		'pending',
+        'available',
+        'partially_available',
+        'not_available'
+    ))
+);
 
 	
 	

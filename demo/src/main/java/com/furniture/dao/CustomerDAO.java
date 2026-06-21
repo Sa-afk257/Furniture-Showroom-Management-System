@@ -310,8 +310,8 @@ public class CustomerDAO {
                     (
                         SELECT
                             COUNT(*) AS pendingDeliveries
-                        FROM Delivary
-                        WHERE Delivary_status = 'pending'
+                        FROM Delivery
+                        WHERE Delivery_status = 'pending'
                     ) deliveryStats
                 """;
 
@@ -475,6 +475,51 @@ public class CustomerDAO {
         }
 
         return false;
+    }
+
+    public Customer getCustomerById(int customerId) {
+
+        String sql = """
+                SELECT *
+                FROM Customer
+                WHERE CustomerID = ?
+                """;
+
+        try (Connection conn = DBConnection.getConnection();
+                PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, customerId);
+
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+
+                return new Customer(
+                        rs.getInt("CustomerID"),
+                        rs.getString("firstName"),
+                        rs.getString("middelInitial"),
+                        rs.getString("lastName"),
+                        rs.getString("city"),
+                        rs.getString("town"),
+                        rs.getString("area"),
+                        rs.getString("street"),
+                        rs.getString("building"),
+                        getCustomerPhones(customerId),
+                        toLocalDateTime(rs.getTimestamp("RegistrationDate")),
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        null,
+                        "Regular");
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
     }
 
 }

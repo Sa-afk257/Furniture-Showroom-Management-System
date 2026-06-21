@@ -118,8 +118,8 @@ public class SaleDAO {
 
         String pendingSql = """
                 SELECT COUNT(*) AS pendingDeliveries
-                FROM Delivary
-                WHERE Delivary_status = 'pending'
+                FROM Delivery
+                WHERE Delivery_status = 'pending'
                 """;
 
         String balanceSql = """
@@ -197,8 +197,8 @@ public class SaleDAO {
 
                     p.Payment_Method AS paymentMethod,
 
-                    d.Delivary_status,
-                    d.Delivary_Date
+                    d.Delivery_status,
+                    d.Delivery_Date
 
                 FROM Sale s
 
@@ -214,7 +214,7 @@ public class SaleDAO {
                 LEFT JOIN Payment p
                     ON s.SaleID = p.SaleID
 
-                LEFT JOIN Delivary d
+                LEFT JOIN Delivery d
                     ON s.SaleID = d.SaleID
 
                 GROUP BY
@@ -226,8 +226,8 @@ public class SaleDAO {
                     customerName,
                     employeeName,
                     p.Payment_Method,
-                    d.Delivary_status,
-                    d.Delivary_Date
+                    d.Delivery_status,
+                    d.Delivery_Date
 
                 ORDER BY s.SaleID DESC
                 """;
@@ -279,11 +279,11 @@ public class SaleDAO {
                 }
 
                 sale.setDeliveryStatus(
-                        rs.getString("Delivary_status"));
+                        rs.getString("Delivery_status"));
 
-                if (rs.getDate("Delivary_Date") != null) {
+                if (rs.getDate("Delivery_Date") != null) {
                     sale.setDeliveryDate(
-                            rs.getDate("Delivary_Date")
+                            rs.getDate("Delivery_Date")
                                     .toLocalDate());
                 }
 
@@ -359,7 +359,7 @@ public class SaleDAO {
                 """;
 
         String deliverySql = """
-                INSERT INTO Delivary (SaleID, EmployeeID, Delivary_status, Delivary_Date)
+                INSERT INTO Delivery (SaleID, EmployeeID, Delivery_status, Delivery_Date)
                 VALUES (?, ?, ?, ?)
                 """;
 
@@ -395,6 +395,10 @@ public class SaleDAO {
                 ps.executeBatch();
             }
             decreaseInventoryAfterSale(conn, sale.getItems());
+            insertStockMovementsAfterSale(
+                    conn,
+                    sale.getItems(),
+                    sale.getSaleDate());
 
             if (sale.getPaidAmount() > 0) {
                 try (PreparedStatement ps = conn.prepareStatement(paymentSql)) {
@@ -454,7 +458,7 @@ public class SaleDAO {
 
         String deleteDetails = "DELETE FROM SaleDetails WHERE SaleID = ?";
         String deletePayment = "DELETE FROM Payment WHERE SaleID = ?";
-        String deleteDelivery = "DELETE FROM Delivary WHERE SaleID = ?";
+        String deleteDelivery = "DELETE FROM Delivery WHERE SaleID = ?";
         String deleteSale = "DELETE FROM Sale WHERE SaleID = ?";
 
         try (Connection conn = DBConnection.getConnection()) {
@@ -645,7 +649,7 @@ public class SaleDAO {
             Sale sale)
             throws Exception {
 
-        String deleteSql = "DELETE FROM Delivary WHERE SaleID = ?";
+        String deleteSql = "DELETE FROM Delivery WHERE SaleID = ?";
 
         try (PreparedStatement ps = conn.prepareStatement(deleteSql)) {
 
@@ -658,8 +662,8 @@ public class SaleDAO {
         }
 
         String insertSql = """
-                INSERT INTO Delivary
-                (SaleID, EmployeeID, Delivary_status, Delivary_Date)
+                INSERT INTO Delivery
+                (SaleID, EmployeeID, Delivery_status, Delivery_Date)
                 VALUES (?, ?, ?, ?)
                 """;
 
@@ -968,6 +972,34 @@ public class SaleDAO {
         }
 
         return returns;
+    }
+
+    private void insertStockMovementsAfterSale(
+            Connection conn,
+            List<SaleDetailes> items,
+            java.time.LocalDate saleDate)
+            throws Exception {
+
+        String sql = """
+                INSERT INTO StockMovement
+                (ProductID, movementType, quantity, movement_date)
+                VALUES (?, ?, ?, ?)
+                """;
+
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            for (SaleDetailes item : items) {
+
+                ps.setInt(1, item.getProduct_id());
+                ps.setString(2, "OUT");
+                ps.setDouble(3, item.getQuantity());
+                ps.setDate(4, java.sql.Date.valueOf(saleDate));
+
+                ps.addBatch();
+            }
+
+            ps.executeBatch();
+        }
     }
 
 }

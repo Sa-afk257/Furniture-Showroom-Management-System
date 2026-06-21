@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.chart.*?>
+
+<ScrollPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.furniture.ui.WarehouseManagerController"
+            fitToWidth="true"
+            hbarPolicy="NEVER"
+            vbarPolicy="AS_NEEDED"
+            stylesheets="@../style/warehouse_manager.css"
+            styleClass="warehouse-scroll">
+
+    <VBox spacing="18" styleClass="warehouse-main">
+
+        <!-- HEADER -->
+        <HBox alignment="CENTER_LEFT" spacing="15" styleClass="warehouse-header">
+            <VBox spacing="4">
+                <Label text="Warehouse Manager Workbench 👋" styleClass="page-title"/>
+                <Label text="Review warehouse requests, check stock availability, and respond to sales employees."
+                       styleClass="page-subtitle"/>
+            </VBox>
+
+            <Region HBox.hgrow="ALWAYS"/>
+
+            <TextField fx:id="searchField"
+                       promptText="Search request, sale, or product..."
+                       prefWidth="330"
+                       styleClass="search-field"/>
+
+            <Button fx:id="searchBtn" text="🔍" styleClass="icon-btn"/>
+            <Button fx:id="accountMenuBtn"
+                text="👤"
+                styleClass="account-menu-btn" />
+        </HBox>
+
+        <!-- KPI CARDS -->
+        <HBox alignment="CENTER" spacing="16" styleClass="kpi-row">
+
+            <VBox spacing="6" styleClass="kpi-card">
+                <Label text="▣" styleClass="kpi-icon"/>
+                <Label text="Total Products" styleClass="kpi-title"/>
+                <Label fx:id="totalProductsLabel" text="0" styleClass="kpi-number"/>
+            </VBox>
+
+            <VBox spacing="6" styleClass="kpi-card">
+                <Label text="📦" styleClass="kpi-icon"/>
+                <Label text="Main Warehouse Stock" styleClass="kpi-title"/>
+                <Label fx:id="totalStockLabel" text="0" styleClass="kpi-number"/>
+            </VBox>
+
+            <VBox spacing="6" styleClass="kpi-card, warning-card">
+                <Label text="!" styleClass="kpi-icon"/>
+                <Label text="Low Stock Items" styleClass="kpi-title"/>
+                <Label fx:id="lowStockLabel" text="0" styleClass="kpi-number"/>
+            </VBox>
+
+            <VBox spacing="6" styleClass="kpi-card">
+                <Label text="⇄" styleClass="kpi-icon"/>
+                <Label text="Pending Requests" styleClass="kpi-title"/>
+                <Label fx:id="pendingRequestsLabel" text="0" styleClass="kpi-number"/>
+            </VBox>
+
+        </HBox>
+
+        <!-- MAIN CONTENT -->
+        <HBox spacing="16">
+
+            <!-- LEFT AREA -->
+            <VBox spacing="16" HBox.hgrow="ALWAYS">
+
+                <!-- REQUESTS TABLE -->
+                <VBox spacing="12" styleClass="panel requests-panel">
+                    <HBox alignment="CENTER_LEFT">
+                        <VBox spacing="2">
+                            <Label text="Pending Warehouse Requests" styleClass="panel-title"/>
+                            <Label text="Select a request to check item availability before responding."
+                                   styleClass="section-hint"/>
+                        </VBox>
+
+                        <Region HBox.hgrow="ALWAYS"/>
+
+                        <Button fx:id="refreshRequestsBtn"
+                                text="Refresh"
+                                styleClass="small-btn"/>
+                    </HBox>
+
+                    <GridPane fx:id="requestsGrid"
+                              hgap="22"
+                              vgap="12"
+                              styleClass="request-grid">
+
+                        <Label text="Request ID" GridPane.rowIndex="0" GridPane.columnIndex="0" styleClass="table-head"/>
+                        <Label text="Sale ID" GridPane.rowIndex="0" GridPane.columnIndex="1" styleClass="table-head"/>
+                        <Label text="Sales Employee" GridPane.rowIndex="0" GridPane.columnIndex="2" styleClass="table-head"/>
+                        <Label text="Status" GridPane.rowIndex="0" GridPane.columnIndex="3" styleClass="table-head"/>
+                        <Label text="Action" GridPane.rowIndex="0" GridPane.columnIndex="4" styleClass="table-head"/>
+
+                    </GridPane>
+                </VBox>
+
+                <!-- SELECTED REQUEST DETAILS -->
+                <VBox fx:id="requestDetailsPanel"
+                      spacing="14"
+                      styleClass="panel details-panel">
+
+                    <HBox alignment="CENTER_LEFT">
+                        <VBox spacing="2">
+                            <Label text="Selected Request Details" styleClass="panel-title"/>
+                            <Label fx:id="selectedRequestHintLabel"
+                                   text="No request selected yet."
+                                   styleClass="section-hint"/>
+                        </VBox>
+
+                        <Region HBox.hgrow="ALWAYS"/>
+
+                        <Label fx:id="selectedRequestStatusLabel"
+                               text="Waiting"
+                               styleClass="neutral-badge"/>
+                    </HBox>
+
+                    <GridPane hgap="28" vgap="8" styleClass="info-grid">
+                        <Label text="Request ID:" GridPane.rowIndex="0" GridPane.columnIndex="0" styleClass="info-title"/>
+                        <Label fx:id="selectedRequestIdLabel" text="-" GridPane.rowIndex="0" GridPane.columnIndex="1" styleClass="info-value"/>
+
+                        <Label text="Sale ID:" GridPane.rowIndex="0" GridPane.columnIndex="2" styleClass="info-title"/>
+                        <Label fx:id="selectedSaleIdLabel" text="-" GridPane.rowIndex="0" GridPane.columnIndex="3" styleClass="info-value"/>
+
+                        <Label text="Sales Employee:" GridPane.rowIndex="1" GridPane.columnIndex="0" styleClass="info-title"/>
+                        <Label fx:id="selectedSalesEmployeeLabel" text="-" GridPane.rowIndex="1" GridPane.columnIndex="1" styleClass="info-value"/>
+
+                        <Label text="Request Message:" GridPane.rowIndex="1" GridPane.columnIndex="2" styleClass="info-title"/>
+                        <Label fx:id="selectedRequestMessageLabel" text="-" GridPane.rowIndex="1" GridPane.columnIndex="3" styleClass="info-value"/>
+                    </GridPane>
+
+                    <!-- ITEMS CHECK -->
+                    <VBox spacing="10" styleClass="items-check-box">
+                        <HBox alignment="CENTER_LEFT">
+                            <Label text="Items Availability Check" styleClass="sub-panel-title"/>
+                            <Region HBox.hgrow="ALWAYS"/>
+                            <Label fx:id="availabilitySummaryLabel"
+                                   text="Select request first"
+                                   styleClass="neutral-badge"/>
+                        </HBox>
+
+                        <GridPane fx:id="requestItemsGrid"
+                                  hgap="22"
+                                  vgap="10"
+                                  styleClass="request-grid">
+
+                            <Label text="Product" GridPane.rowIndex="0" GridPane.columnIndex="0" styleClass="table-head"/>
+                            <Label text="Requested Qty" GridPane.rowIndex="0" GridPane.columnIndex="1" styleClass="table-head"/>
+                            <Label text="Available Qty" GridPane.rowIndex="0" GridPane.columnIndex="2" styleClass="table-head"/>
+                            <Label text="Result" GridPane.rowIndex="0" GridPane.columnIndex="3" styleClass="table-head"/>
+
+                        </GridPane>
+                    </VBox>
+
+                    <!-- RESPONSE -->
+                    <VBox spacing="10">
+                        <Label text="Response Message" styleClass="sub-panel-title"/>
+
+                        <TextArea fx:id="responseMessageArea"
+                                  promptText="Optional note to sales employee..."
+                                  prefRowCount="3"
+                                  wrapText="true"
+                                  styleClass="response-area"/>
+
+                        <HBox spacing="10" alignment="CENTER_RIGHT">
+                            <Button fx:id="markAvailableBtn"
+                                    text="Mark Available"
+                                    styleClass="success-btn"/>
+
+                            <Button fx:id="markPartialBtn"
+                                    text="Partially Available"
+                                    styleClass="warning-btn"/>
+
+                            <Button fx:id="markNotAvailableBtn"
+                                    text="Not Available"
+                                    styleClass="danger-btn"/>
+                        </HBox>
+                    </VBox>
+
+                </VBox>
+
+                <!-- STOCK MOVEMENT CHART -->
+                <VBox spacing="12" styleClass="panel chart-panel">
+                    <HBox alignment="CENTER_LEFT">
+                        <Label text="Stock Movement Overview" styleClass="panel-title"/>
+                        <Region HBox.hgrow="ALWAYS"/>
+                        <ComboBox fx:id="movementPeriodCombo"
+                                  promptText="Last 6 Months"
+                                  prefWidth="150"
+                                  styleClass="combo"/>
+                    </HBox>
+
+                    <LineChart fx:id="stockMovementChart"
+                               animated="false"
+                               legendVisible="true"
+                               prefHeight="230"
+                               styleClass="warehouse-chart">
+                        <xAxis>
+                            <CategoryAxis/>
+                        </xAxis>
+                        <yAxis>
+                            <NumberAxis/>
+                        </yAxis>
+                    </LineChart>
+                </VBox>
+
+            </VBox>
+
+            <!-- RIGHT AREA -->
+            <VBox spacing="16" prefWidth="355">
+
+                <!-- INVENTORY STATUS -->
+                <VBox spacing="12" styleClass="panel side-panel">
+                    <Label text="Inventory Status" styleClass="panel-title"/>
+
+                    <StackPane prefHeight="215">
+                        <PieChart fx:id="inventoryStatusChart"
+                                  labelsVisible="false"
+                                  legendVisible="false"
+                                  prefWidth="210"
+                                  prefHeight="210"/>
+
+                        <VBox alignment="CENTER">
+                            <Label fx:id="inventoryCenterLabel" text="0" styleClass="donut-number"/>
+                            <Label text="Product Types" styleClass="donut-text"/>
+                        </VBox>
+                    </StackPane>
+
+                    <VBox spacing="8">
+                        <Label text="● Available Stock" styleClass="legend-green"/>
+                        <Label text="● Low Stock" styleClass="legend-yellow"/>
+                        <Label text="● Out of Stock" styleClass="legend-red"/>
+                    </VBox>
+                </VBox>
+
+                <!-- LOW STOCK -->
+                <VBox spacing="12" styleClass="panel side-panel">
+                    <HBox alignment="CENTER_LEFT">
+                        <Label text="Low Stock Alerts" styleClass="panel-title"/>
+                        <Region HBox.hgrow="ALWAYS"/>
+                        <Label text="Urgent" styleClass="danger-badge"/>
+                    </HBox>
+
+                    <VBox fx:id="lowStockBox" spacing="10">
+                        <Label text="No low stock items yet." styleClass="empty-text"/>
+                    </VBox>
+                </VBox>
+
+                <!-- MANAGER NOTES -->
+                <VBox spacing="10" styleClass="panel side-panel">
+                    <Label text="Manager Notes" styleClass="panel-title"/>
+
+                    <Label text="• Review each request before approval."
+                           styleClass="note-text"/>
+                    <Label text="• Check stock from main warehouse only."
+                           styleClass="note-text"/>
+                    <Label text="• Use partial availability if some items are missing."
+                           styleClass="note-text"/>
+                </VBox>
+
+            </VBox>
+
+        </HBox>
+
+    </VBox>
+</ScrollPane>

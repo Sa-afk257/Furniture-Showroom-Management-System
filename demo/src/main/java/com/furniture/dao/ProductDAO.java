@@ -547,7 +547,7 @@ public class ProductDAO {
         return false;
     }
 
-    public boolean updateProduct(Product product) {
+    public boolean updateProduct(Product product, int warehouseId, int supplierId) {
 
         String productSql = """
                 UPDATE Product
@@ -562,10 +562,24 @@ public class ProductDAO {
                 WHERE ProductID = ?
                 """;
 
-        String inventorySql = """
-                UPDATE Inventory
-                SET quantity = ?
+        String deleteOldInventory = """
+                DELETE FROM Inventory
                 WHERE ProductID = ?
+                """;
+
+        String insertInventory = """
+                INSERT INTO Inventory (WarehouseID, ProductID, quantity)
+                VALUES (?, ?, ?)
+                """;
+
+        String deleteOldSupplier = """
+                DELETE FROM Product_Supplier
+                WHERE ProductID = ?
+                """;
+
+        String insertSupplier = """
+                INSERT INTO Product_Supplier (SupplierID, ProductID)
+                VALUES (?, ?)
                 """;
 
         try (Connection conn = DBConnection.getConnection()) {
@@ -573,9 +587,7 @@ public class ProductDAO {
             conn.setAutoCommit(false);
 
             try {
-
                 try (PreparedStatement ps = conn.prepareStatement(productSql)) {
-
                     ps.setString(1, product.getProductName());
                     ps.setDouble(2, product.getPrice());
                     ps.setInt(3, product.getCategory_id());
@@ -585,15 +597,29 @@ public class ProductDAO {
                     ps.setString(7, product.getStatus());
                     ps.setString(8, product.getImagePath());
                     ps.setInt(9, product.getProductID());
-
                     ps.executeUpdate();
                 }
 
-                try (PreparedStatement ps = conn.prepareStatement(inventorySql)) {
+                try (PreparedStatement ps = conn.prepareStatement(deleteOldInventory)) {
+                    ps.setInt(1, product.getProductID());
+                    ps.executeUpdate();
+                }
 
-                    ps.setDouble(1, product.getStock());
+                try (PreparedStatement ps = conn.prepareStatement(insertInventory)) {
+                    ps.setInt(1, warehouseId);
                     ps.setInt(2, product.getProductID());
+                    ps.setDouble(3, product.getStock());
+                    ps.executeUpdate();
+                }
 
+                try (PreparedStatement ps = conn.prepareStatement(deleteOldSupplier)) {
+                    ps.setInt(1, product.getProductID());
+                    ps.executeUpdate();
+                }
+
+                try (PreparedStatement ps = conn.prepareStatement(insertSupplier)) {
+                    ps.setInt(1, supplierId);
+                    ps.setInt(2, product.getProductID());
                     ps.executeUpdate();
                 }
 
@@ -601,15 +627,14 @@ public class ProductDAO {
                 return true;
 
             } catch (Exception e) {
-
                 conn.rollback();
                 e.printStackTrace();
+                return false;
             }
 
         } catch (Exception e) {
             e.printStackTrace();
+            return false;
         }
-
-        return false;
     }
 }

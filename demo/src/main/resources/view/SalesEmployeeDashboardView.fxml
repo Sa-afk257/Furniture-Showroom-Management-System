@@ -1,0 +1,586 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.chart.*?>
+
+<ScrollPane xmlns="http://javafx.com/javafx"
+    xmlns:fx="http://javafx.com/fxml"
+    fx:controller="com.furniture.ui.SalesWorkbenchController"
+    stylesheets="@../style/sales_employee.css"
+    fx:id="salesScroll"
+    fitToWidth="true"
+    hbarPolicy="NEVER"
+    vbarPolicy="AS_NEEDED"
+    styleClass="sales-scroll">
+
+    <VBox spacing="16" styleClass="sales-main">
+        <HBox alignment="CENTER_LEFT">
+
+            <VBox spacing="3">
+                <Label text="Sales Workbench"
+                    styleClass="page-main-title" />
+
+                <Label
+                    text="Monitor pending orders, payments, warehouse responses, and daily sales activity."
+                    styleClass="page-sub-title" />
+            </VBox>
+
+            <Region HBox.hgrow="ALWAYS" />
+
+            <Button fx:id="accountMenuBtn"
+                text="👤"
+                styleClass="account-menu-btn" />
+
+        </HBox>
+
+        <!-- KPI CARDS -->
+        <HBox alignment="CENTER" spacing="18" styleClass="sales-cards-row">
+
+            <HBox alignment="CENTER_LEFT" spacing="16" styleClass="sales-stat-card">
+                <Label text="◷" styleClass="sales-stat-icon, icon-pending" />
+                <VBox spacing="4">
+                    <Label text="Pending Orders" styleClass="sales-stat-title" />
+                    <Label fx:id="pendingOrdersLabel" text="12" styleClass="sales-stat-number" />
+                    <Label fx:id="pendingOrdersDescLabel" text="-" styleClass="sales-stat-desc" />
+                </VBox>
+            </HBox>
+
+            <HBox alignment="CENTER_LEFT" spacing="16" styleClass="sales-stat-card">
+                <Label text="✓" styleClass="sales-stat-icon, icon-approved" />
+                <VBox spacing="4">
+                    <Label text="Approved Today" styleClass="sales-stat-title" />
+                    <Label fx:id="approvedTodayLabel" text="8" styleClass="sales-stat-number" />
+                    <Label fx:id="approvedTodayDescLabel" text="-" styleClass="sales-stat-desc" />
+                </VBox>
+            </HBox>
+
+            <HBox alignment="CENTER_LEFT" spacing="16" styleClass="sales-stat-card">
+                <Label text="\$" styleClass="sales-stat-icon, icon-revenue" />
+                <VBox spacing="4">
+                    <Label text="Today's Revenue" styleClass="sales-stat-title" />
+                    <Label fx:id="todayRevenueLabel" text="\$12,400" styleClass="sales-stat-number" />
+                    <Label fx:id="todayRevenueDescLabel" text="-" styleClass="sales-stat-desc" />
+                </VBox>
+            </HBox>
+
+            <HBox alignment="CENTER_LEFT" spacing="16" styleClass="sales-stat-card">
+                <Label text="▭" styleClass="sales-stat-icon, icon-payment" />
+                <VBox spacing="4">
+                    <Label text="Pending Payments" styleClass="sales-stat-title" />
+                    <Label fx:id="pendingPaymentsLabel" text="5" styleClass="sales-stat-number" />
+                    <Label fx:id="pendingPaymentsDescLabel" text="-" styleClass="sales-stat-desc" />
+                </VBox>
+            </HBox>
+
+            <HBox alignment="CENTER_LEFT" spacing="16" styleClass="sales-stat-card">
+                <Label text="⇄" styleClass="sales-stat-icon, icon-progress" />
+                <VBox spacing="4">
+                    <Label text="Orders In Progress" styleClass="sales-stat-title" />
+                    <Label fx:id="ordersInProgressLabel" text="7" styleClass="sales-stat-number" />
+                    <Label fx:id="ordersInProgressDescLabel" text="-" styleClass="sales-stat-desc" />
+                </VBox>
+            </HBox>
+
+        </HBox>
+
+        <!-- MAIN TOP -->
+        <HBox fx:id="dashboardTopPanels" spacing="14">
+
+            <!-- WELCOME EMPTY STATE -->
+            <VBox spacing="18" HBox.hgrow="ALWAYS" styleClass="welcome-panel">
+
+                <HBox alignment="CENTER" spacing="40">
+                    <VBox alignment="CENTER" spacing="12" styleClass="illustration-box">
+                        <Label text="☑" styleClass="big-illustration-icon" />
+                        <Label text="📦" styleClass="box-icon" />
+                    </VBox>
+
+                    <VBox spacing="16">
+                        <VBox spacing="5">
+                            <Label text="Welcome to Orders Workbench 👋" styleClass="welcome-title" />
+                            <Label
+                                text="Select an order from the list or use the quick actions to get started."
+                                styleClass="welcome-subtitle" />
+                        </VBox>
+
+                        <HBox spacing="12">
+                            <Button text="▣ Start Reviewing Orders"
+                                onAction="#handleStartReviewingOrders"
+                                styleClass="quick-action-btn" />
+
+                        </HBox>
+
+                        <Label text="Select an order from the list to view details and take action."
+                            styleClass="hint-text" />
+                    </VBox>
+                </HBox>
+            </VBox>
+
+            <!-- PRIORITY ALERTS -->
+            <VBox spacing="14" prefWidth="400" styleClass="sales-panel">
+                <HBox alignment="CENTER_LEFT">
+                    <Label text="Priority Alerts" styleClass="panel-title" />
+                    <Region HBox.hgrow="ALWAYS" />
+                    <HBox spacing="5"
+                        alignment="CENTER"
+                        styleClass="view-all-box"
+                        onMouseClicked="#showAllPriorityOrders">
+
+                        <Label text="View All" styleClass="view-link" />
+                        <Label text="›" styleClass="arrow" />
+
+                    </HBox>
+                </HBox>
+
+                <VBox spacing="10">
+                    <HBox spacing="12" alignment="CENTER_LEFT" styleClass="alert-row">
+                        <Label text="!" styleClass="alert-icon, red-alert" />
+                        <VBox>
+                            <Label fx:id="missingPaymentsDescLabel" text="Orders Missing Payment"
+                                styleClass="alert-title" />
+                            <Label text="3 orders are waiting for payment." styleClass="alert-desc" />
+                        </VBox>
+                        <Region HBox.hgrow="ALWAYS" />
+                        <Label fx:id="missingPaymentsAlertLabel" text="0"
+                            styleClass="alert-badge, red-badge" />
+                        <Label text="›" styleClass="arrow"
+                            onMouseClicked="#showMissingPaymentsOrders" />
+                    </HBox>
+
+                    <HBox spacing="12" alignment="CENTER_LEFT" styleClass="alert-row">
+                        <Label text="△" styleClass="alert-icon, orange-alert" />
+                        <VBox>
+                            <Label fx:id="lowStockDescLabel" text="Low Stock Items"
+                                styleClass="alert-title" />
+                            <Label text="2 orders contain items with low stock."
+                                styleClass="alert-desc" />
+                        </VBox>
+                        <Region HBox.hgrow="ALWAYS" />
+                        <Label fx:id="lowStockAlertLabel" text="0"
+                            styleClass="alert-badge, orange-badge" />
+                        <Label text="›" styleClass="arrow" onMouseClicked="#showLowStockOrders" />
+                    </HBox>
+
+                    <HBox spacing="12" alignment="CENTER_LEFT" styleClass="alert-row">
+                        <Label text="⌂" styleClass="alert-icon, yellow-alert" />
+                        <VBox>
+                            <Label fx:id="incompleteAddressDescLabel" text="Incomplete Addresses"
+                                styleClass="alert-title" />
+                            <Label text="1 order has incomplete delivery address."
+                                styleClass="alert-desc" />
+                        </VBox>
+                        <Region HBox.hgrow="ALWAYS" />
+                        <Label fx:id="incompleteAddressAlertLabel" text="0"
+                            styleClass="alert-badge, yellow-badge" />
+                        <Label text="›" styleClass="arrow"
+                            onMouseClicked="#showIncompleteAddressOrders" />
+                    </HBox>
+
+                    <HBox spacing="12" alignment="CENTER_LEFT" styleClass="alert-row">
+                        <Label text="i" styleClass="alert-icon, blue-alert" />
+                        <VBox>
+                            <Label fx:id="readyToSendDescLabel" text="Orders Ready to Send"
+                                styleClass="alert-title" />
+                            <Label text="4 orders are ready to be sent to warehouse."
+                                styleClass="alert-desc" />
+                        </VBox>
+                        <Region HBox.hgrow="ALWAYS" />
+                        <Label fx:id="readyToSendAlertLabel" text="0"
+                            styleClass="alert-badge, blue-badge" />
+                        <Label text="›" styleClass="arrow" onMouseClicked="#showReadyToSendOrders" />
+                    </HBox>
+                </VBox>
+            </VBox>
+            <VBox fx:id="alertActionPanel"
+                spacing="12"
+                prefWidth="320"
+                visible="false"
+                managed="false"
+                styleClass="sales-panel alert-action-panel">
+
+                <HBox alignment="CENTER_LEFT">
+                    <Label fx:id="alertActionTitleLabel"
+                        text="Alert Details"
+                        styleClass="panel-title" />
+
+                    <Region HBox.hgrow="ALWAYS" />
+
+                    <Label text="×"
+                        styleClass="close-alert-panel"
+                        onMouseClicked="#hideAlertActionPanel" />
+                </HBox>
+
+                <Label fx:id="alertActionDescLabel"
+                    text="Select an alert to view its action."
+                    wrapText="true"
+                    styleClass="alert-action-desc" />
+
+                <Label fx:id="alertActionCountLabel"
+                    text="0"
+                    styleClass="alert-action-count" />
+
+                <Button fx:id="alertActionButton"
+                    text="Review Related Orders"
+                    maxWidth="Infinity"
+                    styleClass="quick-action-btn"
+                    onAction="#handleAlertActionButton" />
+
+            </VBox>
+        </HBox>
+
+        <!-- HIDDEN ORDERS WORKBENCH PANELS -->
+        <VBox fx:id="ordersWorkbenchContainer"
+            spacing="10"
+            visible="false"
+            managed="false">
+
+            <HBox alignment="CENTER_LEFT">
+
+                <Button text="← Back to Dashboard"
+                    styleClass="back-btn"
+                    onAction="#handleBackToDashboard" />
+
+            </HBox>
+            <HBox fx:id="ordersWorkbenchPanels"
+                spacing="14">
+                <!-- LEFT ORDERS LIST -->
+                <VBox spacing="14"
+                    prefWidth="260"
+                    styleClass="sales-panel">
+
+
+                    <HBox spacing="18">
+                        <Label fx:id="pendingTabLabel"
+                            text="Pending"
+                            styleClass="tab-active"
+                            onMouseClicked="#showPendingTab" />
+
+                        <Label fx:id="approvedTabLabel"
+                            text="Approved"
+                            styleClass="tab-text"
+                            onMouseClicked="#showApprovedTab" />
+
+                        <Label fx:id="rejectedTabLabel"
+                            text="Rejected"
+                            styleClass="tab-text"
+                            onMouseClicked="#showRejectedTab" />
+                    </HBox>
+
+                    <HBox spacing="8" alignment="CENTER_LEFT" styleClass="search-order-box">
+                        <TextField fx:id="orderSearchField"
+                            promptText="Search order or customer..."
+                            HBox.hgrow="ALWAYS"
+                            styleClass="order-search-field" />
+                        <Button text="⌕" styleClass="small-icon-btn" />
+                    </HBox>
+
+                    <VBox fx:id="ordersListBox" spacing="10" />
+
+                    <Button text="▣ View All Orders"
+                        maxWidth="Infinity"
+                        styleClass="quick-action-btn"
+                        onAction="#handleViewAllOrders" />
+                </VBox>
+
+                <!-- CENTER ORDER DETAILS -->
+                <VBox spacing="14" HBox.hgrow="ALWAYS">
+
+                    <!-- ORDER HEADER -->
+                    <VBox spacing="12" styleClass="sales-panel">
+                        <HBox alignment="CENTER_LEFT">
+                            <Label fx:id="selectedOrderTitleLabel" text="Select an order"
+                                styleClass="panel-title" />
+                            <Label text="Pending" styleClass="badge-progress" />
+                        </HBox>
+
+                        <HBox spacing="30">
+                            <VBox>
+                                <Label text="Order Date" styleClass="performance-label" />
+                                <Label fx:id="selectedOrderDateLabel" text="-"
+                                    styleClass="activity-title" />
+                            </VBox>
+
+                            <VBox>
+                                <Label text="Sales Channel" styleClass="performance-label" />
+                                <Label fx:id="selectedOrderChannelLabel" text="Website"
+                                    styleClass="activity-title" />
+                            </VBox>
+
+                            <VBox>
+                                <Label text="Total Amount" styleClass="performance-label" />
+                                <Label fx:id="selectedOrderTotalLabel" text="-"
+                                    styleClass="activity-title" />
+                            </VBox>
+
+                            <VBox>
+                                <Label text="Payment Status" styleClass="performance-label" />
+                                <Label fx:id="selectedPaymentStatusLabel" text="-"
+                                    styleClass="legend-blue" />
+                            </VBox>
+
+                            <VBox>
+                                <Label text="Delivery Status" styleClass="performance-label" />
+                                <Label fx:id="selectedDeliveryStatusLabel" text="Not Sent"
+                                    styleClass="legend-yellow" />
+                            </VBox>
+                        </HBox>
+                    </VBox>
+
+                    <!-- CUSTOMER + VALIDATION -->
+                    <HBox spacing="14">
+
+                        <VBox spacing="12" HBox.hgrow="ALWAYS" styleClass="sales-panel">
+                            <HBox>
+                                <Label text="Customer Information" styleClass="panel-title" />
+                                <Region HBox.hgrow="ALWAYS" />
+                            </HBox>
+
+                            <Label fx:id="customerNameLabel" text="-" styleClass="welcome-subtitle" />
+                            <Label fx:id="customerPhoneLabel" text="-" styleClass="activity-desc" />
+                            <Label fx:id="customerAddressLabel" text="-"
+                                styleClass="activity-desc" />
+                            <Label fx:id="customerEmailLabel" text="-" styleClass="activity-desc" />
+                        </VBox>
+
+                        <VBox spacing="10" prefWidth="330" styleClass="sales-panel">
+                            <Label text="Order Validation Checklist" styleClass="panel-title" />
+
+                            <HBox>
+                                <Label text="✓ Customer Information" styleClass="activity-title" />
+                                <Region HBox.hgrow="ALWAYS" />
+                                <Label text="Complete" styleClass="green-change" />
+                            </HBox>
+
+                            <HBox>
+                                <Label text="✓ Phone Number" styleClass="activity-title" />
+                                <Region HBox.hgrow="ALWAYS" />
+                                <Label text="Valid" styleClass="green-change" />
+                            </HBox>
+
+                            <HBox>
+                                <Label text="△ Products Availability" styleClass="activity-title" />
+                                <Region HBox.hgrow="ALWAYS" />
+                                <Label fx:id="availabilityStatusLabel" text="Warning"
+                                    styleClass="legend-orange" />
+                            </HBox>
+                            <HBox>
+                                <Label text="▣ Warehouse Response" styleClass="activity-title" />
+                                <Region HBox.hgrow="ALWAYS" />
+                                <Label fx:id="warehouseStatusLabel" text="Not Sent"
+                                    styleClass="neutral-badge" />
+                            </HBox>
+
+                            <Label fx:id="warehouseResponseLabel"
+                                text="No warehouse response yet."
+                                wrapText="true"
+                                styleClass="activity-desc" />
+
+                            <HBox>
+                                <Label text="△ Payment Status" styleClass="activity-title" />
+                                <Region HBox.hgrow="ALWAYS" />
+                                <Label fx:id="paymentValidationLabel" text="Partial"
+                                    styleClass="legend-yellow" />
+                            </HBox>
+                        </VBox>
+                    </HBox>
+
+                    <!-- ORDER ITEMS -->
+                    <VBox spacing="12" styleClass="sales-panel">
+                        <HBox>
+                            <Label fx:id="orderItemsTitleLabel" text="Order Items"
+                                styleClass="panel-title" />
+                            <Region HBox.hgrow="ALWAYS" />
+                            <Label text="Expand" styleClass="view-link" />
+                        </HBox>
+
+                        <GridPane fx:id="orderItemsGrid" hgap="18" vgap="12">
+                            <Label text="#" GridPane.rowIndex="0" GridPane.columnIndex="0"
+                                styleClass="performance-label" />
+                            <Label text="Product" GridPane.rowIndex="0" GridPane.columnIndex="1"
+                                styleClass="performance-label" />
+                            <Label text="Color" GridPane.rowIndex="0" GridPane.columnIndex="2"
+                                styleClass="performance-label" />
+                            <Label text="Qty" GridPane.rowIndex="0" GridPane.columnIndex="3"
+                                styleClass="performance-label" />
+                            <Label text="Unit Price" GridPane.rowIndex="0" GridPane.columnIndex="4"
+                                styleClass="performance-label" />
+                            <Label text="Total" GridPane.rowIndex="0" GridPane.columnIndex="5"
+                                styleClass="performance-label" />
+                            <Label text="Stock" GridPane.rowIndex="0" GridPane.columnIndex="6"
+                                styleClass="performance-label" />
+                        </GridPane>
+                    </VBox>
+
+                    <!-- PAYMENTS + ACTIONS -->
+                    <HBox spacing="14">
+
+                        <VBox fx:id="paymentsBox" spacing="12" HBox.hgrow="ALWAYS"
+                            styleClass="sales-panel" />
+
+                        <VBox spacing="10" prefWidth="300" styleClass="sales-panel">
+                            <Label text="Order Actions" styleClass="panel-title" />
+                            <Button text="Approve Order"
+                                maxWidth="Infinity"
+                                onAction="#handleApproveOrder"
+                                styleClass="approve-btn" />
+
+                            <Button text="Reject Order"
+                                maxWidth="Infinity"
+                                onAction="#handleRejectOrder"
+                                styleClass="reject-btn" />
+
+                            <Button text="Add Payment"
+                                maxWidth="Infinity"
+                                onAction="#handleAddPayment"
+                                styleClass="quick-action-btn" />
+
+                            <Button text="Send To Warehouse"
+                                onAction="#handleCheckWithWarehouse"
+                                maxWidth="Infinity"
+                                styleClass="quick-action-btn" />
+                            <Button text="Add Order Note" maxWidth="Infinity"
+                                styleClass="quick-action-btn" />
+                        </VBox>
+                    </HBox>
+                </VBox>
+
+                <!-- RIGHT DETAILS PANEL -->
+                <VBox spacing="14"
+                    prefWidth="300"
+                    styleClass="sales-panel">
+
+                    <HBox>
+                        <Label text="Order Details" styleClass="panel-title" />
+                        <Region HBox.hgrow="ALWAYS" />
+                        <Label text="×" styleClass="view-link" />
+                    </HBox>
+
+                    <Label text="Timeline" styleClass="view-link" />
+
+                    <VBox fx:id="timelineBox" spacing="12">
+                        <Label text="Select an order to view timeline." styleClass="activity-desc" />
+                    </VBox>
+
+                    <Separator />
+
+                    <Label text="Delivery Information" styleClass="panel-title" />
+                    <Label fx:id="deliveryTypeLabel" text="Standard Delivery"
+                        styleClass="activity-desc" />
+                    <Label fx:id="preferredDateLabel" text="Preferred Date: 19/06/2026"
+                        styleClass="activity-desc" />
+                    <Label fx:id="preferredTimeLabel" text="Afternoon (12:00 PM - 5:00 PM)"
+                        styleClass="activity-desc" />
+                    <Label fx:id="deliveryAddressLabel" text="Ramallah, Al-Tireh St."
+                        styleClass="activity-desc" />
+
+                    <Separator />
+
+                    <Label text="Attachments" styleClass="panel-title" />
+                    <Label fx:id="attachmentLabel" text="Customer Request.pdf    245 KB"
+                        styleClass="activity-desc" />
+                </VBox>
+            </HBox>
+        </VBox>
+        <!-- SECOND ROW -->
+        <HBox fx:id="dashboardBottomPanels" spacing="14">
+
+            <!-- PENDING OVERVIEW -->
+            <VBox spacing="14" prefWidth="360" styleClass="sales-panel">
+                <HBox alignment="CENTER_LEFT">
+                    <Label text="Pending Orders Overview" styleClass="panel-title" />
+                    <Region HBox.hgrow="ALWAYS" />
+                </HBox>
+
+                <HBox alignment="CENTER" spacing="18">
+                    <StackPane>
+                        <PieChart fx:id="pendingOverviewChart"
+                            labelsVisible="false"
+                            legendVisible="false"
+                            prefWidth="155"
+                            prefHeight="155" />
+                        <VBox alignment="CENTER">
+                            <Label fx:id="pendingOverviewTotalLabel" text="0"
+                                styleClass="donut-number" />
+                            <Label text="Total" styleClass="donut-text" />
+                        </VBox>
+                    </StackPane>
+
+                    <VBox spacing="10">
+                        <Label fx:id="newOrdersLegendLabel" text="● New 0 (0%)"
+                            styleClass="legend-purple" />
+                        <Label fx:id="missingPaymentLegendLabel" text="● Missing Payment 0 (0%)"
+                            styleClass="legend-red" />
+                        <Label fx:id="lowStockLegendLabel" text="● Low Stock 0 (0%)"
+                            styleClass="legend-orange" />
+                        <Label fx:id="missingAddressLegendLabel" text="● Missing Address 0 (0%)"
+                            styleClass="legend-yellow" />
+                    </VBox>
+                </HBox>
+
+                <HBox spacing="10" alignment="CENTER_LEFT" styleClass="info-note">
+                    <Label text="💡" styleClass="note-icon" />
+                    <Label
+                        fx:id="pendingOverviewNoteLabel"
+                        text="Pending orders overview will appear here."
+                        wrapText="true"
+                        styleClass="note-text" />
+                </HBox>
+            </VBox>
+
+            <!-- RECENT ACTIVITY -->
+            <VBox spacing="14" HBox.hgrow="ALWAYS" styleClass="sales-panel">
+                <HBox alignment="CENTER_LEFT">
+                    <Label text="Recent Activity" styleClass="panel-title" />
+                    <Region HBox.hgrow="ALWAYS" />
+                    <Label text="View All" styleClass="view-link" />
+                </HBox>
+
+                <VBox fx:id="recentActivityBox" spacing="12">
+                    <Label text="Recent activity will appear here." styleClass="activity-desc" />
+                </VBox>
+            </VBox>
+
+            <!-- PERFORMANCE -->
+            <VBox spacing="14" prefWidth="410" styleClass="sales-panel">
+                <HBox alignment="CENTER_LEFT">
+                    <Label text="Sales Performance" styleClass="panel-title" />
+                    <Region HBox.hgrow="ALWAYS" />
+                    <ComboBox promptText="This Week" prefWidth="105" styleClass="small-combo" />
+                </HBox>
+
+                <HBox spacing="26">
+                    <VBox>
+                        <Label text="Revenue" styleClass="performance-label" />
+                        <Label fx:id="weeklyRevenueLabel" text="\$0" styleClass="performance-number" />
+                    </VBox>
+
+                    <VBox>
+                        <Label text="Orders Approved" styleClass="performance-label" />
+                        <Label fx:id="weeklyApprovedOrdersLabel" text="0"
+                            styleClass="performance-number" />
+                    </VBox>
+
+                    <VBox>
+                        <Label text="Approval Rate" styleClass="performance-label" />
+                        <Label fx:id="approvalRateLabel" text="0%" styleClass="performance-number" />
+                    </VBox>
+                </HBox>
+
+                <LineChart fx:id="performanceChart"
+                    animated="false"
+                    legendVisible="false"
+                    prefHeight="170"
+                    styleClass="sales-chart">
+                    <xAxis>
+                        <CategoryAxis />
+                    </xAxis>
+                    <yAxis>
+                        <NumberAxis />
+                    </yAxis>
+                </LineChart>
+            </VBox>
+        </HBox>
+
+    </VBox>
+</ScrollPane>

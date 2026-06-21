@@ -914,6 +914,10 @@ public class ProductController {
         addProductNameField.setText(product.getProductName());
         addPriceField.setText(String.valueOf(product.getPrice()));
         addCategoryCombo.setValue(product.getCategoryName());
+
+        addWarehouseCombo.setValue(product.getWarehouseName());
+        addSupplierCombo.setValue(product.getSupplierName());
+
         addColorField.setText(product.getColor());
         addMaterialField.setText(product.getMaterial());
         addDescriptionArea.setText(product.getDescription());
@@ -969,6 +973,11 @@ public class ProductController {
             String imagePath = saveImageToResources(selectedImageFile);
             productBeingUpdated.setImagePath(imagePath);
         }
+        String warehouseName = addWarehouseCombo.getValue();
+        String supplierName = addSupplierCombo.getValue();
+
+        productBeingUpdated.setWarehouseName(warehouseName);
+        productBeingUpdated.setSupplierName(supplierName);
 
         if (!pendingUpdates.contains(productBeingUpdated)) {
             pendingUpdates.add(productBeingUpdated);
@@ -1446,7 +1455,17 @@ public class ProductController {
             }
 
             for (Product product : pendingUpdates) {
-                productDAO.updateProduct(product);
+
+                int warehouseId = productDAO.getWarehouseIdByName(
+                        product.getWarehouseName());
+
+                int supplierId = productDAO.getSupplierIdByName(
+                        product.getSupplierName());
+
+                productDAO.updateProduct(
+                        product,
+                        warehouseId,
+                        supplierId);
             }
 
             for (Product product : pendingDeletes) {

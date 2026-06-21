@@ -11,6 +11,7 @@ public class PurchaseDetails {
     private double quantity;
     private double price;
     private double currentStock;
+    private double subtotal;
 
     public PurchaseDetails() {
     }
@@ -28,6 +29,11 @@ public class PurchaseDetails {
     }
 
     public double getSubtotal() {
+
+        if (subtotal > 0) {
+            return subtotal;
+        }
+
         return quantity * price;
     }
 
@@ -103,5 +109,8 @@ public class PurchaseDetails {
         this.currentStock = currentStock;
     }
 
+    public void setSubtotal(double subtotal) {
+        this.subtotal = subtotal;
+    }
 
 }

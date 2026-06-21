@@ -5,17 +5,28 @@ import java.util.List;
 
 public class Employee {
     private int EmployeeID;
-	private	String firstName;
-	private	String middelInitial;
-	private	String lastName;
-	private	String email;
-	private	String city;
-	private	double salary;
-	private	String ShiftTime;
-	private	Date HireDate ;
-    private	String gender ;
-    private	String Employee_role;
-    private List <String> Employee_Phone;
+    private String firstName;
+    private String middelInitial;
+    private String lastName;
+    private String email;
+    private String city;
+    private double salary;
+    private String ShiftTime;
+    private Date HireDate;
+    private String gender;
+    private String Employee_role;
+    private List<String> Employee_Phone;
+
+    private int no;
+    private String status = "Active";
+
+    private int salesCount;
+    private int purchasesCount;
+    private int deliveriesCount;
+    private int managedWarehouses;
+
+    private double totalSalesAmount;
+    private double totalPurchaseAmount;
 
     public Employee() {
     }
@@ -51,7 +62,6 @@ public class Employee {
         Employee_role = employee_role;
         Employee_Phone = employee_Phone;
     }
-
 
     public int getEmployeeID() {
         return EmployeeID;
@@ -145,9 +155,80 @@ public class Employee {
         return Employee_Phone;
     }
 
-
     public void setEmployee_Phone(List<String> employee_Phone) {
         Employee_Phone = employee_Phone;
+    }
+
+    public int getNo() {
+        return no;
+    }
+
+    public void setNo(int no) {
+        this.no = no;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public int getSalesCount() {
+        return salesCount;
+    }
+
+    public void setSalesCount(int salesCount) {
+        this.salesCount = salesCount;
+    }
+
+    public int getPurchasesCount() {
+        return purchasesCount;
+    }
+
+    public void setPurchasesCount(int purchasesCount) {
+        this.purchasesCount = purchasesCount;
+    }
+
+    public int getDeliveriesCount() {
+        return deliveriesCount;
+    }
+
+    public void setDeliveriesCount(int deliveriesCount) {
+        this.deliveriesCount = deliveriesCount;
+    }
+
+    public int getManagedWarehouses() {
+        return managedWarehouses;
+    }
+
+    public void setManagedWarehouses(int managedWarehouses) {
+        this.managedWarehouses = managedWarehouses;
+    }
+
+    public double getTotalSalesAmount() {
+        return totalSalesAmount;
+    }
+
+    public void setTotalSalesAmount(double totalSalesAmount) {
+        this.totalSalesAmount = totalSalesAmount;
+    }
+
+    public double getTotalPurchaseAmount() {
+        return totalPurchaseAmount;
+    }
+
+    public void setTotalPurchaseAmount(double totalPurchaseAmount) {
+        this.totalPurchaseAmount = totalPurchaseAmount;
+    }
+
+    public String getFullName() {
+        String middle = (middelInitial == null || middelInitial.trim().isEmpty())
+                ? ""
+                : " " + middelInitial.trim() + ".";
+
+        return firstName + middle + " " + lastName;
     }
 
     @Override
@@ -158,7 +239,4 @@ public class Employee {
                 + Employee_role + ", Employee_Phone=" + Employee_Phone + "]";
     }
 
-    
-    
-    
 }

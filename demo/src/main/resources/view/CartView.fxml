@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+    xmlns:fx="http://javafx.com/fxml"
+    fx:controller="com.furniture.ui.CartController"
+    stylesheets="@../style/cart.css"
+    styleClass="root-pane">
+
+    <center>
+        <VBox spacing="0" styleClass="main-area">
+
+            <!-- TOP BAR نفس guest -->
+            <VBox spacing="0" styleClass="dashboard-header">
+                <HBox alignment="CENTER_LEFT" spacing="0" styleClass="dashboard-top-bar">
+
+                    <ImageView fitWidth="450"
+                        fitHeight="220"
+                        preserveRatio="true"
+                        translateX="-20"
+                        translateY="8">
+                        <image>
+                            <Image url="@../images/Furniture_logo.jpg" />
+                        </image>
+                    </ImageView>
+
+                    <Region HBox.hgrow="ALWAYS" />
+
+                    <HBox alignment="CENTER_RIGHT" spacing="18" styleClass="date-time-box">
+                        <HBox alignment="CENTER" spacing="8">
+                            <Label text="📅" styleClass="date-time-icon" />
+                            <Label fx:id="dateLabel" text="June 16, 2026"
+                                styleClass="date-time-text" />
+                        </HBox>
+
+                        <Region styleClass="date-time-separator" />
+
+                        <HBox alignment="CENTER" spacing="8">
+                            <Label text="🕘" styleClass="date-time-icon" />
+                            <Label fx:id="timeLabel" text="07:50 PM" styleClass="date-time-text" />
+                        </HBox>
+                    </HBox>
+                </HBox>
+            </VBox>
+
+            <ScrollPane fitToWidth="true"
+                hbarPolicy="NEVER"
+                VBox.vgrow="ALWAYS"
+                styleClass="dashboard-scroll">
+
+                <VBox spacing="16" styleClass="dashboard-main-content">
+
+                    <!-- TOOLBAR -->
+                    <HBox alignment="CENTER_LEFT" spacing="14" styleClass="product-toolbar">
+
+                        <HBox styleClass="search-box">
+                            <TextField fx:id="searchField"
+                                promptText="Search product by name, category..."
+                                styleClass="search-field"
+                                HBox.hgrow="ALWAYS" />
+
+                            <Label text="🔍" styleClass="search-icon" />
+                        </HBox>
+
+                        <Region HBox.hgrow="ALWAYS" />
+
+                        <HBox alignment="CENTER_RIGHT" spacing="8" styleClass="user-actions-pill">
+
+                            <Button fx:id="allProductsBtn"
+                                text="All Products"
+                                onAction="#openAllProductsPage"
+                                styleClass="top-nav-btn" />
+
+                            <Button fx:id="wishlistBtn"
+                                text="♡ Wishlist"
+                                onAction="#openWishlistPage"
+                                styleClass="top-nav-btn" />
+
+                            <Button fx:id="cartTopBtn"
+                                text="🛒 Cart (0)"
+                                styleClass="top-nav-btn, active-top-btn" />
+
+                            <Button fx:id="ordersTopBtn"
+                                text="📦 Orders"
+                                styleClass="top-nav-btn" />
+
+                            <Button fx:id="accountTopBtn"
+                                text="👤"
+                                styleClass="top-account-btn" />
+                        </HBox>
+                    </HBox>
+
+
+                    <!-- MAIN CART -->
+                    <HBox spacing="16" alignment="TOP_LEFT" VBox.vgrow="ALWAYS">
+
+                        <!-- LEFT CART ITEMS -->
+                        <VBox spacing="12" HBox.hgrow="ALWAYS" styleClass="cart-card">
+
+                            <HBox spacing="10" alignment="CENTER_LEFT">
+                                <Label text="🛒" styleClass="cart-section-icon" />
+                                <Label fx:id="cartTitleLabel"
+                                    text="Your Cart (0 items)"
+                                    styleClass="cart-section-title" />
+                            </HBox>
+
+                            <!-- HEADER -->
+                            <HBox spacing="12" styleClass="cart-header-row">
+                                <Label text="Product" HBox.hgrow="ALWAYS" maxWidth="Infinity"
+                                    styleClass="cart-header-text" />
+                                <Label text="Price" prefWidth="115" styleClass="cart-header-text" />
+                                <Label text="Quantity" prefWidth="145" styleClass="cart-header-text" />
+                                <Label text="Total" prefWidth="120" styleClass="cart-header-text" />
+                                <Label text="" prefWidth="50" />
+                            </HBox>
+
+                            <!-- ROWS FROM CONTROLLER -->
+                            <ScrollPane fitToWidth="true"
+                                hbarPolicy="NEVER"
+                                prefHeight="260"
+                                styleClass="cart-items-scroll">
+
+                                <VBox fx:id="cartItemsBox"
+                                    spacing="0"
+                                    styleClass="cart-items-box" />
+
+                            </ScrollPane>
+
+                            <!-- EMPTY -->
+                            <VBox fx:id="emptyCartBox"
+                                visible="false"
+                                managed="false"
+                                alignment="CENTER"
+                                spacing="10"
+                                styleClass="empty-cart-box">
+                                <Label text="🛒" styleClass="empty-cart-icon" />
+                                <Label text="Your cart is empty" styleClass="empty-cart-title" />
+                                <Label text="Add products to continue shopping."
+                                    styleClass="empty-cart-subtitle" />
+                            </VBox>
+
+                            <!-- ACTIONS -->
+                            <HBox spacing="12" alignment="CENTER_LEFT" styleClass="cart-actions-row">
+                                <Button fx:id="continueShoppingBtn"
+                                    text="← Continue Shopping"
+                                    onAction="#openAllProductsPage"
+                                    styleClass="outline-gold-btn" />
+
+                                <Region HBox.hgrow="ALWAYS" />
+
+                                <Button fx:id="clearCartBtn"
+                                    text="Clear Cart 🗑"
+                                    styleClass="clear-cart-btn" />
+
+                            </HBox>
+                            <HBox alignment="CENTER_LEFT" spacing="8"
+                                styleClass="delivery-note-box">
+                                <Label text="📍" styleClass="delivery-note-icon" />
+                                <Label text="Delivery to:" styleClass="delivery-note-title" />
+
+                                <Label fx:id="deliveryAddressLabel"
+                                    text="Please confirm delivery information."
+                                    HBox.hgrow="ALWAYS"
+                                    maxWidth="Infinity"
+                                    styleClass="delivery-note-text" />
+
+
+                            </HBox>
+                        </VBox>
+
+                        <!-- RIGHT SUMMARY -->
+                        <VBox spacing="14" prefWidth="380" styleClass="summary-card">
+
+                            <HBox spacing="10" alignment="CENTER_LEFT">
+                                <Label text="▤" styleClass="cart-section-icon" />
+                                <Label text="Order Summary" styleClass="cart-section-title" />
+                            </HBox>
+
+                            <VBox spacing="8" styleClass="delivery-form-box">
+
+                                <Label text="Delivery Information" styleClass="delivery-form-title" />
+
+                                <TextField fx:id="cityField"
+                                    promptText="City"
+                                    styleClass="delivery-field" />
+
+                                <TextField fx:id="townField"
+                                    promptText="Town"
+                                    styleClass="delivery-field" />
+
+                                <TextField fx:id="areaField"
+                                    promptText="Area"
+                                    styleClass="delivery-field" />
+
+                                <TextField fx:id="streetField"
+                                    promptText="Street"
+                                    styleClass="delivery-field" />
+
+                                <TextField fx:id="buildingField"
+                                    promptText="Building"
+                                    styleClass="delivery-field" />
+
+                                <Button fx:id="confirmDeliveryBtn"
+                                    text="Confirm Delivery Info"
+                                    maxWidth="Infinity"
+                                    styleClass="outline-gold-btn" />
+                            </VBox>
+                            <VBox spacing="8" styleClass="payment-form-box">
+
+                                <Label text="Payment Method" styleClass="delivery-form-title" />
+
+                                <ComboBox fx:id="paymentMethodCombo"
+                                    promptText="Select payment method"
+                                    maxWidth="Infinity"
+                                    styleClass="payment-combo" />
+
+                            </VBox>
+
+                            <HBox>
+                                <Label text="Subtotal" styleClass="summary-label" />
+                                <Region HBox.hgrow="ALWAYS" />
+                                <Label fx:id="subtotalLabel" text="\$0.00"
+                                    styleClass="summary-value" />
+                            </HBox>
+
+                            <HBox>
+                                <Label text="Discount" styleClass="summary-label discount-text" />
+                                <Region HBox.hgrow="ALWAYS" />
+                                <Label fx:id="discountLabel" text="-\$0.00"
+                                    styleClass="summary-value discount-text" />
+                            </HBox>
+
+                            <HBox>
+                                <Label text="Delivery Fee" styleClass="summary-label" />
+                                <Region HBox.hgrow="ALWAYS" />
+                                <Label fx:id="deliveryFeeLabel" text="\$0.00"
+                                    styleClass="summary-value" />
+                            </HBox>
+
+                            <Separator styleClass="summary-separator" />
+
+                            <HBox alignment="CENTER_LEFT">
+                                <Label text="Total" styleClass="total-title" />
+                                <Region HBox.hgrow="ALWAYS" />
+                                <Label fx:id="totalLabel" text="\$0.00" styleClass="total-value" />
+                            </HBox>
+
+                            <Label fx:id="savingLabel"
+                                text="You're saving $0.00 with this order!"
+                                visible="false"
+                                managed="false"
+                                styleClass="saving-label" />
+
+                            <Label fx:id="checkoutMessageLabel"
+                                text=""
+                                visible="false"
+                                managed="false"
+                                maxWidth="Infinity"
+                                styleClass="checkout-message-label" />
+
+                            <Button fx:id="checkoutBtn"
+                                text="🔒 Proceed To Checkout"
+                                maxWidth="Infinity"
+                                styleClass="checkout-btn" />
+                        </VBox>
+                    </HBox>
+                </VBox>
+            </ScrollPane>
+        </VBox>
+    </center>
+</BorderPane>

@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/21"
+    xmlns:fx="http://javafx.com/fxml/1"
+    fx:controller="com.furniture.ui.ProductDetailsController"
+    prefWidth="1200"
+    prefHeight="760"
+    stylesheets="@../style/productDetails.css"
+    styleClass="details-root">
+
+    <ScrollPane fitToWidth="true"
+        fitToHeight="true"
+        hbarPolicy="NEVER"
+        vbarPolicy="AS_NEEDED"
+        styleClass="details-scroll"
+        AnchorPane.topAnchor="0"
+        AnchorPane.bottomAnchor="0"
+        AnchorPane.leftAnchor="0"
+        AnchorPane.rightAnchor="0">
+
+        <VBox styleClass="outer-wrapper">
+
+            <VBox styleClass="details-card" spacing="26">
+
+                <!-- Top Header -->
+                <HBox alignment="CENTER_LEFT" spacing="20">
+                    <Button fx:id="backBtn"
+                        text="←  Back"
+                        styleClass="back-btn"
+                        onAction="#goBack" />
+                    <Region HBox.hgrow="ALWAYS" />
+
+                    <HBox alignment="CENTER" spacing="16">
+                        <Pane styleClass="title-line" />
+                        <Label text="◇" styleClass="title-diamond" />
+                        <Label text="Product Details" styleClass="page-title" />
+                        <Label text="◇" styleClass="title-diamond" />
+                        <Pane styleClass="title-line" />
+                    </HBox>
+
+                    <Region HBox.hgrow="ALWAYS" />
+
+                    <Pane styleClass="header-spacer" />
+                </HBox>
+
+                <!-- Main Content -->
+                <HBox spacing="42" VBox.vgrow="ALWAYS">
+
+                    <!-- Left Images Side -->
+                    <VBox spacing="22" prefWidth="540">
+
+                        <StackPane styleClass="image-frame">
+                            <ImageView fx:id="productImage"
+                                fitWidth="525"
+                                fitHeight="405"
+                                preserveRatio="false"
+                                smooth="true"
+                                styleClass="main-product-image" />
+                        </StackPane>
+
+                    </VBox>
+
+                    <Separator orientation="VERTICAL" styleClass="vertical-separator" />
+
+                    <!-- Right Details Side -->
+                    <VBox spacing="20" prefWidth="500">
+
+                        <HBox alignment="CENTER_LEFT">
+                            <VBox spacing="12">
+                                <Label fx:id="productNameLabel"
+                                    text="Ilana Sofa"
+                                    styleClass="product-name" />
+
+                                <Label fx:id="priceLabel"
+                                    text="\$ 430.99"
+                                    styleClass="product-price" />
+                            </VBox>
+
+                            <Region HBox.hgrow="ALWAYS" />
+
+                            <Button fx:id="favoriteBtn"
+                                text="♡"
+                                onAction="#handleFavoriteClick"
+                                styleClass="favorite-btn" />
+                        </HBox>
+
+                        <Separator styleClass="gold-line" />
+
+                        <GridPane hgap="35" vgap="18" styleClass="info-grid">
+
+                            <Label text="▭  Category:"
+                                styleClass="info-key"
+                                GridPane.rowIndex="0"
+                                GridPane.columnIndex="0" />
+                            <Label fx:id="categoryLabel"
+                                text="Sofas"
+                                styleClass="info-value"
+                                GridPane.rowIndex="0"
+                                GridPane.columnIndex="1" />
+
+                            <Label text="◈  Material:"
+                                styleClass="info-key"
+                                GridPane.rowIndex="1"
+                                GridPane.columnIndex="0" />
+                            <Label fx:id="materialLabel"
+                                text="Premium Fabric"
+                                styleClass="info-value"
+                                GridPane.rowIndex="1"
+                                GridPane.columnIndex="1" />
+
+                            <Label text="●  Color:"
+                                styleClass="info-key"
+                                GridPane.rowIndex="2"
+                                GridPane.columnIndex="0" />
+                            <HBox fx:id="colorsContainer"
+                                spacing="8"
+                                alignment="CENTER_LEFT"
+                                GridPane.rowIndex="2"
+                                GridPane.columnIndex="1">
+                            </HBox>
+
+                            <Label text="✓  Status:"
+                                styleClass="info-key"
+                                GridPane.rowIndex="3"
+                                GridPane.columnIndex="0" />
+                            <Label fx:id="statusLabel"
+                                text="Available"
+                                styleClass="status-available"
+                                GridPane.rowIndex="3"
+                                GridPane.columnIndex="1" />
+
+                            <Label text="⌂  Warehouse:"
+                                styleClass="info-key"
+                                GridPane.rowIndex="4"
+                                GridPane.columnIndex="0" />
+                            <Label fx:id="warehouseLabel"
+                                text="Main Warehouse"
+                                styleClass="info-value"
+                                GridPane.rowIndex="4"
+                                GridPane.columnIndex="1" />
+
+                            <Label text="★  Supplier:"
+                                styleClass="info-key"
+                                GridPane.rowIndex="5"
+                                GridPane.columnIndex="0" />
+                            <Label fx:id="supplierLabel"
+                                text="Luxury Home"
+                                styleClass="info-value"
+                                GridPane.rowIndex="5"
+                                GridPane.columnIndex="1" />
+
+                            <Label text="□  Stock:"
+                                styleClass="info-key"
+                                GridPane.rowIndex="6"
+                                GridPane.columnIndex="0" />
+                            <Label fx:id="stockLabel"
+                                text="15"
+                                styleClass="info-value"
+                                GridPane.rowIndex="6"
+                                GridPane.columnIndex="1" />
+                        </GridPane>
+
+                        <Separator styleClass="gold-line" />
+
+                        <VBox spacing="10">
+
+                            <Label text="Description"
+                                styleClass="section-title" />
+
+                            <Label fx:id="descriptionLabel"
+                                text="Product description..."
+                                wrapText="true"
+                                styleClass="description-text" />
+
+                        </VBox>
+
+                        <VBox spacing="8" styleClass="extra-info-card">
+
+                            <Label text="Product Information"
+                                styleClass="section-title" />
+
+                            <GridPane hgap="20" vgap="8">
+
+                                <Label text="Created Date:"
+                                    styleClass="info-key"
+                                    GridPane.rowIndex="0"
+                                    GridPane.columnIndex="0" />
+
+                                <Label fx:id="createdDateLabel"
+                                    text="-"
+                                    styleClass="info-value"
+                                    GridPane.rowIndex="0"
+                                    GridPane.columnIndex="1" />
+
+                                <Label text="Product ID:"
+                                    styleClass="info-key"
+                                    GridPane.rowIndex="1"
+                                    GridPane.columnIndex="0" />
+
+                                <Label fx:id="productIdLabel"
+                                    text="-"
+                                    styleClass="info-value"
+                                    GridPane.rowIndex="1"
+                                    GridPane.columnIndex="1" />
+
+                            </GridPane>
+
+                        </VBox>
+
+                        <Region VBox.vgrow="ALWAYS" />
+
+                        <Separator styleClass="gold-line" />
+
+                        <HBox spacing="20">
+                            <Button fx:id="addToCartBtn" 
+                                onAction="#handleAddToCart" 
+                                text="🛒  ADD TO CART"
+                                prefWidth="230"
+                                styleClass="add-cart-btn" />
+
+                        </HBox>
+
+                    </VBox>
+                </HBox>
+            </VBox>
+        </VBox>
+    </ScrollPane>
+</AnchorPane>

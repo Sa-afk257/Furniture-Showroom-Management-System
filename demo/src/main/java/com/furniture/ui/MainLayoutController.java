@@ -55,7 +55,9 @@ public class MainLayoutController {
     @FXML
     private HBox reportsItem;
     @FXML
-    private HBox settingsItem;
+    private HBox accountItem;
+    @FXML
+    private HBox logoutItem;
     @FXML
     private Label dateLabel;
     @FXML
@@ -149,16 +151,16 @@ public class MainLayoutController {
                 goToWarehouse(event);
                 break;
             case "employeesItem":
-                // goToEmployee(event);
+                 goToEmployees(event);
                 break;
             case "suppliersItem":
-                // goToSupplier(event);
+                 goToSuppliers(event);
                 break;
             case "categoriesItem":
-                // goToCategories(event);
+                 goToCategories(event);
                 break;
             case "inventoryItem":
-                // goToInventory(event);
+                 goToInventory(event);
                 break;
             case "deliveriesItem":
                 // goToDeliveries(event);
@@ -177,6 +179,12 @@ public class MainLayoutController {
                 break;
             case "reportsItem":
                 // goToReports(event);
+                break;
+            case "logoutItem":
+                 goToLogout(event);
+                break;
+            case "acccountItem":
+                 goToAccount(event);
                 break;
         }
     }
@@ -328,6 +336,16 @@ public class MainLayoutController {
     @FXML
     private void goToReports(MouseEvent event) {
         loadPage("/view/ReportView.fxml", "Reports");
+    }
+
+    @FXML
+    private void goToLogout(MouseEvent event) {
+        loadPage("/view/GuestView.fxml", "Logout");
+    }
+
+    @FXML
+    private void goToAccount(MouseEvent event) {
+        loadPage("/view/AccountView.fxml", "Account");
     }
 
 }

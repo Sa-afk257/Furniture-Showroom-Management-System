@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+    xmlns:fx="http://javafx.com/fxml"
+    fx:controller="com.furniture.ui.AccountController"
+    stylesheets="@../style/account.css"
+    styleClass="account-root">
+
+    <center>
+        <ScrollPane fitToWidth="true" hbarPolicy="NEVER" styleClass="account-scroll">
+            <VBox spacing="22" styleClass="account-container">
+                <HBox>
+                    <VBox spacing="6">
+                        <Label text="My Account" styleClass="account-title" />
+                        <Label text="Manage your account information and preferences"
+                            styleClass="account-subtitle" />
+                    </VBox>
+                    <Region HBox.hgrow="ALWAYS" />
+                    <Button fx:id="backBtn"
+                        text="← Back"
+                        styleClass="back-btn" />
+                </HBox>
+                <HBox spacing="22" alignment="TOP_LEFT">
+
+                    <!-- LEFT CONTENT -->
+                    <VBox spacing="18" HBox.hgrow="ALWAYS">
+
+                        <!-- PERSONAL INFO -->
+                        <VBox spacing="18" styleClass="account-card">
+
+                            <HBox alignment="CENTER_LEFT" spacing="10">
+                                <Label text="♙" styleClass="section-icon" />
+                                <Label text="Personal Information" styleClass="section-title" />
+                                <Region HBox.hgrow="ALWAYS" />
+                                <Button fx:id="editPersonalBtn" text="✎ Edit" styleClass="edit-btn" />
+                            </HBox>
+
+                            <GridPane hgap="18" vgap="14">
+                                <columnConstraints>
+                                    <ColumnConstraints percentWidth="50" />
+                                    <ColumnConstraints percentWidth="50" />
+                                </columnConstraints>
+
+                                <VBox spacing="6" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                                    <Label text="First Name" styleClass="field-label" />
+                                    <TextField fx:id="firstNameField" text="Sara" editable="false"
+                                        styleClass="account-field" />
+                                </VBox>
+
+                                <VBox spacing="6" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                                    <Label text="Last Name" styleClass="field-label" />
+                                    <TextField fx:id="lastNameField" text="Ahmed" editable="false"
+                                        styleClass="account-field" />
+                                </VBox>
+
+                                <VBox spacing="6" GridPane.columnIndex="0" GridPane.rowIndex="1"
+                                    GridPane.columnSpan="2">
+                                    <Label text="Email Address" styleClass="field-label" />
+                                    <TextField fx:id="emailField" text="sara@gmail.com"
+                                        editable="false"
+                                        styleClass="account-field" />
+                                </VBox>
+
+                                <VBox spacing="6" GridPane.columnIndex="0" GridPane.rowIndex="2"
+                                    GridPane.columnSpan="2">
+                                    <Label text="Phone Number" styleClass="field-label" />
+                                    <TextField fx:id="phoneField" text="+962 79 123 4567"
+                                        editable="false"
+                                        styleClass="account-field" />
+                                </VBox>
+                            </GridPane>
+                        </VBox>
+
+                        <!-- ADDRESS INFO -->
+                        <VBox spacing="18" styleClass="account-card">
+
+                            <HBox alignment="CENTER_LEFT" spacing="10">
+                                <Label text="⌖" styleClass="section-icon" />
+                                <Label text="Address Information" styleClass="section-title" />
+                                <Region HBox.hgrow="ALWAYS" />
+                                <Button fx:id="editAddressBtn" text="✎ Edit" styleClass="edit-btn" />
+                            </HBox>
+
+                            <VBox spacing="6">
+                                <Label text="Address" styleClass="field-label" />
+                                <TextField fx:id="addressField"
+                                    text="Ramallah, Al-Tireh, Main Street, Building 12"
+                                    editable="false"
+                                    styleClass="account-field" />
+                            </VBox>
+
+                            <GridPane hgap="18" vgap="14">
+                                <columnConstraints>
+                                    <ColumnConstraints percentWidth="33" />
+                                    <ColumnConstraints percentWidth="33" />
+                                    <ColumnConstraints percentWidth="34" />
+                                </columnConstraints>
+
+                                <VBox spacing="6" GridPane.columnIndex="0">
+                                    <Label text="City" styleClass="field-label" />
+                                    <TextField fx:id="cityField" text="Ramallah" editable="false"
+                                        styleClass="account-field" />
+                                </VBox>
+
+                                <VBox spacing="6" GridPane.columnIndex="1">
+                                    <Label text="Area" styleClass="field-label" />
+                                    <TextField fx:id="areaField" text="Al-Tireh" editable="false"
+                                        styleClass="account-field" />
+                                </VBox>
+
+                                <VBox spacing="6" GridPane.columnIndex="2">
+                                    <Label text="Building" styleClass="field-label" />
+                                    <TextField fx:id="buildingField" text="12" editable="false"
+                                        styleClass="account-field" />
+                                </VBox>
+                            </GridPane>
+                        </VBox>
+                    </VBox>
+
+                    <!-- RIGHT CONTENT -->
+                    <VBox spacing="16" prefWidth="330">
+
+                        <HBox spacing="14" alignment="CENTER_LEFT" styleClass="profile-card">
+                            <StackPane styleClass="profile-circle">
+                                <Label text="👤" styleClass="profile-icon" />
+                            </StackPane>
+
+                            <VBox spacing="4">
+                                <Label text="Welcome back," styleClass="welcome-text" />
+                                <Label fx:id="accountNameLabel" text="Sara"
+                                    styleClass="customer-name" />
+                                <Label fx:id="accountRoleLabel" text="Customer"
+                                    styleClass="customer-badge" />
+                            </VBox>
+                        </HBox>
+
+                        <VBox spacing="12" styleClass="side-card">
+                            <Label text="Account Summary" styleClass="side-title" />
+
+                            <HBox>
+                                <Label fx:id="totalOrdersLabel" text="Total Orders"
+                                    styleClass="summary-text" />
+                                <Region HBox.hgrow="ALWAYS" />
+                                <Label text="12" styleClass="summary-value" />
+                            </HBox>
+
+                            <HBox>
+                                <Label fx:id="wishlistItemsLabel" text="Wishlist Items"
+                                    styleClass="summary-text" />
+                                <Region HBox.hgrow="ALWAYS" />
+                                <Label text="8" styleClass="summary-value" />
+                            </HBox>
+
+                            <HBox>
+                                <Label fx:id="memberSinceLabel" text="Member Since"
+                                    styleClass="summary-text" />
+                                <Region HBox.hgrow="ALWAYS" />
+                                <Label text="Jan 2025" styleClass="summary-value" />
+                            </HBox>
+                        </VBox>
+
+                        <VBox spacing="12" styleClass="side-card">
+                            <HBox alignment="CENTER_LEFT">
+                                <Label text="Recent Orders" styleClass="side-title" />
+                                <Region HBox.hgrow="ALWAYS" />
+                                <Label fx:id="viewAllOrdersLabel" text="View All"
+                                    styleClass="view-all" />
+                            </HBox>
+
+                            <VBox spacing="10">
+                                <HBox spacing="10" alignment="CENTER_LEFT" styleClass="order-row">
+                                    <Label text="🛋" styleClass="order-img" />
+                                    <VBox spacing="2">
+                                        <Label text="Order #1287" styleClass="order-title" />
+                                        <Label text="May 25, 2025" styleClass="order-date" />
+                                    </VBox>
+                                    <Region HBox.hgrow="ALWAYS" />
+                                    <Label text="Delivered" styleClass="delivered" />
+                                </HBox>
+
+                                <HBox spacing="10" alignment="CENTER_LEFT" styleClass="order-row">
+                                    <Label text="🪑" styleClass="order-img" />
+                                    <VBox spacing="2">
+                                        <Label text="Order #1286" styleClass="order-title" />
+                                        <Label text="May 20, 2025" styleClass="order-date" />
+                                    </VBox>
+                                    <Region HBox.hgrow="ALWAYS" />
+                                    <Label text="Pending" styleClass="pending" />
+                                </HBox>
+                            </VBox>
+                        </VBox>
+
+                        <VBox spacing="12" alignment="CENTER" styleClass="help-card">
+                            <Label text="Need Help?" styleClass="side-title" />
+                            <Label text="Our support team is here to help you."
+                                styleClass="help-text" />
+                            <Button fx:id="supportBtn" text="Contact Support"
+                                styleClass="support-btn" />
+                        </VBox>
+
+                    </VBox>
+                </HBox>
+
+            </VBox>
+        </ScrollPane>
+    </center>
+</BorderPane>

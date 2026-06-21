@@ -394,10 +394,10 @@ public class DashboardDAO {
                 CONCAT(c.firstName, ' ', c.lastName) AS customerName,
                 s.SaleDate,
                 s.total_Amount,
-                d.Delivary_status AS status
+                d.Delivery_status AS status
             FROM Sale s
             JOIN Customer c ON c.CustomerID = s.CustomerID
-            LEFT JOIN Delivary d ON d.SaleID = s.SaleID
+            LEFT JOIN Delivery d ON d.SaleID = s.SaleID
             ORDER BY s.SaleDate DESC, s.SaleID DESC
             LIMIT ?
         """;
@@ -533,10 +533,10 @@ public class DashboardDAO {
 
         String sql = """
             SELECT
-                SUM(CASE WHEN Delivary_status='delivered' THEN 1 ELSE 0 END) delivered,
-                SUM(CASE WHEN Delivary_status='pending' THEN 1 ELSE 0 END) pending,
-                SUM(CASE WHEN Delivary_status='cancelled' THEN 1 ELSE 0 END) cancelled
-            FROM Delivary
+                SUM(CASE WHEN Delivery_status='delivered' THEN 1 ELSE 0 END) delivered,
+                SUM(CASE WHEN Delivery_status='pending' THEN 1 ELSE 0 END) pending,
+                SUM(CASE WHEN Delivery_status='cancelled' THEN 1 ELSE 0 END) cancelled
+            FROM Delivery
         """;
 
         try (Connection con = DBConnection.getConnection();
@@ -563,16 +563,16 @@ public class DashboardDAO {
 
         String sql = """
             SELECT
-                d.DelivaryID,
+                d.DeliveryID,
                 CONCAT(c.firstName,' ',c.lastName) AS customerName,
-                d.Delivary_Date,
-                d.Delivary_status
-            FROM Delivary d
+                d.Delivery_Date,
+                d.Delivery_status
+            FROM Delivery d
             JOIN Sale s
                 ON s.SaleID = d.SaleID
             JOIN Customer c
                 ON c.CustomerID = s.CustomerID
-            ORDER BY d.Delivary_Date DESC
+            ORDER BY d.Delivery_Date DESC
             LIMIT ?
         """;
 
@@ -587,10 +587,10 @@ public class DashboardDAO {
 
                     deliveries.add(
                         new RecentDelivery(
-                            rs.getInt("DelivaryID"),
+                            rs.getInt("DeliveryID"),
                             rs.getString("customerName"),
-                            rs.getString("Delivary_Date"),
-                            rs.getString("Delivary_status")
+                            rs.getString("Delivery_Date"),
+                            rs.getString("Delivery_status")
                         )
                     );
                 }

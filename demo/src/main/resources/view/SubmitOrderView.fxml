@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.furniture.ui.SubmitOfferController"
+            stylesheets="@../style/cart.css"
+            styleClass="root-pane">
+
+    <center>
+        <VBox spacing="0" styleClass="main-area">
+
+            <VBox spacing="0" styleClass="dashboard-header">
+                <HBox alignment="CENTER_LEFT" spacing="0" styleClass="dashboard-top-bar">
+
+                    <ImageView fitWidth="450" fitHeight="220"
+                               preserveRatio="true"
+                               translateX="-20"
+                               translateY="8">
+                        <image>
+                            <Image url="@../images/Furniture_logo.jpg" />
+                        </image>
+                    </ImageView>
+
+                    <Region HBox.hgrow="ALWAYS" />
+
+                    <HBox alignment="CENTER_RIGHT" spacing="18" styleClass="date-time-box">
+                        <HBox alignment="CENTER" spacing="8">
+                            <Label text="📅" styleClass="date-time-icon" />
+                            <Label fx:id="dateLabel" styleClass="date-time-text" />
+                        </HBox>
+
+                        <Region styleClass="date-time-separator" />
+
+                        <HBox alignment="CENTER" spacing="8">
+                            <Label text="🕘" styleClass="date-time-icon" />
+                            <Label fx:id="timeLabel" styleClass="date-time-text" />
+                        </HBox>
+                    </HBox>
+                </HBox>
+            </VBox>
+
+            <ScrollPane fitToWidth="true"
+                        hbarPolicy="NEVER"
+                        VBox.vgrow="ALWAYS"
+                        styleClass="dashboard-scroll">
+
+                <VBox spacing="16" styleClass="dashboard-main-content">
+
+                    <HBox alignment="CENTER_LEFT" spacing="14" styleClass="product-toolbar">
+                        <VBox spacing="4">
+                            <Label text="Submit Offer" styleClass="cart-section-title" />
+                            <Label text="Review your offer details before submitting."
+                                   styleClass="delivery-note-text" />
+                        </VBox>
+                        <Region HBox.hgrow="ALWAYS" />
+                    </HBox>
+
+                    <HBox spacing="16" alignment="TOP_LEFT">
+
+                        <!-- LEFT SIDE -->
+                        <VBox spacing="14" HBox.hgrow="ALWAYS">
+
+                            <VBox spacing="12" styleClass="cart-card">
+
+                                <HBox spacing="10" alignment="CENTER_LEFT">
+                                    <Label text="👤" styleClass="cart-section-icon" />
+                                    <Label text="Offer Information"
+                                           styleClass="cart-section-title" />
+                                </HBox>
+
+                                <Separator styleClass="summary-separator" />
+
+                                <GridPane hgap="24" vgap="18">
+
+                                    <columnConstraints>
+                                        <ColumnConstraints percentWidth="33" />
+                                        <ColumnConstraints percentWidth="33" />
+                                        <ColumnConstraints percentWidth="34" />
+                                    </columnConstraints>
+
+                                    <VBox spacing="4" GridPane.rowIndex="0" GridPane.columnIndex="0">
+                                        <Label text="Your Name" styleClass="info-small-label" />
+                                        <Label fx:id="customerNameLabel"
+                                               text="Ahmad Salem"
+                                               styleClass="info-main-text" />
+                                    </VBox>
+
+                                    <VBox spacing="4" GridPane.rowIndex="0" GridPane.columnIndex="1">
+                                        <Label text="Email Address" styleClass="info-small-label" />
+                                        <Label fx:id="emailLabel"
+                                               text="ahmad.salem@example.com"
+                                               styleClass="info-main-text" />
+                                    </VBox>
+
+                                    <VBox spacing="4" GridPane.rowIndex="0" GridPane.columnIndex="2">
+                                        <Label text="Phone Number" styleClass="info-small-label" />
+                                        <Label fx:id="phoneLabel"
+                                               text="0599 123 456"
+                                               styleClass="info-main-text" />
+                                    </VBox>
+
+                                    <VBox spacing="4" GridPane.rowIndex="1" GridPane.columnIndex="0">
+                                        <Label text="Preferred Contact Method" styleClass="info-small-label" />
+                                        <Label fx:id="contactMethodLabel"
+                                               text="Phone Call"
+                                               styleClass="info-main-text" />
+                                    </VBox>
+
+                                    <VBox spacing="4" GridPane.rowIndex="1" GridPane.columnIndex="1">
+                                        <Label text="Best Time to Contact" styleClass="info-small-label" />
+                                        <Label fx:id="bestTimeLabel"
+                                               text="Evening (6PM - 9PM)"
+                                               styleClass="info-main-text" />
+                                    </VBox>
+
+                                    <VBox spacing="4" GridPane.rowIndex="1" GridPane.columnIndex="2">
+                                        <Label text="Offer Valid Until" styleClass="info-small-label" />
+                                        <Label fx:id="validUntilLabel"
+                                               text="24 Jun 2026"
+                                               styleClass="info-main-text" />
+                                    </VBox>
+
+                                </GridPane>
+
+                                <Separator styleClass="summary-separator" />
+
+                                <VBox spacing="5">
+                                    <Label text="Additional Notes" styleClass="info-small-label" />
+                                    <Label fx:id="notesLabel"
+                                           text="I am interested in these items. Please let me know if you can offer a better price including delivery."
+                                           wrapText="true"
+                                           styleClass="info-main-text" />
+                                </VBox>
+
+                            </VBox>
+
+                            <VBox spacing="12" styleClass="cart-card">
+
+                                <HBox spacing="10" alignment="CENTER_LEFT">
+                                    <Label text="🛒" styleClass="cart-section-icon" />
+                                    <Label text="Items in Your Offer"
+                                           styleClass="cart-section-title" />
+                                    <Label fx:id="itemsCountLabel"
+                                           text="(3)"
+                                           styleClass="delivery-note-text" />
+                                </HBox>
+
+                                <HBox spacing="12" styleClass="cart-header-row">
+                                    <Label text="Product"
+                                           HBox.hgrow="ALWAYS"
+                                           maxWidth="Infinity"
+                                           styleClass="cart-header-text" />
+
+                                    <Label text="Original Price"
+                                           prefWidth="140"
+                                           styleClass="cart-header-text" />
+
+                                    <Label text="Your Offer"
+                                           prefWidth="140"
+                                           styleClass="cart-header-text" />
+
+                                    <Label text="Savings"
+                                           prefWidth="120"
+                                           styleClass="cart-header-text" />
+                                </HBox>
+
+                                <ScrollPane fitToWidth="true"
+                                            hbarPolicy="NEVER"
+                                            prefHeight="285"
+                                            styleClass="cart-items-scroll">
+
+                                    <VBox fx:id="offerItemsBox"
+                                          spacing="0"
+                                          styleClass="cart-items-box" />
+                                </ScrollPane>
+
+                            </VBox>
+                        </VBox>
+
+                        <!-- RIGHT SIDE -->
+                        <VBox spacing="14" prefWidth="390" styleClass="summary-card">
+
+                            <HBox spacing="10" alignment="CENTER_LEFT">
+                                <Label text="▤" styleClass="cart-section-icon" />
+                                <Label text="Offer Summary" styleClass="cart-section-title" />
+                            </HBox>
+
+                            <Separator styleClass="summary-separator" />
+
+                            <HBox>
+                                <Label text="Original Total" styleClass="summary-label" />
+                                <Region HBox.hgrow="ALWAYS" />
+                                <Label fx:id="originalTotalLabel"
+                                       text="\$0.00"
+                                       styleClass="summary-value" />
+                            </HBox>
+
+                            <HBox>
+                                <Label text="Total Offer Price" styleClass="summary-label gold-text" />
+                                <Region HBox.hgrow="ALWAYS" />
+                                <Label fx:id="offerTotalLabel"
+                                       text="\$0.00"
+                                       styleClass="summary-value gold-text" />
+                            </HBox>
+
+                            <Separator styleClass="summary-separator" />
+
+                            <HBox>
+                                <Label text="Total Savings" styleClass="summary-label discount-text" />
+                                <Region HBox.hgrow="ALWAYS" />
+                                <Label fx:id="savingsLabel"
+                                       text="\$0.00"
+                                       styleClass="summary-value discount-text" />
+                            </HBox>
+
+                            <VBox spacing="7" styleClass="mini-info-box">
+                                <Label text="🛡  How Offers Work" styleClass="mini-info-title" />
+                                <Label text="Our team will review your offer and contact you shortly with a response."
+                                       wrapText="true"
+                                       styleClass="delivery-note-text" />
+                                <Label text="You are not charged at this stage."
+                                       wrapText="true"
+                                       styleClass="delivery-note-text" />
+                            </VBox>
+
+                            <VBox spacing="7" styleClass="mini-info-box">
+                                <Label text="🔒  Your Information is Safe" styleClass="mini-info-title" />
+                                <Label text="We respect your privacy and your information will never be shared."
+                                       wrapText="true"
+                                       styleClass="delivery-note-text" />
+                            </VBox>
+
+                            <Label fx:id="submitMessageLabel"
+                                   visible="false"
+                                   managed="false"
+                                   maxWidth="Infinity"
+                                   styleClass="checkout-message-label" />
+
+                            <Button fx:id="submitOfferBtn"
+                                    text="➤ Submit Offer"
+                                    maxWidth="Infinity"
+                                    styleClass="checkout-btn" />
+
+                        </VBox>
+                    </HBox>
+
+                    <HBox spacing="0" alignment="CENTER" styleClass="bottom-benefits-box">
+
+                        <VBox alignment="CENTER" spacing="5" HBox.hgrow="ALWAYS">
+                            <Label text="🏷" styleClass="cart-section-icon" />
+                            <Label text="Best Prices" styleClass="mini-info-title" />
+                            <Label text="Get the best deals on premium furniture."
+                                   styleClass="delivery-note-text" />
+                        </VBox>
+
+                        <VBox alignment="CENTER" spacing="5" HBox.hgrow="ALWAYS">
+                            <Label text="🛡" styleClass="cart-section-icon" />
+                            <Label text="Secure &amp; Private" styleClass="mini-info-title" />
+                            <Label text="Your information is 100% secure."
+                                   styleClass="delivery-note-text" />
+                        </VBox>
+
+                        <VBox alignment="CENTER" spacing="5" HBox.hgrow="ALWAYS">
+                            <Label text="☎" styleClass="cart-section-icon" />
+                            <Label text="Need Help?" styleClass="mini-info-title" />
+                            <Label text="Contact us anytime: 0599 123 456"
+                                   styleClass="delivery-note-text" />
+                        </VBox>
+
+                    </HBox>
+
+                </VBox>
+            </ScrollPane>
+        </VBox>
+    </center>
+</BorderPane>

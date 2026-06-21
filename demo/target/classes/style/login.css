@@ -1,0 +1,238 @@
+.login-root {
+    -fx-background-color: #000000;
+}
+
+.login-background-layer {
+    -fx-background-size: cover;
+    -fx-background-position: center center;
+    -fx-background-repeat: no-repeat;
+}
+
+.login-dark-overlay {
+    -fx-background-color: rgba(0, 0, 0, 0.55);
+}
+
+.login-card {
+    -fx-pref-width: 200px;
+    -fx-max-width: 200px;
+    -fx-pref-height: 300px;
+    -fx-padding: 10px 40px 15px 40px;
+
+    -fx-background-color:
+        linear-gradient(to bottom right,
+        rgba(20, 23, 30, 0.93),
+        rgba(8, 10, 14, 0.96));
+
+    -fx-background-radius: 30px;
+    -fx-border-radius: 30px;
+
+    -fx-border-color: rgba(248, 215, 122, 0.55);
+    -fx-border-width: 1.3px;
+
+    -fx-effect:
+        dropshadow(gaussian, rgba(0,0,0,0.85), 45, 0.35, 0, 15),
+        dropshadow(gaussian, rgba(248,215,122,0.14), 25, 0.20, 0, 0);
+}
+
+.back-arrow-btn {
+    -fx-background-color: transparent;
+    -fx-text-fill: #f8d77a;
+    -fx-font-size: 34px;
+    -fx-cursor: hand;
+}
+
+.back-arrow-btn:hover {
+    -fx-text-fill: white;
+}
+
+.main-logo {
+    -fx-scale-x: 1.5;
+    -fx-scale-y: 1.5;
+    -fx-effect: dropshadow(gaussian, rgba(248,215,122,0.32), 16, 0.30, 0, 0);
+}
+
+.login-title {
+    -fx-text-fill: white;
+    -fx-font-size: 28px;
+    -fx-font-family: "Georgia";
+    -fx-font-weight: bold;
+}
+
+.login-subtitle {
+    -fx-text-fill: #c9c9c9;
+    -fx-font-size: 14px;
+}
+
+.input-box {
+    -fx-pref-width: 430px;
+    -fx-min-width: 430px;
+    -fx-max-width: 430px;
+    -fx-pref-height: 52px;
+
+    -fx-padding: 0 20px 0 22px;
+    -fx-background-color: rgba(255,255,255,0.035);
+    -fx-background-radius: 13px;
+
+    -fx-border-color: rgba(255,255,255,0.18);
+    -fx-border-width: 1.2px;
+    -fx-border-radius: 13px;
+}
+
+.input-box:focused-within {
+    -fx-border-color: rgba(248,215,122,0.75);
+    -fx-effect: dropshadow(gaussian, rgba(248,215,122,0.18), 16, 0.20, 0, 0);
+}
+
+.input-icon {
+    -fx-text-fill: #d9a441;
+    -fx-font-size: 23px;
+}
+
+.eye-icon {
+    -fx-text-fill: #9f9f9f;
+    -fx-font-size: 20px;
+}
+
+.input-field {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-prompt-text-fill: #a9a9a9;
+    -fx-font-size: 19px;
+    -fx-border-color: transparent;
+}
+
+.input-field:focused {
+    -fx-background-color: transparent;
+}
+
+.remember-check {
+    -fx-text-fill: white;
+    -fx-font-size: 15px;
+}
+
+.gold-link {
+    -fx-text-fill: #f8c95d;
+    -fx-font-size: 16px;
+    -fx-cursor: hand;
+}
+
+.login-btn,
+.guest-btn {
+    -fx-pref-width: 430px;
+    -fx-min-width: 430px;
+    -fx-max-width: 430px;
+    -fx-pref-height: 48px;
+
+    -fx-background-radius: 13px;
+    -fx-border-radius: 13px;
+
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+
+.login-btn {
+    -fx-background-color:
+        linear-gradient(to right, #f8d77a, #d9a441, #b98227);
+    -fx-text-fill: #050505;
+    -fx-effect: dropshadow(gaussian, rgba(248,215,122,0.35), 22, 0.25, 0, 4);
+}
+
+.login-btn:hover {
+    -fx-background-color:
+        linear-gradient(to right, #ffe08e, #e8b85a, #c28b2c);
+}
+
+.guest-btn {
+    -fx-background-color: transparent;
+    -fx-border-color: rgba(248,215,122,0.80);
+    -fx-border-width: 1.4px;
+    -fx-text-fill: #f8d77a;
+}
+
+.guest-btn:hover {
+    -fx-background-color: rgba(248,215,122,0.10);
+}
+
+.or-text,
+.bottom-text {
+    -fx-text-fill: #cfcfcf;
+    -fx-font-size: 16px;
+}
+
+.separator .line {
+    -fx-border-color: rgba(255,255,255,0.17);
+}
+
+.signup-link { 
+    -fx-text-fill: #f8d77a; 
+    -fx-font-size: 14px; 
+    -fx-border-color: transparent; 
+    -fx-background-color: transparent; 
+    -fx-cursor: hand; 
+} 
+
+.signup-link:hover { 
+    -fx-text-fill: white; 
+}
+
+.auth-container {
+    -fx-padding: 0;
+}
+
+.signup-card {
+    -fx-pref-width: 510px;
+    -fx-max-width: 510px;
+    -fx-padding: 35px 40px 35px 40px;
+
+    -fx-background-color:
+        linear-gradient(to bottom right,
+        rgba(20, 23, 30, 0.93),
+        rgba(8, 10, 14, 0.96));
+
+    -fx-background-radius: 30px;
+    -fx-border-radius: 30px;
+
+    -fx-border-color: rgba(248,215,122,0.45);
+    -fx-border-width: 1;
+
+    -fx-effect:
+        dropshadow(gaussian, rgba(0,0,0,0.85), 45, 0.35, 0, 15),
+        dropshadow(gaussian, rgba(248,215,122,0.12), 25, 0.20, 0, 0);
+}
+
+.signup-input-box {
+    -fx-pref-width: 430px;
+    -fx-min-width: 430px;
+    -fx-max-width: 430px;
+    -fx-pref-height: 46px;
+
+    -fx-padding: 0 18px 0 18px;
+    -fx-background-color: rgba(255,255,255,0.035);
+    -fx-background-radius: 13px;
+
+    -fx-border-color: rgba(255,255,255,0.18);
+    -fx-border-width: 1.2px;
+    -fx-border-radius: 13px;
+}
+
+.small-input-box {
+    -fx-pref-width: 210px;
+    -fx-min-width: 210px;
+    -fx-max-width: 210px;
+    -fx-pref-height: 46px;
+
+    -fx-padding: 0 16px 0 16px;
+    -fx-background-color: rgba(255,255,255,0.035);
+    -fx-background-radius: 13px;
+
+    -fx-border-color: rgba(255,255,255,0.18);
+    -fx-border-width: 1.2px;
+    -fx-border-radius: 13px;
+}
+
+.signup-input-box:focused-within,
+.small-input-box:focused-within {
+    -fx-border-color: rgba(248,215,122,0.75);
+    -fx-effect: dropshadow(gaussian, rgba(248,215,122,0.18), 16, 0.20, 0, 0);
+}

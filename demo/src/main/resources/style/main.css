@@ -8,6 +8,7 @@
     -fx-border-color: transparent rgba(214,156,55,0.25) transparent transparent;
     -fx-border-width: 0 1 0 0;
     -fx-padding: 0;
+
     
 }
 
@@ -210,4 +211,17 @@
     -fx-pref-width: 1px;
     -fx-pref-height: 22px;
     -fx-background-color: rgba(217,162,74,0.75);
+}
+.sidebar {
+    -fx-background-color: #050505;
+    -fx-border-color: transparent #7a561b transparent transparent;
+    -fx-border-width: 0 1 0 0;
+}
+
+.logo-area {
+    -fx-alignment: center;
+}
+
+.sidebar-menu {
+    -fx-padding: 5 18 0 18;
 }

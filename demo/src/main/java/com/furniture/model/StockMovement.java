@@ -4,8 +4,8 @@ import java.sql.Date;
 
 public class StockMovement {
 
-    private int movement_id;
-    private int product_id;
+    private int movementId;
+    private int productId;
     private String movementType;
     private double quantity;
     private Date movement_date;
@@ -15,32 +15,32 @@ public class StockMovement {
         // TODO Auto-generated constructor stub
     }
     
-    public StockMovement(int product_id, String movementType, double quantity, Date movement_date) {
-        this.product_id = product_id;
+    public StockMovement(int productId, String movementType, double quantity, Date movement_date) {
+        this.productId = productId;
         this.movementType = movementType;
         this.quantity = quantity;
         this.movement_date = movement_date;
     }
 
-    public StockMovement(int movement_id, int product_id, String movementType, double quantity, Date movement_date) {
+    public StockMovement(int movementId, int productId, String movementType, double quantity, Date movement_date) {
         super();
-        this.movement_id = movement_id;
-        this.product_id = product_id;
+        this.movementId = movementId;
+        this.productId = productId;
         this.movementType = movementType;
         this.quantity = quantity;
         this.movement_date = movement_date;
     }
-    public int getMovement_id() {
-        return movement_id;
+    public int getmovementId() {
+        return movementId;
     }
-    public void setMovement_id(int movement_id) {
-        this.movement_id = movement_id;
+    public void setmovementId(int movementId) {
+        this.movementId = movementId;
     }
-    public int getProduct_id() {
-        return product_id;
+    public int getproductId() {
+        return productId;
     }
-    public void setProduct_id(int product_id) {
-        this.product_id = product_id;
+    public void setproductId(int productId) {
+        this.productId = productId;
     }
     public String getMovementType() {
         return movementType;
@@ -54,15 +54,15 @@ public class StockMovement {
     public void setQuantity(double quantity) {
         this.quantity = quantity;
     }
-    public Date getMovement_date() {
+    public Date getmovement_date() {
         return movement_date;
     }
-    public void setMovement_date(Date movement_date) {
+    public void setmovement_date(Date movement_date) {
         this.movement_date = movement_date;
     }
     @Override
     public String toString() {
-        return "StockMovement [movement_id=" + movement_id + ", product_id=" + product_id + ", movementType=" + movementType
+        return "StockMovement [movementId=" + movementId + ", productId=" + productId + ", movementType=" + movementType
                 + ", quantity=" + quantity + ", movement_date=" + movement_date + "]";
     }
 

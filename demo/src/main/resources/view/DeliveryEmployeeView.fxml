@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.web.WebView?>
+
+<ScrollPane xmlns="http://javafx.com/javafx"
+    xmlns:fx="http://javafx.com/fxml"
+    fx:controller="com.furniture.ui.DeliveryEmployeeController"
+    stylesheets="@../style/delivery_employee.css"
+    fx:id="deliveryScroll"
+    fitToWidth="true"
+    hbarPolicy="NEVER"
+    vbarPolicy="AS_NEEDED"
+    styleClass="delivery-scroll">
+
+    <VBox spacing="16" styleClass="delivery-main">
+
+        <!-- PAGE HEADER -->
+        <HBox alignment="CENTER_LEFT">
+            <VBox spacing="3">
+                <Label text="Delivery Workbench" styleClass="page-main-title" />
+                <Label
+                    text="Manage assigned deliveries, customer addresses, and delivery status updates."
+                    styleClass="page-sub-title" />
+            </VBox>
+
+            <Region HBox.hgrow="ALWAYS" />
+
+            <Button fx:id="accountMenuBtn"
+                text="👤"
+                styleClass="account-menu-btn" />
+        </HBox>
+
+        <!-- KPI CARDS -->
+        <HBox spacing="18" alignment="CENTER" styleClass="delivery-cards-row">
+
+            <HBox alignment="CENTER_LEFT" spacing="16" styleClass="delivery-stat-card">
+                <Label text="🚚" styleClass="delivery-stat-icon, icon-blue" />
+                <VBox spacing="4">
+                    <Label text="Assigned Today" styleClass="delivery-stat-title" />
+                    <Label fx:id="assignedTodayLabel" text="0" styleClass="delivery-stat-number" />
+                    <Label fx:id="assignedTodayDescLabel" text="Deliveries assigned today"
+                        styleClass="delivery-stat-desc" />
+                </VBox>
+            </HBox>
+
+            <HBox alignment="CENTER_LEFT" spacing="16" styleClass="delivery-stat-card">
+                <Label text="✓" styleClass="delivery-stat-icon, icon-green" />
+                <VBox spacing="4">
+                    <Label text="Completed" styleClass="delivery-stat-title" />
+                    <Label fx:id="completedTodayLabel" text="0" styleClass="delivery-stat-number" />
+                    <Label fx:id="completedTodayDescLabel" text="Completed today"
+                        styleClass="delivery-stat-desc" />
+                </VBox>
+            </HBox>
+
+            <HBox alignment="CENTER_LEFT" spacing="16" styleClass="delivery-stat-card">
+                <Label text="◷" styleClass="delivery-stat-icon, icon-yellow" />
+                <VBox spacing="4">
+                    <Label text="In Progress" styleClass="delivery-stat-title" />
+                    <Label fx:id="inProgressLabel" text="0" styleClass="delivery-stat-number" />
+                    <Label fx:id="inProgressDescLabel" text="Currently active"
+                        styleClass="delivery-stat-desc" />
+                </VBox>
+            </HBox>
+
+            <HBox alignment="CENTER_LEFT" spacing="16" styleClass="delivery-stat-card">
+                <Label text="▣" styleClass="delivery-stat-icon, icon-purple" />
+                <VBox spacing="4">
+                    <Label text="Pending Pickup" styleClass="delivery-stat-title" />
+                    <Label fx:id="pendingPickupLabel" text="0" styleClass="delivery-stat-number" />
+                    <Label fx:id="pendingPickupDescLabel" text="Need pickup from warehouse"
+                        styleClass="delivery-stat-desc" />
+                </VBox>
+            </HBox>
+
+        </HBox>
+
+        <!-- TOP CONTENT -->
+        <HBox spacing="14">
+
+            <!-- LEFT: DELIVERY LIST -->
+            <VBox spacing="14" prefWidth="520" styleClass="delivery-panel">
+
+                <HBox alignment="CENTER_LEFT">
+                    <Label text="My Deliveries Today" styleClass="panel-title" />
+                    <Region HBox.hgrow="ALWAYS" />
+                    <Label text="View All" styleClass="view-link"
+                        onMouseClicked="#handleViewAllDeliveries" />
+                </HBox>
+
+                <HBox spacing="8" alignment="CENTER_LEFT" styleClass="search-delivery-box">
+                    <TextField fx:id="deliverySearchField"
+                        promptText="Search order, customer, or address..."
+                        HBox.hgrow="ALWAYS"
+                        styleClass="delivery-search-field" />
+                    <Button fx:id="searchBtn"
+                        text="⌕"
+                        onAction="#handleSearchDeliveries"
+                        styleClass="small-icon-btn" />
+                </HBox>
+
+                <HBox spacing="18">
+                    <Label fx:id="allTabLabel" text="All" styleClass="tab-active"
+                        onMouseClicked="#showAllTab" />
+                    <Label fx:id="pickupTabLabel" text="Pickup" styleClass="tab-text"
+                        onMouseClicked="#showPickupTab" />
+                    <Label fx:id="progressTabLabel" text="In Progress" styleClass="tab-text"
+                        onMouseClicked="#showProgressTab" />
+                    <Label fx:id="completedTabLabel" text="Completed" styleClass="tab-text"
+                        onMouseClicked="#showCompletedTab" />
+                </HBox>
+
+                <VBox fx:id="deliveriesListBox" spacing="10">
+                    <Label text="Delivery rows will appear here." styleClass="activity-desc" />
+                </VBox>
+
+            </VBox>
+
+            <!-- CENTER: CURRENT DELIVERY -->
+            <VBox spacing="14" HBox.hgrow="ALWAYS">
+
+                <VBox spacing="12" styleClass="delivery-panel">
+                    <HBox alignment="CENTER_LEFT">
+                        <Label text="Current Delivery" styleClass="panel-title" />
+                        <Region HBox.hgrow="ALWAYS" />
+                        <Label fx:id="currentDeliveryStatusLabel" text="Not Selected"
+                            styleClass="neutral-badge" />
+                    </HBox>
+
+                    <HBox spacing="24">
+
+                        <VBox spacing="10" HBox.hgrow="ALWAYS">
+                            <VBox spacing="3">
+                                <Label text="Order ID" styleClass="small-label" />
+                                <Label fx:id="selectedOrderIdLabel" text="-" styleClass="big-value" />
+                            </VBox>
+
+                            <VBox spacing="3">
+                                <Label text="Customer" styleClass="small-label" />
+                                <Label fx:id="customerNameLabel" text="-" styleClass="big-value" />
+                            </VBox>
+
+                            <VBox spacing="3">
+                                <Label text="Phone" styleClass="small-label" />
+                                <Label fx:id="customerPhoneLabel" text="-"
+                                    styleClass="activity-title" />
+                            </VBox>
+
+                            <VBox spacing="3">
+                                <Label text="Address" styleClass="small-label" />
+                                <Label fx:id="customerAddressLabel" text="-"
+                                    wrapText="true"
+                                    styleClass="activity-title" />
+                            </VBox>
+
+                            <VBox spacing="3">
+                                <Label text="Delivery Time" styleClass="small-label" />
+                                <Label fx:id="deliveryTimeLabel" text="-"
+                                    styleClass="activity-title" />
+                            </VBox>
+                        </VBox>
+
+                        <VBox spacing="12" prefWidth="300">
+
+                            <VBox spacing="10" styleClass="route-info-card">
+
+                                <Label text="Delivery Route Information"
+                                    styleClass="panel-title" />
+
+                                <VBox spacing="3">
+                                    <Label text="Pickup Location"
+                                        styleClass="small-label" />
+                                    <Label text="Main Warehouse - Ramallah"
+                                        styleClass="activity-title" />
+                                </VBox>
+
+                                <VBox spacing="3">
+                                    <Label text="Destination"
+                                        styleClass="small-label" />
+                                    <Label fx:id="routeAddressLabel"
+                                        text="-"
+                                        wrapText="true"
+                                        styleClass="activity-title" />
+                                </VBox>
+
+                                <Button fx:id="openMapBtn"
+                                    text="🗺 Open Route In Google Maps"
+                                    onAction="#handleOpenMap"
+                                    maxWidth="Infinity"
+                                    styleClass="quick-action-btn" />
+
+                            </VBox>
+
+                            <HBox spacing="10">
+
+                                <Button fx:id="callCustomerBtn"
+                                    text="☎ Call Customer"
+                                    maxWidth="Infinity"
+                                    HBox.hgrow="ALWAYS"
+                                    onAction="#handleCallCustomer"
+                                    styleClass="outline-btn" />
+
+                                <Button fx:id="markDeliveredBtn"
+                                    text="✓ Delivered"
+                                    maxWidth="Infinity"
+                                    HBox.hgrow="ALWAYS"
+                                    onAction="#handleMarkDelivered"
+                                    styleClass="approve-btn" />
+
+                            </HBox>
+
+                        </VBox>
+                    </HBox>
+                </VBox>
+
+                <!-- ITEMS TO DELIVER -->
+                <VBox spacing="12" styleClass="delivery-panel">
+                    <HBox alignment="CENTER_LEFT">
+                        <Label text="Items To Deliver" styleClass="panel-title" />
+                        <Region HBox.hgrow="ALWAYS" />
+                        <Label fx:id="itemsCountLabel" text="0 items" styleClass="neutral-badge" />
+                    </HBox>
+
+                    <GridPane fx:id="deliveryItemsGrid" hgap="18" vgap="12">
+                        <Label text="#" GridPane.rowIndex="0" GridPane.columnIndex="0"
+                            styleClass="small-label" />
+                        <Label text="Product" GridPane.rowIndex="0" GridPane.columnIndex="1"
+                            styleClass="small-label" />
+                        <Label text="Qty" GridPane.rowIndex="0" GridPane.columnIndex="2"
+                            styleClass="small-label" />
+                        <Label text="Status" GridPane.rowIndex="0" GridPane.columnIndex="3"
+                            styleClass="small-label" />
+                    </GridPane>
+                </VBox>
+
+            </VBox>
+
+            <!-- RIGHT: ACTIONS + NOTES -->
+            <VBox spacing="14" prefWidth="300">
+
+                <VBox spacing="12" styleClass="delivery-panel">
+                    <Label text="Delivery Actions" styleClass="panel-title" />
+
+                    <Button fx:id="startDeliveryBtn"
+                        text="Start Delivery"
+                        maxWidth="Infinity"
+                        onAction="#handleStartDelivery"
+                        styleClass="quick-action-btn" />
+
+                    <Button fx:id="markPickedUpBtn"
+                        text="Mark Picked Up"
+                        maxWidth="Infinity"
+                        onAction="#handleMarkPickedUp"
+                        styleClass="quick-action-btn" />
+
+                    <Button fx:id="markDeliveredSideBtn"
+                        text="Mark Delivered"
+                        maxWidth="Infinity"
+                        onAction="#handleMarkDelivered"
+                        styleClass="approve-btn" />
+
+                    <Button fx:id="reportIssueBtn"
+                        text="Report Issue"
+                        maxWidth="Infinity"
+                        onAction="#handleReportIssue"
+                        styleClass="reject-btn" />
+                </VBox>
+
+
+                <VBox spacing="12" styleClass="delivery-panel">
+                    <HBox alignment="CENTER_LEFT">
+                        <Label text="Recent Activity" styleClass="panel-title" />
+                        <Region HBox.hgrow="ALWAYS" />
+                    </HBox>
+
+                    <VBox fx:id="recentActivityBox" spacing="10">
+                        <Label text="Recent delivery activity will appear here."
+                            styleClass="activity-desc" />
+                    </VBox>
+                </VBox>
+
+            </VBox>
+        </HBox>
+
+    </VBox>
+</ScrollPane>

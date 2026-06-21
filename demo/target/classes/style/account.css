@@ -1,0 +1,233 @@
+.account-root {
+    -fx-background-color: #050505;
+}
+
+.account-scroll {
+    -fx-background: #050505;
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+}
+
+.account-scroll .viewport {
+    -fx-background-color: #050505;
+}
+
+.account-container {
+    -fx-padding: 35 45 45 45;
+    -fx-background-color: #050505;
+}
+
+.account-title {
+    -fx-text-fill: #e0b24d;
+    -fx-font-size: 30px;
+    -fx-font-weight: bold;
+    -fx-font-family: "Segoe UI";
+}
+
+.account-subtitle {
+    -fx-text-fill: #b9b9b9;
+    -fx-font-size: 14px;
+}
+
+.account-card,
+.side-card,
+.profile-card,
+.help-card {
+    -fx-background-color: linear-gradient(to bottom right, #171717, #0b0b0b);
+    -fx-border-color: rgba(224, 178, 77, 0.35);
+    -fx-border-width: 1;
+    -fx-border-radius: 12;
+    -fx-background-radius: 12;
+    -fx-padding: 22;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.75), 18, 0.25, 0, 8);
+}
+
+.section-title,
+.side-title {
+    -fx-text-fill: #f8d77a;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+
+.section-icon {
+    -fx-text-fill: #e0b24d;
+    -fx-font-size: 19px;
+}
+
+.field-label {
+    -fx-text-fill: #cfcfcf;
+    -fx-font-size: 12px;
+}
+
+.account-field {
+    -fx-background-color: #080808;
+    -fx-border-color: rgba(224, 178, 77, 0.28);
+    -fx-border-radius: 7;
+    -fx-background-radius: 7;
+    -fx-text-fill: white;
+    -fx-font-size: 13px;
+    -fx-padding: 10 12;
+}
+
+.account-field:focused {
+    -fx-border-color: #e0b24d;
+}
+
+.edit-btn {
+    -fx-background-color: transparent;
+    -fx-border-color: #c28b2c;
+    -fx-border-radius: 7;
+    -fx-background-radius: 7;
+    -fx-text-fill: #f8d77a;
+    -fx-font-weight: bold;
+    -fx-padding: 7 16;
+    -fx-cursor: hand;
+}
+
+.edit-btn:hover {
+    -fx-background-color: rgba(224, 178, 77, 0.14);
+}
+
+.profile-circle {
+    -fx-min-width: 78;
+    -fx-min-height: 78;
+    -fx-max-width: 78;
+    -fx-max-height: 78;
+    -fx-background-radius: 50;
+    -fx-background-color: linear-gradient(to bottom right, #fff4cf, #c28b2c);
+}
+
+.profile-icon {
+    -fx-font-size: 34px;
+}
+
+.welcome-text {
+    -fx-text-fill: #cfcfcf;
+    -fx-font-size: 13px;
+}
+
+.customer-name {
+    -fx-text-fill: white;
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+}
+
+.customer-badge {
+    -fx-background-color: rgba(194, 139, 44, 0.25);
+    -fx-text-fill: #f8d77a;
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+    -fx-padding: 4 10;
+    -fx-background-radius: 12;
+}
+
+.summary-text {
+    -fx-text-fill: #d0d0d0;
+    -fx-font-size: 13px;
+}
+
+.summary-value {
+    -fx-text-fill: white;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+}
+
+.view-all {
+    -fx-text-fill: #f8d77a;
+    -fx-underline: true;
+    -fx-font-size: 12px;
+    -fx-cursor: hand;
+}
+
+.order-row {
+    -fx-padding: 8 0 8 0;
+    -fx-border-color: transparent transparent rgba(255,255,255,0.08) transparent;
+}
+
+.order-img {
+    -fx-background-color: #222;
+    -fx-background-radius: 6;
+    -fx-padding: 8;
+    -fx-font-size: 18px;
+}
+
+.order-title {
+    -fx-text-fill: white;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+}
+
+.order-date {
+    -fx-text-fill: #aaa;
+    -fx-font-size: 11px;
+}
+
+.delivered {
+    -fx-text-fill: #59d66f;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}
+
+.pending {
+    -fx-text-fill: #f8d77a;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}
+
+.help-text {
+    -fx-text-fill: #bdbdbd;
+    -fx-font-size: 13px;
+}
+
+.support-btn {
+    -fx-background-color: transparent;
+    -fx-border-color: #c28b2c;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-text-fill: #f8d77a;
+    -fx-font-weight: bold;
+    -fx-padding: 10 30;
+    -fx-cursor: hand;
+}
+
+.support-btn:hover {
+    -fx-background-color: rgba(224, 178, 77, 0.15);
+}
+.back-btn {
+
+    -fx-background-color: transparent;
+
+    -fx-border-color: #c28b2c;
+
+    -fx-border-width: 2;
+
+    -fx-border-radius: 10;
+
+    -fx-background-radius: 10;
+
+    -fx-text-fill: #f8d77a;
+
+    -fx-font-size: 20px;
+
+    -fx-font-weight: bold;
+
+    -fx-font-family: "Segoe UI";
+
+    -fx-padding: 10 22 10 22;
+
+    -fx-cursor: hand;
+}
+
+.back-btn:hover {
+
+    -fx-background-color: rgba(224,178,77,0.15);
+
+    -fx-effect: dropshadow(
+        gaussian,
+        rgba(224,178,77,0.35),
+        12,
+        0.3,
+        0,
+        0
+    );
+}

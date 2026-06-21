@@ -13,36 +13,36 @@
 <HBox xmlns="http://javafx.com/javafx"
     xmlns:fx="http://javafx.com/fxml"
     fx:controller="com.furniture.ui.MainLayoutController"
+    stylesheets="@../style/main.css"
     prefWidth="1366"
     prefHeight="720"
     styleClass="dashboard-root">
 
-    <!-- LEFT SIDEBAR -->
-    <VBox prefWidth="245"
-        spacing="18"
-        styleClass="sidebar">
 
         <!-- LEFT SIDEBAR -->
 
-        <VBox prefWidth="220"
-            minWidth="220"
-            maxWidth="220"
-            spacing="18"
-            styleClass="sidebar">
+        <VBox styleClass="sidebar"
+            prefWidth="245"
+            minWidth="245"
+            maxWidth="245">
 
-            <!-- LOGO -->
-            <VBox alignment="TOP_LEFT"
-                styleClass="sidebar-logo-box">
+            <!-- LOGO AREA -->
+            <StackPane prefHeight="110"
+                minHeight="110"
+                maxHeight="110"
+                alignment="TOP_CENTER"
+                styleClass="logo-area">
 
-                <ImageView fitWidth="200"
-                    pickOnBounds="true"
+                <ImageView fitWidth="250"
+                    fitHeight="600"
                     preserveRatio="true">
                     <image>
                         <Image url="@../images/Furniture_logo.jpg" />
                     </image>
                 </ImageView>
 
-            </VBox>
+            </StackPane>
+
 
             <ScrollPane fitToWidth="true"
                 hbarPolicy="NEVER"
@@ -149,7 +149,7 @@
 
                     </HBox>
                     <!-- SUPPLIERS -->
-                    <HBox fx:id="supliersItem"
+                    <HBox fx:id="suppliersItem"
                         alignment="CENTER_LEFT"
                         spacing="14"
                         styleClass="sidebar-item"
@@ -255,22 +255,32 @@
                         <Label text="Reports" styleClass="sidebar-text" />
 
                     </HBox>
-
-                    <!-- SETTINGS -->
-                    <HBox fx:id="settingsItem"
+                    
+                    <!-- Account -->
+                    <HBox fx:id="accountItem"
                         alignment="CENTER_LEFT"
                         spacing="14"
                         styleClass="sidebar-item"
                         onMouseClicked="#handleSidebarClick">
 
-                        <Label text="⚙" styleClass="sidebar-icon" />
-                        <Label text="Settings" styleClass="sidebar-text" />
+                        <Label text="👤" styleClass="sidebar-icon" />
+                        <Label text="Account" styleClass="sidebar-text" />
+
+                    </HBox>
+                    <!-- Logout -->
+                    <HBox fx:id="logoutItem"
+                        alignment="CENTER_LEFT"
+                        spacing="14"
+                        styleClass="sidebar-item"
+                        onMouseClicked="#handleSidebarClick">
+
+                        <Label text="➜]" styleClass="sidebar-icon" />
+                        <Label text="Logout" styleClass="sidebar-text" />
 
                     </HBox>
                 </VBox>
             </ScrollPane>
         </VBox>
-    </VBox>
     <!-- Top Bar -->
     <!-- RIGHT AREA -->
     <VBox HBox.hgrow="ALWAYS"

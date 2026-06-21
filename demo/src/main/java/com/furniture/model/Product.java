@@ -19,7 +19,6 @@ public class Product {
     private String warehouseName;
     private String supplierName;
     private double stock;
-    
 
     public Product() {
         super();
@@ -27,7 +26,8 @@ public class Product {
     }
 
     public Product(int no, int productID, String productName, double price,
-            String categoryName, String warehouseName, String supplierName, String color, String material,String description,
+            String categoryName, String warehouseName, String supplierName, String color, String material,
+            String description,
             String status, String imagePath, double stock) {
 
         this.no = no;
@@ -203,10 +203,17 @@ public class Product {
 
     @Override
     public String toString() {
-        return "Product [productID=" + productID + ", productName=" + productName + ", price=" + price
-                + ", category_id=" + category_id + ", color=" + color + ", material=" + material + ", description="
-                + description + ", status=" + status + ", CreatedDate=" + CreatedDate + ", imagePath=" + imagePath
-                + ", no=" + no + ", categoryName=" + categoryName + ", stock=" + stock + "]";
+        return productName;
+    }
+
+    private boolean favorite = false;
+
+    public boolean isFavorite() {
+        return favorite;
+    }
+
+    public void setFavorite(boolean favorite) {
+        this.favorite = favorite;
     }
 
 }

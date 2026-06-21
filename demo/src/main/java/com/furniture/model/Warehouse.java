@@ -10,7 +10,7 @@ public class Warehouse {
 	private String street;
 	private String building;
 	private int capacity;
-	private int employee_id;
+	private int EmployeeID;
 	private int no;
 
 	private String managerName;
@@ -31,7 +31,7 @@ public class Warehouse {
 	}
 
 	public Warehouse(String warehouseName, String city, String town, String area, String street, String building,
-			int capacity, int employee_id) {
+			int capacity, int EmployeeID) {
 		this.warehouseName = warehouseName;
 		this.city = city;
 		this.town = town;
@@ -39,11 +39,11 @@ public class Warehouse {
 		this.street = street;
 		this.building = building;
 		this.capacity = capacity;
-		this.employee_id = employee_id;
+		this.EmployeeID = EmployeeID;
 	}
 
 	public Warehouse(int warehouse_id, String warehouseName, String city, String town, String area, String street,
-			String building, int capacity, int employee_id) {
+			String building, int capacity, int EmployeeID) {
 		super();
 		this.warehouse_id = warehouse_id;
 		this.warehouseName = warehouseName;
@@ -53,7 +53,7 @@ public class Warehouse {
 		this.street = street;
 		this.building = building;
 		this.capacity = capacity;
-		this.employee_id = employee_id;
+		this.EmployeeID = EmployeeID;
 	}
 
 	public int getWarehouseID() {
@@ -121,11 +121,11 @@ public class Warehouse {
 	}
 
 	public int getEmployeeID() {
-		return employee_id;
+		return EmployeeID;
 	}
 
 	public void setEmployeeID(int employeeID) {
-		this.employee_id = employeeID;
+		this.EmployeeID = employeeID;
 	}
 
 	public int getNo() {
@@ -188,7 +188,7 @@ public class Warehouse {
 	public String toString() {
 		return "Warehouse [warehouse_id=" + warehouse_id + ", warehouseName=" + warehouseName + ", city=" + city
 				+ ", town=" + town + ", area=" + area + ", street=" + street + ", building=" + building + ", capacity="
-				+ capacity + ", employee_id=" + employee_id + ", no=" + no + ", managerName=" + managerName
+				+ capacity + ", EmployeeID=" + EmployeeID + ", no=" + no + ", managerName=" + managerName
 				+ ", usedCapacity=" + usedCapacity + ", remainingCapacity=" + remainingCapacity + ", usedPercent="
 				+ usedPercent + ", productsCount=" + productsCount + ", warehouseStatus=" + warehouseStatus + "]";
 	}

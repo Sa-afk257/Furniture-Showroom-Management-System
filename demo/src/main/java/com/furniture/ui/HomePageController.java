@@ -52,7 +52,7 @@ public class HomePageController {
         try {
 
             FXMLLoader loader =
-                    new FXMLLoader(getClass().getResource("/view/MainLayout.fxml"));
+                    new FXMLLoader(getClass().getResource("/view/GuestView.fxml"));
 
             Parent root = loader.load();
 

@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+	xmlns:fx="http://javafx.com/fxml"
+	fx:controller="com.furniture.ui.CategoryController"
+	stylesheets="@../style/product.css" prefWidth="1300" prefHeight="780"
+	styleClass="root-pane">
+
+
+	<!-- TOP HEADER -->
+
+
+	<!-- LEFT PANEL -->
+
+	<!-- MAIN CONTENT -->
+	<center>
+
+		<ScrollPane fitToWidth="true" fitToHeight="false"
+			hbarPolicy="NEVER" vbarPolicy="NEVER" styleClass="dashboard-scroll">
+
+			<content>
+
+				<VBox fx:id="dashboardContainer" spacing="15"
+					styleClass="dashboard-main-content">
+
+					<HBox alignment="CENTER_LEFT" spacing="22"
+						styleClass="stats-cards-row">
+
+						<HBox alignment="CENTER_LEFT" spacing="14"
+							styleClass="dashboard-stat-card">
+
+							<ImageView fitWidth="62" fitHeight="62"
+								preserveRatio="true">
+
+								<image>
+									<Image url="@../images/icons/productSofa_icon.jpg" />
+								</image>
+
+							</ImageView>
+
+							<VBox spacing="2" alignment="CENTER_LEFT">
+
+								<Label fx:id="totalCategoriesLabel" text="128"
+									styleClass="product-card-number" />
+
+								<Label text="Total Categories"
+									styleClass="product-card-title" />
+
+							</VBox>
+
+						</HBox>
+
+						<HBox alignment="CENTER_LEFT" spacing="14"
+							styleClass="dashboard-stat-card">
+
+							<ImageView fitWidth="62" fitHeight="62"
+								preserveRatio="true">
+
+								<image>
+									<Image url="@../images/icons/instock_icon.jpg" />
+								</image>
+
+							</ImageView>
+
+							<VBox spacing="2" alignment="CENTER_LEFT">
+
+								<Label fx:id="usedCategoriesLabel" text="128"
+									styleClass="product-card-number" />
+
+								<Label text="Used Categories"
+									styleClass="product-card-title" />
+
+							</VBox>
+
+						</HBox>
+
+						<HBox alignment="CENTER_LEFT" spacing="14"
+							styleClass="dashboard-stat-card">
+
+							<ImageView fitWidth="62" fitHeight="62"
+								preserveRatio="true">
+
+								<image>
+									<Image url="@../images/icons/warning_icon.jpg" />
+								</image>
+
+							</ImageView>
+
+							<VBox spacing="2" alignment="CENTER_LEFT">
+
+								<Label fx:id="emptyCategoriesLabel" text="128"
+									styleClass="product-card-number" />
+
+								<Label text="Empty Categories"
+									styleClass="product-card-title" />
+
+							</VBox>
+
+						</HBox>
+
+						<HBox alignment="CENTER_LEFT" spacing="14"
+							styleClass="dashboard-stat-card">
+
+							<ImageView fitWidth="62" fitHeight="62"
+								preserveRatio="true">
+
+								<image>
+									<Image url="@../images/icons/wrong_icon.jpg" />
+								</image>
+
+							</ImageView>
+
+							<VBox spacing="2" alignment="CENTER_LEFT">
+
+								<Label fx:id="totalProductsLabel" text="128"
+									styleClass="product-card-number" />
+
+								<Label text="Total Products"
+									styleClass="product-card-title" />
+
+							</VBox>
+
+						</HBox>
+
+						<HBox alignment="CENTER_LEFT" spacing="14"
+							styleClass="dashboard-stat-card">
+
+							<ImageView fitWidth="62" fitHeight="62"
+								preserveRatio="true">
+
+								<image>
+									<Image url="@../images/icons/dolar_icon.jpg" />
+								</image>
+
+							</ImageView>
+
+							<VBox spacing="2" alignment="CENTER_LEFT">
+
+								<Label fx:id="avgProductsLabel" text="128"
+									styleClass="product-card-number total-value-number" />
+
+								<Label text="Average Products"
+									styleClass="product-card-title" />
+
+							</VBox>
+
+						</HBox>
+
+					</HBox>
+					<HBox alignment="CENTER_LEFT" spacing="14"
+						styleClass="product-toolbar">
+
+						<HBox styleClass="search-box">
+							<TextField fx:id="txtSearch"
+								promptText="Search Category by name..."
+								styleClass="search-field" HBox.hgrow="ALWAYS" />
+
+							<Label text="🔍" styleClass="search-icon" />
+						</HBox>
+
+						<Region HBox.hgrow="ALWAYS" />
+
+						<Button fx:id="filterToggleBtn" text="🝖 FILTER"
+							styleClass="filter-toggle-btn" />
+
+						<Button fx:id="addCategoryBtn" styleClass="add-product-btn">
+
+							<graphic>
+								<Label text="✚" styleClass="button-icon" />
+							</graphic>
+
+							<text>ADD CATEGORY</text>
+
+						</Button>
+
+						<Button fx:id="exportBtn" styleClass="export-btn">
+
+							<graphic>
+								<Label text="➜]" styleClass="button-icon" />
+							</graphic>
+
+							<text>EXPORT</text>
+
+						</Button>
+
+					</HBox>
+
+					<!-- TABLE -->
+					<HBox spacing="16" VBox.vgrow="ALWAYS"
+						styleClass="products-content-row">
+						<!-- FILTER PANEL -->
+
+						<VBox fx:id="filterPanel" spacing="12"
+							styleClass="smart-filter-panel" visible="false" managed="false">
+
+							<Label text="🝖 FILTER" styleClass="filter-title" />
+
+							<Separator />
+
+							<Label text="Category Status" styleClass="filter-label" />
+
+							<ComboBox fx:id="statusCombo" styleClass="filter-combo" />
+
+							<Label text="Product Count" styleClass="filter-label" />
+
+							<ComboBox fx:id="productCountCombo"
+								styleClass="filter-combo" />
+
+							<Button fx:id="applyFiltersBtn" text="🝖 APPLY FILTERS"
+								styleClass="apply-filter-btn" />
+
+							<Button fx:id="resetFiltersBtn" text="⟲ RESET FILTERS"
+								styleClass="reset-filter-btn" />
+							<VBox spacing="10" alignment="CENTER"
+								styleClass="filter-actions">
+
+
+
+								<HBox spacing="14" alignment="CENTER_LEFT"
+									styleClass="found-box">
+
+									<Label text="🏷️" styleClass="found-icon" />
+
+									<VBox spacing="0">
+
+										<Label text="Categories Found" styleClass="found-title" />
+
+										<Label fx:id="categoriesFoundLabel" text="0"
+											styleClass="found-number" />
+
+									</VBox>
+
+								</HBox>
+
+							</VBox>
+
+						</VBox>
+
+
+
+						<VBox fx:id="addCategoryPanel" spacing="16"
+							styleClass="add-product-panel" visible="false" managed="false">
+
+							<VBox spacing="3" styleClass="add-title-box">
+								<Label fx:id="formTitleLabel" text="✚ ADD CATEGORY"
+									styleClass="add-panel-title" />
+							</VBox>
+
+							<VBox spacing="14">
+
+								<VBox spacing="3" styleClass="form-field-box">
+
+									<HBox spacing="8" alignment="CENTER_LEFT">
+
+										<Label text="🏷️" styleClass="form-icon" />
+
+										<Label text="Category Name" styleClass="form-label" />
+
+										<Label fx:id="categoryNameWarningLabel" text="⚠"
+											visible="false" managed="false" styleClass="warning-label" />
+
+									</HBox>
+
+									<TextField fx:id="categoryNameField"
+										promptText="Category Name" styleClass="luxury-input" />
+
+								</VBox>
+
+							</VBox>
+
+							<Button fx:id="saveCategoryBtn" text="✚ ADD CATEGORY"
+								maxWidth="Infinity" styleClass="luxury-add-btn" />
+
+							<Button fx:id="cancelAddBtn" text="CANCEL"
+								maxWidth="Infinity" styleClass="luxury-cancel-btn" />
+
+						</VBox>
+
+						<!-- TABLE + ACTION BUTTONS -->
+						<VBox HBox.hgrow="ALWAYS" spacing="10" minWidth="0">
+
+							<TableView fx:id="categoryTable"
+								styleClass="product-table" prefHeight="430" maxHeight="430"
+								maxWidth="Infinity">
+
+								<columns>
+									<TableColumn fx:id="colNo" text="No."
+										prefWidth="60" />
+
+									<TableColumn fx:id="colID" text="Category ID"
+										prefWidth="120" />
+
+									<TableColumn fx:id="colName" text="Category Name"
+										prefWidth="340" />
+
+									<TableColumn fx:id="colProducts"
+										text="Products Count" prefWidth="170" />
+
+									<TableColumn fx:id="colStock" text="Total Stock"
+										prefWidth="150" />
+
+									<TableColumn fx:id="colValue" text="Total Value"
+										prefWidth="180" />
+
+									<TableColumn fx:id="colAction" text="Actions"
+										prefWidth="140" />
+								</columns>
+
+							</TableView>
+
+							<HBox spacing="14" alignment="CENTER_LEFT"
+								styleClass="table-actions-bar">
+
+								<Button fx:id="undoBtn" text="↶  UNDO"
+									styleClass="action-dark-btn" />
+
+								<Button fx:id="redoBtn" text="↷  REDO"
+									styleClass="action-dark-btn" />
+
+								<Button fx:id="resetBtn" text="⟳  RESET"
+									styleClass="action-reset-btn" />
+
+								<Region HBox.hgrow="ALWAYS" />
+
+								<Button fx:id="saveAllBtn" text="💾  SAVE"
+									styleClass="action-save-btn" />
+
+							</HBox>
+
+						</VBox>
+					</HBox>
+				</VBox>
+			</content>
+
+		</ScrollPane>
+
+	</center>
+
+</BorderPane>
